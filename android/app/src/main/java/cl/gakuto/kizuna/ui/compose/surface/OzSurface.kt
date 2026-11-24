@@ -62,8 +62,7 @@ fun OzSurfaceBackdrop(
     focusedGameArtUrl: String? = null,
     content: @Composable BoxScope.() -> Unit,
 ) {
-    Box(modifier.fillMaxSize()) {
-        // Adaptive Background
+    Box(modifier.fillMaxSize().background(OzColors.HylianBg)) {
         if (focusedGameArtUrl != null) {
             AsyncImage(
                 model = focusedGameArtUrl,
@@ -71,20 +70,20 @@ fun OzSurfaceBackdrop(
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
                     .fillMaxSize()
-                    .graphicsLayer(alpha = 0.25f)
-                    .blur(100.dp)
+                    .graphicsLayer(alpha = 0.28f)
+                    .blur(84.dp),
             )
         }
-        
+
         Box(
             Modifier
                 .fillMaxSize()
                 .background(
-                    Brush.linearGradient(
+                    Brush.verticalGradient(
                         listOf(
-                            OzColors.DeepSpace,
-                            OzColors.PurpleDeep.copy(alpha = .2f),
-                            OzColors.DeepSpace,
+                            OzColors.HylianBg.copy(alpha = 0.72f),
+                            OzColors.HylianSurface.copy(alpha = 0.26f),
+                            OzColors.HylianBg,
                         ),
                     ),
                 ),
@@ -650,7 +649,7 @@ fun OzSurfaceTile(
     val scale by animateFloatAsState(
         targetValue = when {
             organizing -> 1.075f
-            focused || selected -> 1.045f
+            focused || selected -> 1.05f
             else -> 1f
         },
         animationSpec = tween(150),
@@ -683,11 +682,11 @@ fun OzSurfaceTile(
             .background(OzColors.PanelRaised.copy(alpha = .64f))
             .border(
                 BorderStroke(
-                    if (organizing) 3.dp else if (focused || selected) 2.dp else 0.dp,
+                    if (organizing) 3.dp else if (focused || selected) 2.5.dp else 1.dp,
                     when {
                         organizing -> OzColors.Magenta
-                        focused || selected -> OzColors.Cyan
-                        else -> Color.Transparent
+                        focused || selected -> OzColors.HylianGold
+                        else -> OzColors.HylianBorder
                     },
                 ),
                 OzShapes.medium,

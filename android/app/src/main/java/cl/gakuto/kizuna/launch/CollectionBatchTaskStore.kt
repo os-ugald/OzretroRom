@@ -1,6 +1,10 @@
 package cl.gakuto.kizuna.launch
 
 import android.content.Context
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.map
 import org.json.JSONObject
 
 enum class CollectionBatchStatus {
@@ -129,6 +133,7 @@ class CollectionBatchTaskStore(context: Context) {
 
     fun clear(collectionId: String) {
         prefs.edit().remove(key(collectionId)).apply()
+        sharedBatches.value = sharedBatches.value - collectionId
     }
 
     private fun update(collectionId: String, transform: (CollectionBatchSnapshot) -> CollectionBatchSnapshot): CollectionBatchSnapshot? {
@@ -140,6 +145,7 @@ class CollectionBatchTaskStore(context: Context) {
 
     private fun save(snapshot: CollectionBatchSnapshot) {
         prefs.edit().putString(key(snapshot.collectionId), encode(snapshot).toString()).apply()
+        sharedBatches.value = sharedBatches.value + (snapshot.collectionId to snapshot)
     }
 
     private fun encode(snapshot: CollectionBatchSnapshot): JSONObject = JSONObject().apply {
@@ -188,5 +194,16 @@ class CollectionBatchTaskStore(context: Context) {
 
     companion object {
         private const val PREFS = "oz_collection_batch_downloads"
+        private val sharedBatches = MutableStateFlow<Map<String, CollectionBatchSnapshot>>(emptyMap())
+
+        fun observe(context: Context, collectionId: String): Flow<CollectionBatchSnapshot?> {
+            if (!sharedBatches.value.containsKey(collectionId)) {
+                val persisted = CollectionBatchTaskStore(context.applicationContext).get(collectionId)
+                if (persisted != null) {
+                    sharedBatches.value = sharedBatches.value + (collectionId to persisted)
+                }
+            }
+            return sharedBatches.map { it[collectionId] }.distinctUntilChanged()
+        }
     }
 }

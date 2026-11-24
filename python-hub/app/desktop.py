@@ -14,7 +14,7 @@ from pathlib import Path
 import httpx
 
 # Guarantee standard streams exist in PyInstaller noconsole/windowed builds
-from app.config import DEFAULT_DATA_DIR, DEFAULT_PORT, resolve_default_roms_dir
+from app.config import DEFAULT_DATA_DIR, DEFAULT_PORT, resolve_default_roms_dir, resource_path
 
 if sys.stdout is None:
     DEFAULT_DATA_DIR.mkdir(parents=True, exist_ok=True)
@@ -71,19 +71,35 @@ def _find_chromium_app_browser() -> Path | None:
     return None
 
 
+def _resolve_desktop_icon() -> Path | None:
+    for rel in (
+        "app/static/assets/favicon.ico",
+        "packaging/ozretrorom.ico",
+        "app/static/assets/logo.png",
+    ):
+        candidate = resource_path(rel)
+        if candidate.is_file():
+            return candidate
+    return None
+
+
 def _launch_desktop_window(ui_url: str, data_dir: Path) -> None:
     try:
         import webview  # type: ignore
 
+        icon_path = _resolve_desktop_icon()
         webview.create_window(
             "Game Vault",
             ui_url,
             width=1360,
             height=860,
             min_size=(900, 620),
-            background_color="#0A0A12",
+            background_color="#0A0F0D",
         )
-        webview.start()
+        if icon_path is not None:
+            webview.start(icon=str(icon_path))
+        else:
+            webview.start()
         return
     except Exception:
         pass

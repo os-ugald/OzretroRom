@@ -355,6 +355,10 @@ object GameVaultHubClient {
         requestText(baseUrl, "/api/v1/sagas/$encoded/ai-audit", "POST", payloadJson)
     }
 
+    suspend fun fetchSagasCatalog(baseUrl: String): String = withContext(Dispatchers.IO) {
+        requestText(baseUrl, "/api/v1/sagas/catalog", "GET")
+    }
+
     suspend fun fetchSyncDelta(baseUrl: String, sinceRevision: Long = 0L): HubSyncDeltaResponse = withContext(Dispatchers.IO) {
         val body = requestText(baseUrl, "/api/v1/sync?since=${sinceRevision.coerceAtLeast(0L)}", "GET")
         parseSyncDeltaJson(body)

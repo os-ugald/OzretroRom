@@ -33,4 +33,5 @@
     <color name="oz_download_outline">#39416F</color>
     <color name="oz_download_danger">#FF5E7A</color>
     <color name="oz_download_track">#11162B</color>
+    <color name="ic_launcher_background">#0A0F0D</color>
 </resources>

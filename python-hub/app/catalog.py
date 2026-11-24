@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import hashlib
+import json
 import os
 import re
 import threading
@@ -261,6 +262,15 @@ class CatalogIndex:
             has_cover = r.entry_id in cached_covers
             cover_ver = "".join(ch for ch in str(m.get("cover_updated_at") or "") if ch.isalnum())[-10:] if (m and has_cover) else ""
             cover_url = (f"/api/v1/covers/{r.entry_id}.webp?v={cover_ver}" if cover_ver else f"/api/v1/covers/{r.entry_id}.webp") if has_cover else None
+            qr_obj: dict[str, Any] | None = None
+            raw_qr = m.get("quick_resume_json") if m else None
+            if isinstance(raw_qr, str) and raw_qr.strip():
+                try:
+                    parsed_qr = json.loads(raw_qr)
+                    if isinstance(parsed_qr, dict) and parsed_qr:
+                        qr_obj = parsed_qr
+                except Exception:
+                    qr_obj = None
             out.append(
                 {
                     "entryId": r.entry_id,
@@ -291,6 +301,7 @@ class CatalogIndex:
                     "descriptionSource": (m.get("description_source") or "") if m else "",
                     "patchCount": len(entry_patches),
                     "hasSpanishPatch": any(str(p.get("language") or "").upper().startswith("ES") for p in entry_patches),
+                    "quickResume": qr_obj,
                     "availability": "local",
                 }
             )

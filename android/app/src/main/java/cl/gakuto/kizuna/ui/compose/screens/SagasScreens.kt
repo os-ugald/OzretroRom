@@ -47,6 +47,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.scale
+import androidx.compose.ui.focus.onFocusChanged
+import androidx.compose.foundation.focusable
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
@@ -377,53 +380,56 @@ fun SagaBannerCard(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val accent = remember(saga.accentHex) { ConsolePalette.parseHexColor(saga.accentHex, OzColors.Cyan) }
+    val accent = remember(saga.accentHex) { ConsolePalette.parseHexColor(saga.accentHex, OzColors.HylianEmerald) }
     val progress = remember(saga.localOwnedCount, saga.totalCount) {
         if (saga.totalCount <= 0) 0f else (saga.localOwnedCount.toFloat() / saga.totalCount.toFloat()).coerceIn(0f, 1f)
     }
-    val keyArtCands = remember(saga.id, saga.keyArtUrl, saga.keyArtCandidates) {
-        saga.keyArtCandidates.ifEmpty { listOf(saga.keyArtUrl, saga.heroBannerUrl) }
+    val bannerCands = remember(saga.id, saga.heroBannerUrl, saga.heroBannerCandidates, saga.keyArtUrl, saga.keyArtCandidates) {
+        (saga.heroBannerCandidates + saga.keyArtCandidates + listOf(saga.heroBannerUrl, saga.keyArtUrl))
+            .filter { it.isNotBlank() }
+            .distinct()
     }
     val primaryConsole = saga.consoles.firstOrNull() ?: "snes"
+    var focused by remember(saga.id) { mutableStateOf(false) }
+    val scale by androidx.compose.animation.core.animateFloatAsState(
+        targetValue = if (focused) 1.05f else 1f,
+        animationSpec = androidx.compose.animation.core.tween(150),
+        label = "saga-card-focus",
+    )
 
     Surface(
         modifier = modifier
             .fillMaxWidth()
-            .aspectRatio(OZ_NDS_COVER_ASPECT_RATIO)
+            .aspectRatio(cl.gakuto.kizuna.ui.compose.components.OZ_IMMERSIVE_COVER_ASPECT_RATIO)
+            .scale(scale)
+            .onFocusChanged { focused = it.isFocused }
+            .focusable()
             .clip(OzShapes.large)
             .clickable(onClick = onClick),
         shape = OzShapes.large,
         color = OzColors.Panel,
-        border = BorderStroke(1.dp, accent.copy(alpha = 0.50f)),
+        border = BorderStroke(if (focused) 2.5.dp else 1.dp, if (focused) OzColors.HylianGold else OzColors.HylianBorder),
     ) {
         Box(modifier = Modifier.fillMaxSize()) {
             OzCoverImage(
-                candidates = keyArtCands,
+                candidates = bannerCands,
                 title = saga.name,
                 systemId = primaryConsole,
                 contentScale = ContentScale.Crop,
+                adaptiveBlur = false,
                 showTitleOnFallback = true,
                 modifier = Modifier.fillMaxSize(),
             )
 
-            // Accent top highlight strip
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(3.dp)
-                    .background(Brush.horizontalGradient(listOf(accent, OzColors.Gold.copy(alpha = 0.8f))))
-                    .align(Alignment.TopCenter),
-            )
-
-            // Readable bottom gradient scrim
+            // Readable dark Hylian gradient over official libretroArt background
             Box(
                 modifier = Modifier
                     .fillMaxSize()
                     .background(
                         Brush.verticalGradient(
-                            0f to Color.Transparent,
-                            0.42f to OzColors.DeepSpace.copy(alpha = 0.25f),
-                            1f to OzColors.DeepSpace.copy(alpha = 0.94f),
+                            0f to OzColors.HylianBg.copy(alpha = 0.14f),
+                            0.46f to OzColors.HylianBg.copy(alpha = 0.45f),
+                            1f to OzColors.HylianBg.copy(alpha = 0.95f),
                         ),
                     ),
             )

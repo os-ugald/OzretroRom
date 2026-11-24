@@ -10,6 +10,10 @@ a = Analysis(
     binaries=[],
     datas=[
         (str(hub_root / "app" / "static" / "ui.html"), "app/static"),
+        (str(hub_root / "app" / "static" / "styles.css"), "app/static"),
+        (str(hub_root / "app" / "static" / "js"), "app/static/js"),
+        (str(hub_root / "app" / "static" / "assets"), "app/static/assets"),
+        (str(hub_root / "app" / "data"), "app/data"),
         (str(hub_root / "app" / "source-index" / "*.json.gz.bin"), "app/source-index"),
     ],
     hiddenimports=[
@@ -49,6 +53,7 @@ exe = EXE(
     [],
     exclude_binaries=True,
     name="OzRetroRom",
+    icon=str(hub_root / "packaging" / "ozretrorom.ico"),
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,

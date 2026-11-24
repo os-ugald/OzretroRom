@@ -43,6 +43,12 @@ class HomeEngine:
             None,
         )
         hero = pinned or (recent[0] if recent else None) or (favorites[0] if favorites else None) or (covered[0] if covered else None) or (base[0] if base else None)
+        qr_candidates = sorted(
+            (x for x in base if isinstance(x.get("quickResume"), dict) and x.get("quickResume")),
+            key=lambda x: str(x["quickResume"].get("updatedAt") or x.get("lastPlayedAt") or ""),
+            reverse=True,
+        )
+        quick_resume_hero = qr_candidates[0] if qr_candidates else hero
 
         # Build diverse console-balanced Destacados showcase without duplicates
         featured = self._pick_diverse_highlights(base, limit=12, exclude_id=hero["entryId"] if hero else "")
@@ -85,6 +91,7 @@ class HomeEngine:
                 "sagasOwned": sum(1 for s in sagas if int(s.get("ownedCount") or 0) > 0),
             },
             "hero": hero,
+            "quickResumeHero": quick_resume_hero,
             "continuePlaying": recent[:12],
             "favorites": favorites[:12],
             "featured": featured,

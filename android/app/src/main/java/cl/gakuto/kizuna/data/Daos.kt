@@ -194,6 +194,9 @@ interface SyncMetadataDao {
     @Query("SELECT * FROM game_sync_metadata WHERE gameId = :gameId LIMIT 1")
     suspend fun byGameId(gameId: String): GameSyncMetadataEntity?
 
+    @Query("SELECT * FROM game_sync_metadata WHERE quickResumeJson IS NOT NULL AND quickResumeJson != '' ORDER BY localUpdatedAt DESC LIMIT 1")
+    fun observeLatestQuickResume(): Flow<GameSyncMetadataEntity?>
+
     @Query("SELECT * FROM game_sync_metadata WHERE hubEntryId = :entryId LIMIT 1")
     suspend fun byHubEntryId(entryId: String): GameSyncMetadataEntity?
 

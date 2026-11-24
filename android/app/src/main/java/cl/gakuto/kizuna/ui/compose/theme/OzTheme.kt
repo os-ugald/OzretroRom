@@ -55,46 +55,53 @@ private data class OzPalette(
 )
 
 private val OzDarkPalette = OzPalette(
-    deepSpace = Color(0xFF0B0C17),
-    panel = Color(0xFF141526),
-    panelRaised = Color(0xFF1C1E35),
-    purpleDeep = Color(0xFF232548),
-    arcadeViolet = Color(0xFF8054EC),
-    electricBlue = Color(0xFF2F80FF),
-    cyan = Color(0xFF00E5FF),
-    magenta = Color(0xFFFF4D6D),
-    warmIvory = Color(0xFFFFB000),
-    textPrimary = Color(0xFFF8F6E8),
-    textSecondary = Color(0xFFCFCBE6),
-    positive = Color(0xFF39FF88),
-    warning = Color(0xFFFFD166),
-    error = Color(0xFFFF4D6D),
-    outline = Color(0xFF4B4E70),
-    scrim = Color(0xCC060711),
+    deepSpace = Color(0xFF0A0F0D),
+    panel = Color(0xFF141F1A),
+    panelRaised = Color(0xFF1B2A23),
+    purpleDeep = Color(0xFF1E3229),
+    arcadeViolet = Color(0xFF1E8E63),
+    electricBlue = Color(0xFF28A776),
+    cyan = Color(0xFF2EC48B),
+    magenta = Color(0xFFE05A5A),
+    warmIvory = Color(0xFFD9B64E),
+    textPrimary = Color(0xFFF3F6F4),
+    textSecondary = Color(0xFFA7BDB2),
+    positive = Color(0xFF2EC48B),
+    warning = Color(0xFFD9B64E),
+    error = Color(0xFFE05A5A),
+    outline = Color(0xFF23382E),
+    scrim = Color(0xCC060A08),
 )
 
 private val OzLightPalette = OzPalette(
-    deepSpace = Color(0xFFF6F4FA),
+    deepSpace = Color(0xFFF2F7F4),
     panel = Color(0xFFFFFFFF),
-    panelRaised = Color(0xFFEEEAF5),
-    purpleDeep = Color(0xFFDED3F5),
-    arcadeViolet = Color(0xFF6236C7),
-    electricBlue = Color(0xFF185FC7),
-    cyan = Color(0xFF007A87),
-    magenta = Color(0xFFB3264E),
-    warmIvory = Color(0xFFB36B00),
-    textPrimary = Color(0xFF161524),
-    textSecondary = Color(0xFF535068),
-    positive = Color(0xFF147A4B),
-    warning = Color(0xFF8A5A00),
+    panelRaised = Color(0xFFE5EFEA),
+    purpleDeep = Color(0xFFCDE3D8),
+    arcadeViolet = Color(0xFF177350),
+    electricBlue = Color(0xFF1E8E63),
+    cyan = Color(0xFF156948),
+    magenta = Color(0xFFB33838),
+    warmIvory = Color(0xFFA67E16),
+    textPrimary = Color(0xFF0F1915),
+    textSecondary = Color(0xFF43594F),
+    positive = Color(0xFF177350),
+    warning = Color(0xFF9E7714),
     error = Color(0xFFB3261E),
-    outline = Color(0xFFC7C0D0),
-    scrim = Color(0x99161524),
+    outline = Color(0xFFB8CEC3),
+    scrim = Color(0x990A0F0D),
 )
 
-/** Existing call sites keep concise OzColors.* names while the active palette changes at theme root. */
+/** Existing call sites keep concise OzColors.* names while exposing the shared Hylian Dark palette. */
 object OzColors {
     private var palette: OzPalette = OzDarkPalette
+
+    val HylianBg: Color = Color(0xFF0A0F0D)
+    val HylianSurface: Color = Color(0xFF141F1A)
+    val HylianSurfaceRaised: Color = Color(0xFF1B2A23)
+    val HylianBorder: Color = Color(0xFF23382E)
+    val HylianEmerald: Color = Color(0xFF1E8E63)
+    val HylianGold: Color = Color(0xFFD9B64E)
 
     internal fun use(mode: AppThemeMode) {
         palette = if (mode == AppThemeMode.LIGHT) OzLightPalette else OzDarkPalette
@@ -135,7 +142,7 @@ data class OzMotion(
     val fast: Int = 110,
     val normal: Int = 180,
     val slow: Int = 280,
-    val focusScale: Float = 1.035f,
+    val focusScale: Float = 1.05f,
 )
 
 val LocalOzSpacing = staticCompositionLocalOf { OzSpacing() }

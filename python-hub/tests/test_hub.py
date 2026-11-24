@@ -1282,3 +1282,148 @@ def test_persisted_queues_and_incremental_delta_sync(tmp_path: Path) -> None:
         assert delta_inc["changes"][0]["revision"] == rev2
 
 
+def test_shared_sagas_catalog_endpoint_and_modular_static_ui(tmp_path: Path) -> None:
+    from app.sagas import CURATED_SAGAS, load_curated_sagas
+
+    root = Path(__file__).resolve().parents[2]
+    shared_json = root / "shared" / "sagas_catalog.json"
+    py_data_json = root / "python-hub" / "app" / "data" / "sagas_catalog.json"
+    android_res_json = root / "android" / "app" / "src" / "main" / "resources" / "sagas_catalog.json"
+
+    assert shared_json.is_file()
+    assert py_data_json.is_file()
+    assert android_res_json.is_file()
+    assert shared_json.read_text(encoding="utf-8") == py_data_json.read_text(encoding="utf-8")
+    assert shared_json.read_text(encoding="utf-8") == android_res_json.read_text(encoding="utf-8")
+
+    payload, hydrated = load_curated_sagas(shared_json)
+    assert payload["schemaVersion"] == 1
+    assert len(hydrated) >= 47
+    assert len(hydrated) == len(CURATED_SAGAS)
+
+    roms_dir = tmp_path / "roms"
+    (roms_dir / "snes").mkdir(parents=True, exist_ok=True)
+    (roms_dir / "snes" / "Super Mario World (USA).sfc").write_bytes(b"SMW" * 16)
+    app = create_app(data_dir=tmp_path / "data", roms_dir_override=str(roms_dir), enable_mdns=False)
+    with TestClient(app) as client:
+        cat_resp = client.get("/api/v1/sagas/catalog")
+        assert cat_resp.status_code == 200
+        cat_json = cat_resp.json()
+        assert cat_json["schemaVersion"] == 1
+        assert cat_json["count"] == len(hydrated)
+
+        html_resp = client.get("/")
+        assert html_resp.status_code == 200
+        assert '<link rel="stylesheet" href="/static/styles.css"' in html_resp.text
+        assert '<script type="module" src="/static/js/app.js">' in html_resp.text
+
+        css_resp = client.get("/static/styles.css")
+        assert css_resp.status_code == 200
+        assert ":root" in css_resp.text
+
+        api_js = client.get("/static/js/api-client.js")
+        assert api_js.status_code == 200
+        assert "EventSource('/api/v1/events')" in api_js.text
+
+        for rel in ("js/state.js", "js/app.js", "js/gamepad.js", "js/activity-sheet.js", "js/views/home.js", "js/views/sagas.js", "js/views/library.js", "js/views/catalog.js", "js/views/settings.js"):
+            r = client.get(f"/static/{rel}")
+            assert r.status_code == 200
+            assert "setTimeout(pollCoverSync, 600)" not in r.text
+            assert "setTimeout(pollDownloads, 900)" not in r.text
+            assert "setTimeout(pollTransfers, 1000)" not in r.text
+
+
+def test_phase3_hylian_dark_console_ui_and_quick_resume(tmp_path: Path) -> None:
+    roms_dir = tmp_path / "roms"
+    (roms_dir / "snes").mkdir(parents=True, exist_ok=True)
+    (roms_dir / "snes" / "The Legend of Zelda - A Link to the Past (USA).sfc").write_bytes(b"ALTTP" * 16)
+    (roms_dir / "snes" / "Super Metroid (USA).sfc").write_bytes(b"SM" * 16)
+
+    app = create_app(data_dir=tmp_path / "data", roms_dir_override=str(roms_dir), enable_mdns=False)
+    with TestClient(app) as client:
+        lib = client.get("/api/v1/library").json()
+        zelda = next(x for x in lib if "Zelda" in x["title"])
+
+        sync_res = client.post(
+            "/api/v1/sync",
+            json={
+                "deviceId": "odin-2",
+                "changes": [
+                    {
+                        "entityId": zelda["entryId"],
+                        "playCount": 3,
+                        "quickResume": {"slot": 4, "coreId": "snes9x", "updatedAt": "2026-11-24T18:00:00Z"},
+                        "updatedAt": "2026-11-24T18:00:00Z",
+                    }
+                ],
+            },
+        )
+        assert sync_res.status_code == 200
+
+        lib_after = client.get("/api/v1/library").json()
+        zelda_after = next(x for x in lib_after if x["entryId"] == zelda["entryId"])
+        assert zelda_after["quickResume"]["slot"] == 4
+        assert zelda_after["quickResume"]["coreId"] == "snes9x"
+
+        home = client.get("/api/v1/home").json()
+        assert home["quickResumeHero"]["entryId"] == zelda["entryId"]
+        assert home["quickResumeHero"]["quickResume"]["slot"] == 4
+
+        html = client.get("/").text
+        assert 'content="#0A0F0D"' in html
+        assert 'id="ambient-backdrop"' in html
+        assert 'id="global-search"' in html
+        assert 'id="omnibox-panel"' in html
+        assert 'id="explore-tab-sagas"' in html and 'id="explore-tab-consoles"' in html
+        assert 'id="activity-sheet"' in html
+        assert 'Jugar' in html and 'Explorar' in html and 'Ajustes' in html
+        assert 'home-stats-strip' not in html
+        assert 'id="app-sidebar"' not in html
+
+        css = client.get("/static/styles.css").text
+        for hex_token in ("#0A0F0D", "#141F1A", "#23382E", "#1E8E63", "#D9B64E"):
+            assert hex_token in css
+        assert "aspect-ratio: 3 / 4" in css
+        assert "scale(1.05)" in css
+
+        gp = client.get("/static/js/gamepad.js")
+        assert gp.status_code == 200
+        assert "navigator.getGamepads" in gp.text
+
+        sheet = client.get("/static/js/activity-sheet.js")
+        assert sheet.status_code == 200
+        assert "activity-sheet" in sheet.text
+
+
+def test_phase3_branding_assets_and_splash(tmp_path: Path) -> None:
+    roms_dir = tmp_path / "roms"
+    (roms_dir / "snes").mkdir(parents=True, exist_ok=True)
+    app = create_app(data_dir=tmp_path / "data", roms_dir_override=str(roms_dir), enable_mdns=False)
+    with TestClient(app) as client:
+        html = client.get("/").text
+        assert "/static/assets/favicon.ico" in html
+        assert "/static/assets/logo.png" in html
+        assert 'id="hylian-splash-overlay"' in html
+        assert "/static/assets/splash_hylian.gif" in html
+
+        assert client.get("/favicon.ico").status_code == 200
+        logo_res = client.get("/static/assets/logo.png")
+        assert logo_res.status_code == 200 and len(logo_res.content) > 1000
+        ico_res = client.get("/static/assets/favicon.ico")
+        assert ico_res.status_code == 200 and len(ico_res.content) > 1000
+        gif_res = client.get("/static/assets/splash_hylian.gif")
+        assert gif_res.status_code == 200 and gif_res.content[:6] in (b"GIF89a", b"GIF87a")
+
+        app_js = client.get("/static/js/app.js").text
+        assert "oz_hylian_splash_seen" in app_js
+        assert "dismissHylianSplash" in app_js
+
+    packaging_dir = Path(__file__).resolve().parents[1] / "packaging"
+    assert (packaging_dir / "ozretrorom.ico").is_file()
+    spec_text = (packaging_dir / "ozretrorom.spec").read_text(encoding="utf-8")
+    assert "assets" in spec_text
+    assert "ozretrorom.ico" in spec_text
+
+
+
+

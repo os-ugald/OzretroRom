@@ -9,17 +9,23 @@ import cl.gakuto.kizuna.data.GameEntity
 import cl.gakuto.kizuna.util.DiagnosticLogger
 import cl.gakuto.kizuna.util.TextNormalizer
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.ensureActive
-import kotlinx.coroutines.withContext
 import kotlinx.coroutines.TimeoutCancellationException
+import kotlinx.coroutines.channels.BufferOverflow
+import kotlinx.coroutines.ensureActive
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.withContext
 import kotlinx.coroutines.withTimeout
+import kotlinx.coroutines.withTimeoutOrNull
+import org.libtorrent4j.AlertListener
 import org.libtorrent4j.Priority
 import org.libtorrent4j.SessionManager
 import org.libtorrent4j.SessionParams
 import org.libtorrent4j.SettingsPack
 import org.libtorrent4j.Sha1Hash
 import org.libtorrent4j.TorrentHandle
+import org.libtorrent4j.alerts.Alert
+import org.libtorrent4j.alerts.AlertType
 import org.libtorrent4j.swig.torrent_flags_t
 import java.io.BufferedInputStream
 import java.io.BufferedOutputStream
@@ -437,8 +443,28 @@ class AuthorizedSourceDownloader internal constructor(
         val transferStartedAt = System.currentTimeMillis()
         val temporary = File(context.cacheDir, "oz-torrent-${UUID.randomUUID()}").apply { mkdirs() }
         val manager = SessionManager()
+        val torrentSignals = MutableSharedFlow<Unit>(
+            extraBufferCapacity = 1,
+            onBufferOverflow = BufferOverflow.DROP_OLDEST,
+        )
+        val alertListener = object : AlertListener {
+            private val watched = intArrayOf(
+                AlertType.METADATA_RECEIVED.swig(),
+                AlertType.PIECE_FINISHED.swig(),
+                AlertType.BLOCK_FINISHED.swig(),
+                AlertType.STATE_UPDATE.swig(),
+                AlertType.STATE_CHANGED.swig(),
+                AlertType.TORRENT_FINISHED.swig(),
+                AlertType.TORRENT_ERROR.swig(),
+            )
+            override fun types(): IntArray = watched
+            override fun alert(alert: Alert<*>?) {
+                torrentSignals.tryEmit(Unit)
+            }
+        }
         var cleanupScheduled = false
         try {
+            manager.addListener(alertListener)
             onProgress(
                 Progress(
                     stage = "Iniciando sesión torrent…",
@@ -455,7 +481,7 @@ class AuthorizedSourceDownloader internal constructor(
 
             val handle = try {
                 withTimeout(METADATA_TIMEOUT_MS) {
-                    waitForMetadata(manager, infohash, source.expectedFileName.orEmpty(), transferStartedAt, onProgress)
+                    waitForMetadata(manager, infohash, source.expectedFileName.orEmpty(), transferStartedAt, torrentSignals, onProgress)
                 }
             } catch (_: TimeoutCancellationException) {
                 error(
@@ -520,7 +546,8 @@ class AuthorizedSourceDownloader internal constructor(
                     if (System.currentTimeMillis() - stagnantSince > STALL_TIMEOUT_MS) {
                         error("La fuente torrent no avanzó durante 15 minutos.")
                     }
-                    delay(650)
+                    manager.postTorrentUpdates()
+                    withTimeoutOrNull(650L) { torrentSignals.first() }
                 }
             }
 
@@ -544,6 +571,7 @@ class AuthorizedSourceDownloader internal constructor(
             cleanupScheduled = true
             target
         } finally {
+            runCatching { manager.removeListener(alertListener) }
             if (!cleanupScheduled) scheduleCleanup(manager, temporary)
         }
     }
@@ -610,6 +638,7 @@ class AuthorizedSourceDownloader internal constructor(
         infohash: String,
         expectedFileName: String,
         transferStartedAt: Long,
+        torrentSignals: MutableSharedFlow<Unit>,
         onProgress: suspend (Progress) -> Unit,
     ): TorrentHandle {
         val hash = Sha1Hash.parseHex(infohash)
@@ -651,7 +680,8 @@ class AuthorizedSourceDownloader internal constructor(
                 )
                 if (ready) return handle
             }
-            delay(650)
+            manager.postTorrentUpdates()
+            withTimeoutOrNull(650L) { torrentSignals.first() }
         }
     }
 

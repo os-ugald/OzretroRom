@@ -21,7 +21,14 @@ class LibretroCatalogRepository(private val context: Context, private val db: Oz
     private val curated by lazy { CuratedMetadata(context) }
 
     fun systems(): List<CatalogSystem> {
-        val array = JSONArray(context.assets.open("libretro_systems.json").bufferedReader().use { it.readText() })
+        val rawJson = runCatching {
+            context.assets.open("libretro_systems.json").bufferedReader().use { it.readText() }
+        }.getOrElse { assetError ->
+            javaClass.classLoader?.getResourceAsStream("libretro_systems.json")?.bufferedReader()?.use { it.readText() }
+                ?: java.io.File("src/main/assets/libretro_systems.json").takeIf { it.isFile }?.readText()
+                ?: throw assetError
+        }
+        val array = JSONArray(rawJson)
         return (0 until array.length()).map { i ->
             val o = array.getJSONObject(i)
             val datUrl = o.getString("datUrl")

@@ -1,6 +1,9 @@
 package cl.gakuto.kizuna.catalog.background
 
 import android.content.Context
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import org.json.JSONArray
 import org.json.JSONObject
 
@@ -256,6 +259,7 @@ class CatalogPreparationTaskStore(context: Context) {
         // This state is the checkpoint used after process death. Commit it before JobScheduler
         // returns from a stop callback instead of risking an asynchronous write being lost.
         prefs.edit().putString(KEY_TASK, encode(snapshot).toString()).commit()
+        sharedState.value = snapshot
     }
 
     private fun encode(snapshot: CatalogPreparationSnapshot): JSONObject = JSONObject().apply {
@@ -308,5 +312,13 @@ class CatalogPreparationTaskStore(context: Context) {
         private val LOCK = Any()
         private const val PREFS = "oz_catalog_preparation"
         private const val KEY_TASK = "active_task"
+        private val sharedState = MutableStateFlow<CatalogPreparationSnapshot?>(null)
+
+        fun observe(context: Context): StateFlow<CatalogPreparationSnapshot?> {
+            if (sharedState.value == null) {
+                sharedState.value = CatalogPreparationTaskStore(context.applicationContext).get()
+            }
+            return sharedState.asStateFlow()
+        }
     }
 }
