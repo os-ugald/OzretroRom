@@ -1,0 +1,22 @@
+Oz RetroRom diagnostic log
+app_version=0.6.0-beta.4 (60018)
+android=15 sdk=35
+device=Xiaomi 2406APNFAG
+abi=arm64-v8a
+session_id=391ab106-7185-49b6-8791-28f85f003d83
+started_utc=2026-09-03T05:00:05.724Z
+privacy=No ROM contents, credentials, cookies or complete source URLs are recorded.
+---
+2026-09-03T05:00:05.725Z | INFO | main | SESSION_CREATED
+2026-09-03T05:00:05.726Z | INFO | main | SESSION_ORIGIN | Oz
+2026-09-03T05:00:05.885Z | INFO | main | LOCAL_LIBRARY_LEGACY_FALLBACK_SKIPPED | projection_id=oz-source-index-genesis-game-958c8dfcf1b3bc53d33c6517680bfdcce5303f372d788cad0d579db45346c56e source_index_game_id=958c8dfcf1b3bc53d33c6517680bfdcce5303f372d788cad0d579db45346c56e mechanism=STRONG_GAME_ID_REQUIRED
+2026-09-03T05:00:05.893Z | INFO | main | SOURCE_INDEX_CANDIDATE_SELECTED | game=958c8dfcf1b3bc53d33c6517680bfdcce5303f372d788cad0d579db45346c56e release=3c746886fa431690a94b94c879f28e77fadcfa4e1781c50955b805fa74f5d6ac candidate=297b0840aed53d460b6e97b034155177f89eb67e2142715b06e3f1cacbd4d505 provider=minerva transport=torrent infohash=7bed1007999d817da4605282780a2715f08d470a file_index=3301 path=Minerva_Myrient/No-Intro/Sega - Mega Drive - Genesis/Streets of Rage 2 (USA).zip
+2026-09-03T05:00:05.898Z | INFO | main | BACKGROUND_DOWNLOAD_SCHEDULED | game_id=oz-source-index-genesis-game-958c8dfcf1b3bc53d33c6517680bfdcce5303f372d788cad0d579db45346c56e task=a988b9ba-3090-4e46-ae7e-40426c1f07ab mode=USER_INITIATED_JOB
+2026-09-03T05:00:05.903Z | INFO | main | SESSION_PHASE | phase=DOWNLOADING source=Minerva file=Streets of Rage 2 (USA).zip total=1031009
+2026-09-03T05:00:13.843Z | INFO | main | SESSION_BEGIN | game_id=oz-source-index-genesis-game-958c8dfcf1b3bc53d33c6517680bfdcce5303f372d788cad0d579db45346c56e system=genesis
+2026-09-03T05:00:13.850Z | INFO | main | DIRECT_ROM_READY | file=Streets of Rage 2 (USA) (Oz 2).md path=<private-path>/Download
+2026-09-03T05:00:13.852Z | INFO | main | ENGINE_AUTO_SELECTED | system=genesis engine=retroarch external_ready=false
+2026-09-03T05:00:13.927Z | INFO | DefaultDispatcher-worker-3 | RETROARCH_SAF_COMPAT_MIRROR | file=Streets of Rage 2 (USA) (Oz 2).md source_scheme=content mirror=Streets of Rage 2 (USA) (Oz 2).md
+2026-09-03T05:00:13.934Z | INFO | DefaultDispatcher-worker-3 | VALIDATION_OK | file=Streets of Rage 2 (USA) (Oz 2).md bytes=2097152 romset= bios=
+2026-09-03T05:00:14.096Z | INFO | main | RETROARCH_BIOS_REQUIREMENT_UNMAPPED | system=genesis requirement=No requerida
+2026-09-03T05:00:14.146Z | INFO | main | RETROARCH_NATIVE_LAUNCHED | package=com.retroarch core=genesis_plus_gx_libretro_android.so file=Streets of Rage 2 (USA) (Oz 2).md

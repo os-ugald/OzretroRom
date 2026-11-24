@@ -1,0 +1,36 @@
+<resources>
+    <!-- Fix 10 light palette: violet identity on a warm, low-glare lavender-white base. -->
+    <color name="deep_purple">#DED3F5</color>
+    <color name="arcade_purple">#6236C7</color>
+    <color name="lavender">#C7C0D0</color>
+    <color name="electric_blue">#007A87</color>
+    <color name="near_black">#F7F5FA</color>
+    <color name="arcade_cream">#1B1620</color>
+    <color name="surface_lavender">#EEEAF5</color>
+    <color name="surface_dark">#FFFFFF</color>
+    <color name="white">#FFFFFF</color>
+
+    <color name="oz_background">#F7F5FA</color>
+    <color name="oz_surface">#FFFFFF</color>
+    <color name="oz_surface_raised">#EEEAF5</color>
+    <color name="oz_text_primary">#1B1620</color>
+    <color name="oz_text_secondary">#5D5667</color>
+    <color name="oz_outline">#C7C0D0</color>
+    <color name="oz_warning">#8A5A00</color>
+    <color name="oz_track">#DDD7E7</color>
+    <!-- Oz Download Surface V2 - Disc Night. Intentionally dark in both app themes. -->
+    <color name="oz_download_bg_deep">#0B101D</color>
+    <color name="oz_download_bg_indigo">#0E1526</color>
+    <color name="oz_download_panel">#131B2E</color>
+    <color name="oz_download_panel_raised">#1A243C</color>
+    <color name="oz_download_cyan">#22D3EE</color>
+    <color name="oz_download_blue">#3B82F6</color>
+    <color name="oz_download_violet">#2563EB</color>
+    <color name="oz_download_magenta">#38BDF8</color>
+    <color name="oz_download_text_primary">#F8FAFC</color>
+    <color name="oz_download_text_secondary">#94A3B8</color>
+    <color name="oz_download_text_muted">#64748B</color>
+    <color name="oz_download_outline">#29354F</color>
+    <color name="oz_download_danger">#F87171</color>
+    <color name="oz_download_track">#0D1426</color>
+</resources>

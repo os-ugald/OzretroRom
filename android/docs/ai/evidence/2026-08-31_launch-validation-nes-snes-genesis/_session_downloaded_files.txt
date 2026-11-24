@@ -1,0 +1,10 @@
+-- Nintendo Entertainment System (Oz-downloaded this session) --
+-rw-rw---- 1 u0_a279 media_rw 262160 2026-09-03 00:42 Mega Man 2 (USA) (Capcom Town).nes
+-rw-rw---- 1 u0_a279 media_rw 393232 2026-09-03 00:36 Super Mario Bros. 3 (USA) (Oz 2).nes
+-- Super Nintendo (Oz-downloaded this session) --
+-rw-rw---- 1 u0_a279 media_rw  524288 2026-09-03 00:45 Super Mario World (USA).sfc
+-rw-rw---- 1 u0_a279 media_rw 3145728 2026-09-03 00:50 Super Metroid (USA, Europe) (En,Ja) (Virtual Console, Classic Mini, Switch Online) (Oz 2).sfc
+-- Mega Drive _ Genesis (Oz-downloaded this session) --
+-rw-rw---- 1 u0_a279 media_rw 1048576 2026-09-03 00:54 Gunstar Heroes (USA).md
+-rw-rw---- 1 u0_a279 media_rw 1048576 2026-09-03 00:52 Sonic The Hedgehog 2 (World) (Rev A) (Sonic Classic Collection).md
+-rw-rw---- 1 u0_a279 media_rw 2097152 2026-09-03 01:00 Streets of Rage 2 (USA) (Oz 2).md

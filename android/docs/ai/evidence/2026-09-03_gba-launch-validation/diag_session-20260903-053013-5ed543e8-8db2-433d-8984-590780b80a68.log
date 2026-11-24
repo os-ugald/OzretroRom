@@ -1,0 +1,20 @@
+Oz RetroRom diagnostic log
+app_version=0.6.0-beta.4 (60018)
+android=15 sdk=35
+device=Xiaomi 2406APNFAG
+abi=arm64-v8a
+session_id=5ed543e8-8db2-433d-8984-590780b80a68
+started_utc=2026-09-03T05:30:13.691Z
+privacy=No ROM contents, credentials, cookies or complete source URLs are recorded.
+---
+2026-09-03T05:30:13.692Z | INFO | main | SESSION_CREATED
+2026-09-03T05:30:13.694Z | INFO | main | SESSION_ORIGIN | Oz
+2026-09-03T05:30:13.843Z | INFO | main | LOCAL_LIBRARY_LEGACY_FALLBACK_SKIPPED | projection_id=oz-source-index-gba-game-494c83ce431ce35754f29e58f012e2dd186ce3a316ed2d62d969f75c0a2dd4cb source_index_game_id=494c83ce431ce35754f29e58f012e2dd186ce3a316ed2d62d969f75c0a2dd4cb mechanism=STRONG_GAME_ID_REQUIRED
+2026-09-03T05:30:25.283Z | INFO | main | SESSION_BEGIN | game_id=oz-source-index-gba-game-494c83ce431ce35754f29e58f012e2dd186ce3a316ed2d62d969f75c0a2dd4cb system=gba
+2026-09-03T05:30:25.289Z | INFO | main | DIRECT_ROM_READY | file=Metroid Fusion (Europe) (En,Fr,De,Es,It).gba path=<private-path>/Download
+2026-09-03T05:30:25.291Z | INFO | main | ENGINE_AUTO_SELECTED | system=gba engine=retroarch external_ready=false
+2026-09-03T05:30:25.444Z | INFO | DefaultDispatcher-worker-4 | RETROARCH_SAF_COMPAT_MIRROR | file=Metroid Fusion (Europe) (En,Fr,De,Es,It).gba source_scheme=content mirror=Metroid Fusion (Europe) (En,Fr,De,Es,It).gba
+2026-09-03T05:30:25.446Z | INFO | DefaultDispatcher-worker-4 | VALIDATION_OK | file=Metroid Fusion (Europe) (En,Fr,De,Es,It).gba bytes=8388608 romset= bios=
+2026-09-03T05:30:27.880Z | INFO | main | RETROARCH_CORE_SIDELOAD_STARTED | package=com.retroarch core=mgba_libretro_android.so
+2026-09-03T05:30:35.482Z | INFO | main | RETROARCH_CORE_SIDELOAD_CONFIRMED | package=com.retroarch core=mgba_libretro_android.so
+2026-09-03T05:30:35.527Z | INFO | main | RETROARCH_NATIVE_LAUNCHED | package=com.retroarch core=mgba_libretro_android.so file=Metroid Fusion (Europe) (En,Fr,De,Es,It).gba

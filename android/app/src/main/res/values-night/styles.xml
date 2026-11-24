@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="ThemeOverlay.OzRetroRom.PopupMenu" parent="ThemeOverlay.MaterialComponents.Dark">
+        <item name="android:popupBackground">@drawable/bg_popup_menu</item>
+        <item name="android:textColor">@color/oz_text_primary</item>
+    </style>
+</resources>

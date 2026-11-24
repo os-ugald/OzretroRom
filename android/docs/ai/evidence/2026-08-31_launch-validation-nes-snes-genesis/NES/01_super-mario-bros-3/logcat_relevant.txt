@@ -1,0 +1,40 @@
+09-03 00:33:43.256 I/adbd    ( 1342): adbd service requested 'exec:run-as 'cl.gakuto.kizuna' 'cat' 'shared_prefs/oz_persistent_rom_library.xml''
+09-03 00:34:37.898 I/adbd    ( 1342): adbd service requested 'shell,v2,TERM=xterm-256color,raw:am start -n cl.gakuto.kizuna/.ui.MainActivity'
+09-03 00:34:37.975 D/WindowManager( 1842): Collecting in transition 37: ActivityRecord{1aa261a u0 cl.gakuto.kizuna/.ui.MainActivity init visibleRequested:false
+09-03 00:34:37.976 D/RemoteTaskHandlerManager( 1842): [handleReuseTaskIfNeeded] reusedTask = Task{17e45ad #3879 type=standard A=10325:cl.gakuto.kizuna}
+09-03 00:34:37.977 D/MiuiFreeFormManagerService( 1842): onStartActivityInner as = Task{17e45ad #3879 type=standard A=10325:cl.gakuto.kizuna} op = null
+09-03 00:34:37.983 I/ActivityTaskManager( 1842): START u0 {flg=0x10000000 cmp=cl.gakuto.kizuna/.ui.MainActivity} with LAUNCH_MULTIPLE from uid 2000 from pid 27018 callingPackage com.android.shell (BAL_ALLOW_PERMISSION) result code=3
+09-03 00:34:37.984 I/ActivityTaskManager( 1842): visible for Task{17e45ad #3879 type=standard A=10325:cl.gakuto.kizuna} visible = true isAnimating = false TRANSITION = false PARENTS = false CHILDREN = false
+09-03 00:34:37.989 D/WindowManagerShell( 2838): onActivityRestartAttempt: ComponentInfo{cl.gakuto.kizuna/cl.gakuto.kizuna.ui.MainActivity}
+09-03 00:35:12.604 I/MIUIInput( 1842): [MotionEvent] publisher action=0x0, deviceId=7, 1686317, channel '3be4916 cl.gakuto.kizuna/cl.gakuto.kizuna.ui.MainActivity (server)'
+09-03 00:35:12.606 I/MIUIInput(21114): [MotionEvent] ViewRootImpl windowName 'cl.gakuto.kizuna/cl.gakuto.kizuna.ui.MainActivity', { action=ACTION_DOWN, id[0]=0, pointerCount=1, eventTime=1686317, downTime=1686317, phoneEventTime=00:35:12.600 } moveCount:0
+09-03 00:35:12.651 I/BufferQueueProducer( 1162): [cl.gakuto.kizuna/cl.gakuto.kizuna.ui.MainActivity#491](this:0xb4000079e89ea3a8,id:-1,api:0,p:-1,c:1162) queueBuffer: fps=0.01 dur=148240.64 max=148240.64 min=148240.64
+09-03 00:35:12.683 I/MIUIInput( 1842): [MotionEvent] publisher action=0x1, deviceId=7, 1686398, channel '3be4916 cl.gakuto.kizuna/cl.gakuto.kizuna.ui.MainActivity (server)'
+09-03 00:35:12.690 I/MIUIInput(21114): [MotionEvent] ViewRootImpl windowName 'cl.gakuto.kizuna/cl.gakuto.kizuna.ui.MainActivity', { action=ACTION_UP, id[0]=0, pointerCount=1, eventTime=1686398, downTime=1686317, phoneEventTime=00:35:12.682 } moveCount:0
+09-03 00:35:13.884 I/BufferQueueProducer( 1162): [cl.gakuto.kizuna/cl.gakuto.kizuna.ui.MainActivity#491](this:0xb4000079e89ea3a8,id:-1,api:0,p:-1,c:1162) queueBuffer: fps=51.93 dur=1232.37 max=674.61 min=7.43
+09-03 00:35:14.118 I/GoogleInputMethodService( 4583): GoogleInputMethodService.onStartInput():1532 onStartInput(EditorInfo{EditorInfo{packageName=cl.gakuto.kizuna, inputType=0, inputTypeString=NULL, enableLearning=false, autoCorrection=false, autoComplete=false, imeOptions=0, privateImeOptions=null, actionName=UNSPECIFIED, actionLabel=null, initialSelStart=-1, initialSelEnd=-1, initialCapsMode=0, label=null, fieldId=0, fieldName=null, extras=Bundle[mParcelledData.dataSize=72], hintText=null, hintLocales=[]}}, false)
+09-03 00:35:14.122 W/PackageConfigPersister( 1842): App-specific configuration not found for packageName: cl.gakuto.kizuna and userId: 0
+09-03 00:35:15.015 I/BufferQueueProducer( 1162): [cl.gakuto.kizuna/cl.gakuto.kizuna.ui.MainActivity#491](this:0xb4000079e89ea3a8,id:-1,api:0,p:-1,c:1162) queueBuffer: fps=27.40 dur=1131.58 max=208.07 min=7.35
+09-03 00:35:16.055 I/BufferQueueProducer( 1162): [cl.gakuto.kizuna/cl.gakuto.kizuna.ui.MainActivity#491](this:0xb4000079e89ea3a8,id:-1,api:0,p:-1,c:1162) queueBuffer: fps=8.66 dur=1039.61 max=208.22 min=8.05
+09-03 00:35:16.409 D/PerfShielderService( 1842): cl.gakuto.kizuna|cl.gakuto.kizuna/cl.gakuto.kizuna.ui.MainActivity|227|1690014168715|227|0|1
+09-03 00:35:16.409 W/MiuiPerfServiceClient( 4748): interceptAndQueuing:21114|cl.gakuto.kizuna|227|227|1690014168715|Slow main thread|1
+09-03 00:35:17.062 I/BufferQueueProducer( 1162): [cl.gakuto.kizuna/cl.gakuto.kizuna.ui.MainActivity#491](this:0xb4000079e89ea3a8,id:-1,api:0,p:-1,c:1162) queueBuffer: fps=6.95 dur=1007.14 max=299.69 min=8.41
+09-03 00:35:17.108 I/MIUIInput( 1842): [MotionEvent] publisher action=0x0, deviceId=7, 1690821, channel '3be4916 cl.gakuto.kizuna/cl.gakuto.kizuna.ui.MainActivity (server)'
+09-03 00:35:17.109 I/MIUIInput(21114): [MotionEvent] ViewRootImpl windowName 'cl.gakuto.kizuna/cl.gakuto.kizuna.ui.MainActivity', { action=ACTION_DOWN, id[0]=0, pointerCount=1, eventTime=1690821, downTime=1690821, phoneEventTime=00:35:17.105 } moveCount:0
+09-03 00:35:17.484 I/MIUIInput( 1842): [MotionEvent] publisher action=0x1, deviceId=7, 1691200, channel '3be4916 cl.gakuto.kizuna/cl.gakuto.kizuna.ui.MainActivity (server)'
+09-03 00:35:17.488 I/MIUIInput(21114): [MotionEvent] ViewRootImpl windowName 'cl.gakuto.kizuna/cl.gakuto.kizuna.ui.MainActivity', { action=ACTION_UP, id[0]=0, pointerCount=1, eventTime=1691200, downTime=1690821, phoneEventTime=00:35:17.483 } moveCount:22
+09-03 00:35:17.844 I/MIUIInput( 1842): [MotionEvent] publisher action=0x0, deviceId=7, 1691560, channel '3be4916 cl.gakuto.kizuna/cl.gakuto.kizuna.ui.MainActivity (server)'
+09-03 00:35:17.846 I/MIUIInput(21114): [MotionEvent] ViewRootImpl windowName 'cl.gakuto.kizuna/cl.gakuto.kizuna.ui.MainActivity', { action=ACTION_DOWN, id[0]=0, pointerCount=1, eventTime=1691560, downTime=1691560, phoneEventTime=00:35:17.843 } moveCount:0
+09-03 00:35:17.904 I/MIUIInput( 1842): [MotionEvent] publisher action=0x1, deviceId=7, 1691620, channel '3be4916 cl.gakuto.kizuna/cl.gakuto.kizuna.ui.MainActivity (server)'
+09-03 00:35:17.905 I/MIUIInput(21114): [MotionEvent] ViewRootImpl windowName 'cl.gakuto.kizuna/cl.gakuto.kizuna.ui.MainActivity', { action=ACTION_UP, id[0]=0, pointerCount=1, eventTime=1691620, downTime=1691560, phoneEventTime=00:35:17.904 } moveCount:0
+09-03 00:35:17.920 D/WindowManager( 1842): Collecting in transition 38: ActivityRecord{d6111ce u0 cl.gakuto.kizuna/.ui.GlobalCatalogActivity init visibleRequested:false
+09-03 00:35:17.920 D/MiuiFreeformServiceImpl( 1842): addLaunchFreeformActivityOptionIfNeed skip due to not find sourceTask: null sourceFfas: null sourceFreeFormActivity: ActivityRecord{fc459d7 u0 cl.gakuto.kizuna/.ui.MainActivity t3879}
+09-03 00:35:17.920 D/MiuiFreeFormManagerService( 1842): onStartActivityInner as = Task{17e45ad #3879 type=standard A=10325:cl.gakuto.kizuna} op = null
+09-03 00:35:17.921 I/BufferQueueDebug( 1162): [ActivityRecord{d6111ce u0 cl.gakuto.kizuna/.ui.GlobalCatalogActivity t3879}#497](this:0xb4000079e8a1aa38,id:-1,api:0,p:-1,c:-1) BufferQueue core=(1162:/system/bin/surfaceflinger)
+09-03 00:35:17.923 D/WindowManager( 1842): setLockTaskAuth: task=Task{17e45ad #3879 type=standard A=10325:cl.gakuto.kizuna} mLockTaskAuth=LOCK_TASK_AUTH_PINNABLE
+09-03 00:35:17.923 D/MiuiFreeFormManagerService( 1842): onStartActivityInner as = Task{17e45ad #3879 type=standard A=10325:cl.gakuto.kizuna} op = null
+09-03 00:35:17.925 D/WindowManager( 1842): All the checks have been done, return STARTING_WINDOW_TYPE_NONE. this = ActivityRecord{d6111ce u0 cl.gakuto.kizuna/.ui.GlobalCatalogActivity t3879}
+09-03 00:35:17.925 I/WindowManager( 1842): Try to add startingWindow type = STARTING_WINDOW_TYPE_NONE this = ActivityRecord{d6111ce u0 cl.gakuto.kizuna/.ui.GlobalCatalogActivity t3879} preAllowTaskSnapshot = true afterAllowTaskSnapshot = true newTask = false taskSwitch = false processRunning = true activityCreated = false activityAllDrawn = false isSnapshotCompatible = false resolvedTheme = 2131952285 theme = 2131952285
+09-03 00:35:17.928 I/PowerHalWrapper( 1842): amsBoostNotify pid:21114,activity:cl.gakuto.kizuna.ui.MainActivity, package:cl.gakuto.kizuna, mProcessCreatePackcom.google.android.documentsui 
+09-03 00:35:17.928 I/ScnModule( 1842): [GameDetection] packname: cl.gakuto.kizuna, apkSize: 35805115. 
+09-03 00:35:17.928 I/mtkpower_client( 1842): [PowerHal_Wrap_notifyAppState] cl.gakuto.kizuna/cl.gakuto.kizuna.ui.MainActivity pid=21114 activityId:264526295 state:0

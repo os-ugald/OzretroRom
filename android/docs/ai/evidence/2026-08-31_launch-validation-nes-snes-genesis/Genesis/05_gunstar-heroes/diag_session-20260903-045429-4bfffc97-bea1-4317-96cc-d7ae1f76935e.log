@@ -1,0 +1,22 @@
+Oz RetroRom diagnostic log
+app_version=0.6.0-beta.4 (60018)
+android=15 sdk=35
+device=Xiaomi 2406APNFAG
+abi=arm64-v8a
+session_id=4bfffc97-bea1-4317-96cc-d7ae1f76935e
+started_utc=2026-09-03T04:54:29.170Z
+privacy=No ROM contents, credentials, cookies or complete source URLs are recorded.
+---
+2026-09-03T04:54:29.170Z | INFO | main | SESSION_CREATED
+2026-09-03T04:54:29.172Z | INFO | main | SESSION_ORIGIN | Oz
+2026-09-03T04:54:29.333Z | INFO | main | LOCAL_LIBRARY_LEGACY_FALLBACK_SKIPPED | projection_id=oz-source-index-genesis-game-cf9d21eb386a124ec6919ce7c053c5bc180aba3abcb07d03133b5aae56514653 source_index_game_id=cf9d21eb386a124ec6919ce7c053c5bc180aba3abcb07d03133b5aae56514653 mechanism=STRONG_GAME_ID_REQUIRED
+2026-09-03T04:54:29.338Z | INFO | main | SOURCE_INDEX_CANDIDATE_SELECTED | game=cf9d21eb386a124ec6919ce7c053c5bc180aba3abcb07d03133b5aae56514653 release=d0f2c0a7eeab86ad7beb99e0db02db15ce2ba2c75b9cd8856e219db02896d2cd candidate=8aaea35a32290a23d0b6c484775301cb0a82930da73b1c9dd326c323f2103359 provider=minerva transport=torrent infohash=7bed1007999d817da4605282780a2715f08d470a file_index=1410 path=Minerva_Myrient/No-Intro/Sega - Mega Drive - Genesis/Gunstar Heroes (USA).zip
+2026-09-03T04:54:29.344Z | INFO | main | BACKGROUND_DOWNLOAD_SCHEDULED | game_id=oz-source-index-genesis-game-cf9d21eb386a124ec6919ce7c053c5bc180aba3abcb07d03133b5aae56514653 task=dc9df3a4-e94c-4a2e-98bc-43f94a68c4b9 mode=USER_INITIATED_JOB
+2026-09-03T04:54:29.349Z | INFO | main | SESSION_PHASE | phase=DOWNLOADING source=Minerva file=Gunstar Heroes (USA).zip total=661835
+2026-09-03T04:54:38.885Z | INFO | main | SESSION_BEGIN | game_id=oz-source-index-genesis-game-cf9d21eb386a124ec6919ce7c053c5bc180aba3abcb07d03133b5aae56514653 system=genesis
+2026-09-03T04:54:38.892Z | INFO | main | DIRECT_ROM_READY | file=Gunstar Heroes (USA).md path=<private-path>/Download
+2026-09-03T04:54:38.894Z | INFO | main | ENGINE_AUTO_SELECTED | system=genesis engine=retroarch external_ready=false
+2026-09-03T04:54:38.972Z | INFO | DefaultDispatcher-worker-2 | RETROARCH_SAF_COMPAT_MIRROR | file=Gunstar Heroes (USA).md source_scheme=content mirror=Gunstar Heroes (USA).md
+2026-09-03T04:54:38.973Z | INFO | DefaultDispatcher-worker-2 | VALIDATION_OK | file=Gunstar Heroes (USA).md bytes=1048576 romset= bios=
+2026-09-03T04:54:39.116Z | INFO | main | RETROARCH_BIOS_REQUIREMENT_UNMAPPED | system=genesis requirement=No requerida
+2026-09-03T04:54:39.149Z | INFO | main | RETROARCH_NATIVE_LAUNCHED | package=com.retroarch core=genesis_plus_gx_libretro_android.so file=Gunstar Heroes (USA).md

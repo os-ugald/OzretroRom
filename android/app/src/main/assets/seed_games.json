@@ -1,0 +1,3663 @@
+[
+  {
+    "id": "1080-snowboarding-n64",
+    "title": "1080° Snowboarding",
+    "platform": "Nintendo 64",
+    "systemId": "n64",
+    "year": 1998,
+    "region": "World",
+    "thumbnailRepo": "Nintendo_-_Nintendo_64",
+    "launchValidated": true,
+    "coreId": "mupen64plus_next_gles3_libretro_android.so",
+    "virtualExtension": "n64",
+    "collections": [
+      "nintendo-64-nostalgia"
+    ],
+    "genre": "Sports",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "actraiser-snes",
+    "title": "ActRaiser",
+    "platform": "Super Nintendo",
+    "systemId": "snes",
+    "year": 1990,
+    "region": "World",
+    "thumbnailRepo": "Nintendo_-_Super_Nintendo_Entertainment_System",
+    "launchValidated": true,
+    "coreId": "snes9x_libretro_android.so",
+    "virtualExtension": "sfc",
+    "collections": [
+      "snes-esenciales",
+      "joyas-para-descubrir"
+    ],
+    "genre": "Action / Simulation",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "advance-wars-gba",
+    "title": "Advance Wars",
+    "platform": "Game Boy Advance",
+    "systemId": "gba",
+    "year": 2001,
+    "region": "World",
+    "thumbnailRepo": "Nintendo_-_Game_Boy_Advance",
+    "launchValidated": false,
+    "coreId": "mgba_libretro_android.so",
+    "virtualExtension": "gba",
+    "collections": [
+      "joyas-para-descubrir"
+    ],
+    "genre": "Strategy",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "alien-vs-predator-arcade-fbneo",
+    "title": "Alien vs. Predator",
+    "platform": "Arcade / FinalBurn Neo",
+    "systemId": "arcade-fbneo",
+    "year": 1994,
+    "region": "World",
+    "thumbnailRepo": "FBNeo_-_Arcade_Games",
+    "launchValidated": true,
+    "coreId": "FBNeo",
+    "virtualExtension": "zip",
+    "collections": [
+      "arcade-esencial",
+      "beat-em-up-legendarios",
+      "capcom-power",
+      "cooperativo-de-sillon"
+    ],
+    "genre": "Beat em up",
+    "romSet": "avsp",
+    "biosSets": []
+  },
+  {
+    "id": "animal-crossing-new-leaf-3ds",
+    "title": "Animal Crossing: New Leaf",
+    "platform": "Nintendo 3DS",
+    "systemId": "3ds",
+    "year": 2012,
+    "region": "World",
+    "thumbnailRepo": "Nintendo_-_Nintendo_3DS",
+    "launchValidated": true,
+    "coreId": "azahar_libretro_android.so",
+    "virtualExtension": "3ds",
+    "collections": [
+      "para-josefa"
+    ],
+    "genre": "Life simulation",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "banjo-kazooie-n64",
+    "title": "Banjo-Kazooie",
+    "platform": "Nintendo 64",
+    "systemId": "n64",
+    "year": 1998,
+    "region": "World",
+    "thumbnailRepo": "Nintendo_-_Nintendo_64",
+    "launchValidated": true,
+    "coreId": "mupen64plus_next_gles3_libretro_android.so",
+    "virtualExtension": "n64",
+    "collections": [
+      "nintendo-64-nostalgia"
+    ],
+    "genre": "3D platformer",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "banjo-tooie-n64",
+    "title": "Banjo-Tooie",
+    "platform": "Nintendo 64",
+    "systemId": "n64",
+    "year": 2000,
+    "region": "World",
+    "thumbnailRepo": "Nintendo_-_Nintendo_64",
+    "launchValidated": true,
+    "coreId": "mupen64plus_next_gles3_libretro_android.so",
+    "virtualExtension": "n64",
+    "collections": [
+      "nintendo-64-nostalgia"
+    ],
+    "genre": "3D platformer",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "bravely-default-3ds",
+    "title": "Bravely Default",
+    "platform": "Nintendo 3DS",
+    "systemId": "3ds",
+    "year": 2012,
+    "region": "World",
+    "thumbnailRepo": "Nintendo_-_Nintendo_3DS",
+    "launchValidated": true,
+    "coreId": "azahar_libretro_android.so",
+    "virtualExtension": "3ds",
+    "collections": [
+      "jrpg-y-aventura"
+    ],
+    "genre": "JRPG",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "breath-of-fire-iii-ps1",
+    "title": "Breath of Fire III",
+    "platform": "PlayStation",
+    "systemId": "ps1",
+    "year": 1997,
+    "region": "World",
+    "thumbnailRepo": "Sony_-_PlayStation",
+    "launchValidated": true,
+    "coreId": "pcsx_rearmed_libretro_android.so",
+    "virtualExtension": "cue",
+    "collections": [
+      "era-playstation",
+      "jrpg-y-aventura"
+    ],
+    "genre": "JRPG",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "breath-of-fire-iv-ps1",
+    "title": "Breath of Fire IV",
+    "platform": "PlayStation",
+    "systemId": "ps1",
+    "year": 2000,
+    "region": "World",
+    "thumbnailRepo": "Sony_-_PlayStation",
+    "launchValidated": true,
+    "coreId": "pcsx_rearmed_libretro_android.so",
+    "virtualExtension": "cue",
+    "collections": [
+      "era-playstation",
+      "jrpg-y-aventura",
+      "joyas-para-descubrir"
+    ],
+    "genre": "JRPG",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "burnout-3-takedown-ps2",
+    "title": "Burnout 3: Takedown",
+    "platform": "PlayStation 2",
+    "systemId": "ps2",
+    "year": 2004,
+    "region": "World",
+    "thumbnailRepo": "Sony_-_PlayStation_2",
+    "launchValidated": true,
+    "coreId": "play_libretro_android.so",
+    "virtualExtension": "iso",
+    "collections": [
+      "era-playstation-2"
+    ],
+    "genre": "Racing",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "cadillacs-and-dinosaurs-arcade-fbneo",
+    "title": "Cadillacs and Dinosaurs",
+    "platform": "Arcade / FinalBurn Neo",
+    "systemId": "arcade-fbneo",
+    "year": 1993,
+    "region": "World",
+    "thumbnailRepo": "FBNeo_-_Arcade_Games",
+    "launchValidated": true,
+    "coreId": "FBNeo",
+    "virtualExtension": "zip",
+    "collections": [
+      "favoritos-de-oz",
+      "arcade-esencial",
+      "beat-em-up-legendarios",
+      "capcom-power",
+      "cooperativo-de-sillon",
+      "favorites"
+    ],
+    "genre": "Beat em up",
+    "romSet": "dino",
+    "biosSets": []
+  },
+  {
+    "id": "captain-commando-arcade-fbneo",
+    "title": "Captain Commando",
+    "platform": "Arcade / FinalBurn Neo",
+    "systemId": "arcade-fbneo",
+    "year": 1991,
+    "region": "World",
+    "thumbnailRepo": "FBNeo_-_Arcade_Games",
+    "launchValidated": true,
+    "coreId": "FBNeo",
+    "virtualExtension": "zip",
+    "collections": [
+      "arcade-esencial",
+      "beat-em-up-legendarios",
+      "capcom-power",
+      "cooperativo-de-sillon"
+    ],
+    "genre": "Beat em up",
+    "romSet": "captcomm",
+    "biosSets": []
+  },
+  {
+    "id": "castlevania-iv-snes",
+    "title": "Castlevania IV",
+    "platform": "Super Nintendo",
+    "systemId": "snes",
+    "year": 1991,
+    "region": "World",
+    "thumbnailRepo": "Nintendo_-_Super_Nintendo_Entertainment_System",
+    "launchValidated": true,
+    "coreId": "snes9x_libretro_android.so",
+    "virtualExtension": "sfc",
+    "collections": [
+      "snes-esenciales"
+    ],
+    "genre": "Action platformer",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "castlevania-symphony-of-the-night-ps1",
+    "title": "Castlevania: Symphony of the Night",
+    "platform": "PlayStation",
+    "systemId": "ps1",
+    "year": 1997,
+    "region": "World",
+    "thumbnailRepo": "Sony_-_PlayStation",
+    "launchValidated": true,
+    "coreId": "pcsx_rearmed_libretro_android.so",
+    "virtualExtension": "cue",
+    "collections": [
+      "favoritos-de-oz",
+      "era-playstation",
+      "favorites"
+    ],
+    "genre": "Metroidvania",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "chrono-cross-ps1",
+    "title": "Chrono Cross",
+    "platform": "PlayStation",
+    "systemId": "ps1",
+    "year": 1999,
+    "region": "World",
+    "thumbnailRepo": "Sony_-_PlayStation",
+    "launchValidated": true,
+    "coreId": "pcsx_rearmed_libretro_android.so",
+    "virtualExtension": "cue",
+    "collections": [
+      "era-playstation",
+      "jrpg-y-aventura"
+    ],
+    "genre": "JRPG",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "chrono-trigger-snes",
+    "title": "Chrono Trigger",
+    "platform": "Super Nintendo",
+    "systemId": "snes",
+    "year": 1995,
+    "region": "World",
+    "thumbnailRepo": "Nintendo_-_Super_Nintendo_Entertainment_System",
+    "launchValidated": true,
+    "coreId": "snes9x_libretro_android.so",
+    "virtualExtension": "sfc",
+    "collections": [
+      "favoritos-de-oz",
+      "snes-esenciales",
+      "jrpg-y-aventura",
+      "favorites"
+    ],
+    "genre": "JRPG",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "comix-zone-genesis",
+    "title": "Comix Zone",
+    "platform": "Mega Drive / Genesis",
+    "systemId": "genesis",
+    "year": 1995,
+    "region": "World",
+    "thumbnailRepo": "Sega_-_Mega_Drive_-_Genesis",
+    "launchValidated": true,
+    "coreId": "genesis_plus_gx_libretro_android.so",
+    "virtualExtension": "md",
+    "collections": [
+      "beat-em-up-legendarios",
+      "joyas-para-descubrir"
+    ],
+    "genre": "Beat em up",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "conkers-bad-fur-day-n64",
+    "title": "Conker’s Bad Fur Day",
+    "platform": "Nintendo 64",
+    "systemId": "n64",
+    "year": 2001,
+    "region": "World",
+    "thumbnailRepo": "Nintendo_-_Nintendo_64",
+    "launchValidated": true,
+    "coreId": "mupen64plus_next_gles3_libretro_android.so",
+    "virtualExtension": "n64",
+    "collections": [
+      "nintendo-64-nostalgia"
+    ],
+    "genre": "3D platformer",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "contra-iii-the-alien-wars-snes",
+    "title": "Contra III: The Alien Wars",
+    "platform": "Super Nintendo",
+    "systemId": "snes",
+    "year": 1992,
+    "region": "World",
+    "thumbnailRepo": "Nintendo_-_Super_Nintendo_Entertainment_System",
+    "launchValidated": true,
+    "coreId": "snes9x_libretro_android.so",
+    "virtualExtension": "sfc",
+    "collections": [
+      "snes-esenciales"
+    ],
+    "genre": "Run and gun",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "crash-bandicoot-ps1",
+    "title": "Crash Bandicoot",
+    "platform": "PlayStation",
+    "systemId": "ps1",
+    "year": 1996,
+    "region": "World",
+    "thumbnailRepo": "Sony_-_PlayStation",
+    "launchValidated": true,
+    "coreId": "pcsx_rearmed_libretro_android.so",
+    "virtualExtension": "cue",
+    "collections": [
+      "era-playstation"
+    ],
+    "genre": "3D platformer",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "crash-bandicoot-2-cortex-strikes-back-ps1",
+    "title": "Crash Bandicoot 2: Cortex Strikes Back",
+    "platform": "PlayStation",
+    "systemId": "ps1",
+    "year": 1997,
+    "region": "World",
+    "thumbnailRepo": "Sony_-_PlayStation",
+    "launchValidated": true,
+    "coreId": "pcsx_rearmed_libretro_android.so",
+    "virtualExtension": "cue",
+    "collections": [
+      "era-playstation"
+    ],
+    "genre": "3D platformer",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "crash-bandicoot-3-warped-ps1",
+    "title": "Crash Bandicoot 3: Warped",
+    "platform": "PlayStation",
+    "systemId": "ps1",
+    "year": 1998,
+    "region": "World",
+    "thumbnailRepo": "Sony_-_PlayStation",
+    "launchValidated": true,
+    "coreId": "pcsx_rearmed_libretro_android.so",
+    "virtualExtension": "cue",
+    "collections": [
+      "era-playstation"
+    ],
+    "genre": "3D platformer",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "crash-team-racing-ps1",
+    "title": "Crash Team Racing",
+    "platform": "PlayStation",
+    "systemId": "ps1",
+    "year": 1999,
+    "region": "World",
+    "thumbnailRepo": "Sony_-_PlayStation",
+    "launchValidated": true,
+    "coreId": "pcsx_rearmed_libretro_android.so",
+    "virtualExtension": "cue",
+    "collections": [
+      "era-playstation"
+    ],
+    "genre": "Kart racing",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "darkstalkers-the-night-warriors-arcade-fbneo",
+    "title": "Darkstalkers: The Night Warriors",
+    "platform": "Arcade / FinalBurn Neo",
+    "systemId": "arcade-fbneo",
+    "year": 1995,
+    "region": "World",
+    "thumbnailRepo": "FBNeo_-_Arcade_Games",
+    "launchValidated": true,
+    "coreId": "FBNeo",
+    "virtualExtension": "zip",
+    "collections": [
+      "peleas-noventeras",
+      "capcom-power"
+    ],
+    "genre": "Fighting",
+    "romSet": "dstlk",
+    "biosSets": []
+  },
+  {
+    "id": "devil-may-cry-ps2",
+    "title": "Devil May Cry",
+    "platform": "PlayStation 2",
+    "systemId": "ps2",
+    "year": 2001,
+    "region": "World",
+    "thumbnailRepo": "Sony_-_PlayStation_2",
+    "launchValidated": true,
+    "coreId": "play_libretro_android.so",
+    "virtualExtension": "iso",
+    "collections": [
+      "era-playstation-2",
+      "capcom-power"
+    ],
+    "genre": "Action",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "devil-may-cry-3-dantes-awakening-ps2",
+    "title": "Devil May Cry 3: Dante’s Awakening",
+    "platform": "PlayStation 2",
+    "systemId": "ps2",
+    "year": 2005,
+    "region": "World",
+    "thumbnailRepo": "Sony_-_PlayStation_2",
+    "launchValidated": true,
+    "coreId": "play_libretro_android.so",
+    "virtualExtension": "iso",
+    "collections": [
+      "era-playstation-2",
+      "capcom-power"
+    ],
+    "genre": "Action",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "diddy-kong-racing-n64",
+    "title": "Diddy Kong Racing",
+    "platform": "Nintendo 64",
+    "systemId": "n64",
+    "year": 1997,
+    "region": "World",
+    "thumbnailRepo": "Nintendo_-_Nintendo_64",
+    "launchValidated": true,
+    "coreId": "mupen64plus_next_gles3_libretro_android.so",
+    "virtualExtension": "n64",
+    "collections": [
+      "favoritos-de-oz",
+      "nintendo-64-nostalgia",
+      "cooperativo-de-sillon",
+      "para-josefa",
+      "favorites"
+    ],
+    "genre": "Kart racing",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "dino-crisis-ps1",
+    "title": "Dino Crisis",
+    "platform": "PlayStation",
+    "systemId": "ps1",
+    "year": 1999,
+    "region": "World",
+    "thumbnailRepo": "Sony_-_PlayStation",
+    "launchValidated": true,
+    "coreId": "pcsx_rearmed_libretro_android.so",
+    "virtualExtension": "cue",
+    "collections": [
+      "era-playstation"
+    ],
+    "genre": "Survival horror",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "donkey-kong-64-n64",
+    "title": "Donkey Kong 64",
+    "platform": "Nintendo 64",
+    "systemId": "n64",
+    "year": 1999,
+    "region": "World",
+    "thumbnailRepo": "Nintendo_-_Nintendo_64",
+    "launchValidated": true,
+    "coreId": "mupen64plus_next_gles3_libretro_android.so",
+    "virtualExtension": "n64",
+    "collections": [
+      "nintendo-64-nostalgia"
+    ],
+    "genre": "3D platformer",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "donkey-kong-country-snes",
+    "title": "Donkey Kong Country",
+    "platform": "Super Nintendo",
+    "systemId": "snes",
+    "year": 1994,
+    "region": "World",
+    "thumbnailRepo": "Nintendo_-_Super_Nintendo_Entertainment_System",
+    "launchValidated": true,
+    "coreId": "snes9x_libretro_android.so",
+    "virtualExtension": "sfc",
+    "collections": [
+      "favoritos-de-oz",
+      "snes-esenciales",
+      "favorites"
+    ],
+    "genre": "Platformer",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "donkey-kong-country-2-diddys-kong-quest-snes",
+    "title": "Donkey Kong Country 2: Diddy’s Kong Quest",
+    "platform": "Super Nintendo",
+    "systemId": "snes",
+    "year": 1995,
+    "region": "World",
+    "thumbnailRepo": "Nintendo_-_Super_Nintendo_Entertainment_System",
+    "launchValidated": true,
+    "coreId": "snes9x_libretro_android.so",
+    "virtualExtension": "sfc",
+    "collections": [
+      "favoritos-de-oz",
+      "snes-esenciales",
+      "favorites"
+    ],
+    "genre": "Platformer",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "donkey-kong-country-3-dixie-kongs-double-trouble-snes",
+    "title": "Donkey Kong Country 3: Dixie Kong’s Double Trouble!",
+    "platform": "Super Nintendo",
+    "systemId": "snes",
+    "year": 1996,
+    "region": "World",
+    "thumbnailRepo": "Nintendo_-_Super_Nintendo_Entertainment_System",
+    "launchValidated": true,
+    "coreId": "snes9x_libretro_android.so",
+    "virtualExtension": "sfc",
+    "collections": [
+      "snes-esenciales"
+    ],
+    "genre": "Platformer",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "donkey-kong-country-returns-3d-3ds",
+    "title": "Donkey Kong Country Returns 3D",
+    "platform": "Nintendo 3DS",
+    "systemId": "3ds",
+    "year": 2013,
+    "region": "World",
+    "thumbnailRepo": "Nintendo_-_Nintendo_3DS",
+    "launchValidated": true,
+    "coreId": "azahar_libretro_android.so",
+    "virtualExtension": "3ds",
+    "collections": [
+      "para-josefa"
+    ],
+    "genre": "Platformer",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "dragon-quest-viii-ps2",
+    "title": "Dragon Quest VIII",
+    "platform": "PlayStation 2",
+    "systemId": "ps2",
+    "year": 2004,
+    "region": "World",
+    "thumbnailRepo": "Sony_-_PlayStation_2",
+    "launchValidated": true,
+    "coreId": "play_libretro_android.so",
+    "virtualExtension": "iso",
+    "collections": [
+      "era-playstation-2",
+      "jrpg-y-aventura"
+    ],
+    "genre": "JRPG",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "dungeons-dragons-shadow-over-mystara-arcade-fbneo",
+    "title": "Dungeons & Dragons: Shadow over Mystara",
+    "platform": "Arcade / FinalBurn Neo",
+    "systemId": "arcade-fbneo",
+    "year": 1996,
+    "region": "World",
+    "thumbnailRepo": "FBNeo_-_Arcade_Games",
+    "launchValidated": true,
+    "coreId": "FBNeo",
+    "virtualExtension": "zip",
+    "collections": [
+      "favoritos-de-oz",
+      "arcade-esencial",
+      "beat-em-up-legendarios",
+      "capcom-power",
+      "cooperativo-de-sillon",
+      "favorites"
+    ],
+    "genre": "Beat em up / RPG",
+    "romSet": "ddsom",
+    "biosSets": []
+  },
+  {
+    "id": "dungeons-dragons-tower-of-doom-arcade-fbneo",
+    "title": "Dungeons & Dragons: Tower of Doom",
+    "platform": "Arcade / FinalBurn Neo",
+    "systemId": "arcade-fbneo",
+    "year": 1993,
+    "region": "World",
+    "thumbnailRepo": "FBNeo_-_Arcade_Games",
+    "launchValidated": true,
+    "coreId": "FBNeo",
+    "virtualExtension": "zip",
+    "collections": [
+      "arcade-esencial",
+      "beat-em-up-legendarios",
+      "capcom-power",
+      "cooperativo-de-sillon"
+    ],
+    "genre": "Beat em up / RPG",
+    "romSet": "ddtod",
+    "biosSets": []
+  },
+  {
+    "id": "earthbound-snes",
+    "title": "EarthBound",
+    "platform": "Super Nintendo",
+    "systemId": "snes",
+    "year": 1994,
+    "region": "World",
+    "thumbnailRepo": "Nintendo_-_Super_Nintendo_Entertainment_System",
+    "launchValidated": true,
+    "coreId": "snes9x_libretro_android.so",
+    "virtualExtension": "sfc",
+    "collections": [
+      "snes-esenciales"
+    ],
+    "genre": "JRPG",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "f-zero-snes",
+    "title": "F-Zero",
+    "platform": "Super Nintendo",
+    "systemId": "snes",
+    "year": 1990,
+    "region": "World",
+    "thumbnailRepo": "Nintendo_-_Super_Nintendo_Entertainment_System",
+    "launchValidated": true,
+    "coreId": "snes9x_libretro_android.so",
+    "virtualExtension": "sfc",
+    "collections": [
+      "snes-esenciales"
+    ],
+    "genre": "Racing",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "f-zero-x-n64",
+    "title": "F-Zero X",
+    "platform": "Nintendo 64",
+    "systemId": "n64",
+    "year": 1998,
+    "region": "World",
+    "thumbnailRepo": "Nintendo_-_Nintendo_64",
+    "launchValidated": true,
+    "coreId": "mupen64plus_next_gles3_libretro_android.so",
+    "virtualExtension": "n64",
+    "collections": [
+      "nintendo-64-nostalgia"
+    ],
+    "genre": "Racing",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "fatal-fury-special-arcade-fbneo",
+    "title": "Fatal Fury Special",
+    "platform": "Arcade / FinalBurn Neo",
+    "systemId": "arcade-fbneo",
+    "year": 1993,
+    "region": "World",
+    "thumbnailRepo": "FBNeo_-_Arcade_Games",
+    "launchValidated": true,
+    "coreId": "FBNeo",
+    "virtualExtension": "zip",
+    "collections": [
+      "peleas-noventeras"
+    ],
+    "genre": "Fighting",
+    "romSet": "fatfursp",
+    "biosSets": [
+      "neogeo"
+    ]
+  },
+  {
+    "id": "final-fantasy-iv-snes",
+    "title": "Final Fantasy IV",
+    "platform": "Super Nintendo",
+    "systemId": "snes",
+    "year": 1991,
+    "region": "World",
+    "thumbnailRepo": "Nintendo_-_Super_Nintendo_Entertainment_System",
+    "launchValidated": true,
+    "coreId": "snes9x_libretro_android.so",
+    "virtualExtension": "sfc",
+    "collections": [
+      "snes-esenciales",
+      "jrpg-y-aventura"
+    ],
+    "genre": "JRPG",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "final-fantasy-ix-ps1",
+    "title": "Final Fantasy IX",
+    "platform": "PlayStation",
+    "systemId": "ps1",
+    "year": 2000,
+    "region": "World",
+    "thumbnailRepo": "Sony_-_PlayStation",
+    "launchValidated": true,
+    "coreId": "pcsx_rearmed_libretro_android.so",
+    "virtualExtension": "cue",
+    "collections": [
+      "era-playstation",
+      "jrpg-y-aventura"
+    ],
+    "genre": "JRPG",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "final-fantasy-vi-snes",
+    "title": "Final Fantasy VI",
+    "platform": "Super Nintendo",
+    "systemId": "snes",
+    "year": 1994,
+    "region": "World",
+    "thumbnailRepo": "Nintendo_-_Super_Nintendo_Entertainment_System",
+    "launchValidated": true,
+    "coreId": "snes9x_libretro_android.so",
+    "virtualExtension": "sfc",
+    "collections": [
+      "snes-esenciales",
+      "jrpg-y-aventura"
+    ],
+    "genre": "JRPG",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "final-fantasy-vii-ps1",
+    "title": "Final Fantasy VII",
+    "platform": "PlayStation",
+    "systemId": "ps1",
+    "year": 1997,
+    "region": "World",
+    "thumbnailRepo": "Sony_-_PlayStation",
+    "launchValidated": true,
+    "coreId": "pcsx_rearmed_libretro_android.so",
+    "virtualExtension": "cue",
+    "collections": [
+      "favoritos-de-oz",
+      "era-playstation",
+      "jrpg-y-aventura",
+      "favorites"
+    ],
+    "genre": "JRPG",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "final-fantasy-viii-ps1",
+    "title": "Final Fantasy VIII",
+    "platform": "PlayStation",
+    "systemId": "ps1",
+    "year": 1999,
+    "region": "World",
+    "thumbnailRepo": "Sony_-_PlayStation",
+    "launchValidated": true,
+    "coreId": "pcsx_rearmed_libretro_android.so",
+    "virtualExtension": "cue",
+    "collections": [
+      "era-playstation",
+      "jrpg-y-aventura"
+    ],
+    "genre": "JRPG",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "final-fantasy-x-ps2",
+    "title": "Final Fantasy X",
+    "platform": "PlayStation 2",
+    "systemId": "ps2",
+    "year": 2001,
+    "region": "World",
+    "thumbnailRepo": "Sony_-_PlayStation_2",
+    "launchValidated": true,
+    "coreId": "play_libretro_android.so",
+    "virtualExtension": "iso",
+    "collections": [
+      "favoritos-de-oz",
+      "era-playstation-2",
+      "jrpg-y-aventura",
+      "favorites"
+    ],
+    "genre": "JRPG",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "final-fantasy-x-2-ps2",
+    "title": "Final Fantasy X-2",
+    "platform": "PlayStation 2",
+    "systemId": "ps2",
+    "year": 2003,
+    "region": "World",
+    "thumbnailRepo": "Sony_-_PlayStation_2",
+    "launchValidated": true,
+    "coreId": "play_libretro_android.so",
+    "virtualExtension": "iso",
+    "collections": [
+      "era-playstation-2",
+      "jrpg-y-aventura"
+    ],
+    "genre": "JRPG",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "final-fantasy-xii-ps2",
+    "title": "Final Fantasy XII",
+    "platform": "PlayStation 2",
+    "systemId": "ps2",
+    "year": 2006,
+    "region": "World",
+    "thumbnailRepo": "Sony_-_PlayStation_2",
+    "launchValidated": true,
+    "coreId": "play_libretro_android.so",
+    "virtualExtension": "iso",
+    "collections": [
+      "era-playstation-2",
+      "jrpg-y-aventura"
+    ],
+    "genre": "JRPG",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "final-fight-arcade-fbneo",
+    "title": "Final Fight",
+    "platform": "Arcade / FinalBurn Neo",
+    "systemId": "arcade-fbneo",
+    "year": 1989,
+    "region": "World",
+    "thumbnailRepo": "FBNeo_-_Arcade_Games",
+    "launchValidated": true,
+    "coreId": "FBNeo",
+    "virtualExtension": "zip",
+    "collections": [
+      "arcade-esencial",
+      "beat-em-up-legendarios",
+      "capcom-power",
+      "cooperativo-de-sillon"
+    ],
+    "genre": "Beat em up",
+    "romSet": "ffight",
+    "biosSets": []
+  },
+  {
+    "id": "garou-mark-of-the-wolves-arcade-fbneo",
+    "title": "Garou: Mark of the Wolves",
+    "platform": "Arcade / FinalBurn Neo",
+    "systemId": "arcade-fbneo",
+    "year": 1999,
+    "region": "World",
+    "thumbnailRepo": "FBNeo_-_Arcade_Games",
+    "launchValidated": true,
+    "coreId": "FBNeo",
+    "virtualExtension": "zip",
+    "collections": [
+      "favoritos-de-oz",
+      "arcade-esencial",
+      "peleas-noventeras",
+      "favorites"
+    ],
+    "genre": "Fighting",
+    "romSet": "garou",
+    "biosSets": [
+      "neogeo"
+    ]
+  },
+  {
+    "id": "god-of-war-ps2",
+    "title": "God of War",
+    "platform": "PlayStation 2",
+    "systemId": "ps2",
+    "year": 2005,
+    "region": "World",
+    "thumbnailRepo": "Sony_-_PlayStation_2",
+    "launchValidated": true,
+    "coreId": "play_libretro_android.so",
+    "virtualExtension": "iso",
+    "collections": [
+      "era-playstation-2"
+    ],
+    "genre": "Action",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "god-of-war-ii-ps2",
+    "title": "God of War II",
+    "platform": "PlayStation 2",
+    "systemId": "ps2",
+    "year": 2007,
+    "region": "World",
+    "thumbnailRepo": "Sony_-_PlayStation_2",
+    "launchValidated": true,
+    "coreId": "play_libretro_android.so",
+    "virtualExtension": "iso",
+    "collections": [
+      "era-playstation-2"
+    ],
+    "genre": "Action",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "golden-axe-arcade-fbneo",
+    "title": "Golden Axe",
+    "platform": "Arcade / FinalBurn Neo",
+    "systemId": "arcade-fbneo",
+    "year": 1989,
+    "region": "World",
+    "thumbnailRepo": "FBNeo_-_Arcade_Games",
+    "launchValidated": true,
+    "coreId": "FBNeo",
+    "virtualExtension": "zip",
+    "collections": [
+      "arcade-esencial",
+      "beat-em-up-legendarios",
+      "cooperativo-de-sillon"
+    ],
+    "genre": "Beat em up",
+    "romSet": "goldnaxe",
+    "biosSets": []
+  },
+  {
+    "id": "golden-axe-ii-genesis",
+    "title": "Golden Axe II",
+    "platform": "Mega Drive / Genesis",
+    "systemId": "genesis",
+    "year": 1991,
+    "region": "World",
+    "thumbnailRepo": "Sega_-_Mega_Drive_-_Genesis",
+    "launchValidated": true,
+    "coreId": "genesis_plus_gx_libretro_android.so",
+    "virtualExtension": "md",
+    "collections": [
+      "beat-em-up-legendarios"
+    ],
+    "genre": "Beat em up",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "golden-sun-gba",
+    "title": "Golden Sun",
+    "platform": "Game Boy Advance",
+    "systemId": "gba",
+    "year": 2001,
+    "region": "World",
+    "thumbnailRepo": "Nintendo_-_Game_Boy_Advance",
+    "launchValidated": false,
+    "coreId": "mgba_libretro_android.so",
+    "virtualExtension": "gba",
+    "collections": [
+      "jrpg-y-aventura",
+      "joyas-para-descubrir"
+    ],
+    "genre": "JRPG",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "golden-sun-the-lost-age-gba",
+    "title": "Golden Sun: The Lost Age",
+    "platform": "Game Boy Advance",
+    "systemId": "gba",
+    "year": 2002,
+    "region": "World",
+    "thumbnailRepo": "Nintendo_-_Game_Boy_Advance",
+    "launchValidated": false,
+    "coreId": "mgba_libretro_android.so",
+    "virtualExtension": "gba",
+    "collections": [
+      "jrpg-y-aventura",
+      "joyas-para-descubrir"
+    ],
+    "genre": "JRPG",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "goldeneye-007-n64",
+    "title": "GoldenEye 007",
+    "platform": "Nintendo 64",
+    "systemId": "n64",
+    "year": 1997,
+    "region": "World",
+    "thumbnailRepo": "Nintendo_-_Nintendo_64",
+    "launchValidated": true,
+    "coreId": "mupen64plus_next_gles3_libretro_android.so",
+    "virtualExtension": "n64",
+    "collections": [
+      "nintendo-64-nostalgia"
+    ],
+    "genre": "First-person shooter",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "grand-theft-auto-san-andreas-ps2",
+    "title": "Grand Theft Auto: San Andreas",
+    "platform": "PlayStation 2",
+    "systemId": "ps2",
+    "year": 2004,
+    "region": "World",
+    "thumbnailRepo": "Sony_-_PlayStation_2",
+    "launchValidated": true,
+    "coreId": "play_libretro_android.so",
+    "virtualExtension": "iso",
+    "collections": [
+      "era-playstation-2"
+    ],
+    "genre": "Open world",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "gunstar-heroes-genesis",
+    "title": "Gunstar Heroes",
+    "platform": "Mega Drive / Genesis",
+    "systemId": "genesis",
+    "year": 1993,
+    "region": "World",
+    "thumbnailRepo": "Sega_-_Mega_Drive_-_Genesis",
+    "launchValidated": true,
+    "coreId": "genesis_plus_gx_libretro_android.so",
+    "virtualExtension": "md",
+    "collections": [
+      "joyas-para-descubrir"
+    ],
+    "genre": "Run and gun",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "ico-ps2",
+    "title": "ICO",
+    "platform": "PlayStation 2",
+    "systemId": "ps2",
+    "year": 2001,
+    "region": "World",
+    "thumbnailRepo": "Sony_-_PlayStation_2",
+    "launchValidated": true,
+    "coreId": "play_libretro_android.so",
+    "virtualExtension": "iso",
+    "collections": [
+      "era-playstation-2"
+    ],
+    "genre": "Puzzle adventure",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "illusion-of-gaia-snes",
+    "title": "Illusion of Gaia",
+    "platform": "Super Nintendo",
+    "systemId": "snes",
+    "year": 1993,
+    "region": "World",
+    "thumbnailRepo": "Nintendo_-_Super_Nintendo_Entertainment_System",
+    "launchValidated": true,
+    "coreId": "snes9x_libretro_android.so",
+    "virtualExtension": "sfc",
+    "collections": [
+      "snes-esenciales",
+      "joyas-para-descubrir"
+    ],
+    "genre": "Action RPG",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "jak-ii-ps2",
+    "title": "Jak II",
+    "platform": "PlayStation 2",
+    "systemId": "ps2",
+    "year": 2003,
+    "region": "World",
+    "thumbnailRepo": "Sony_-_PlayStation_2",
+    "launchValidated": true,
+    "coreId": "play_libretro_android.so",
+    "virtualExtension": "iso",
+    "collections": [
+      "era-playstation-2"
+    ],
+    "genre": "Action platformer",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "kid-icarus-uprising-3ds",
+    "title": "Kid Icarus: Uprising",
+    "platform": "Nintendo 3DS",
+    "systemId": "3ds",
+    "year": 2012,
+    "region": "World",
+    "thumbnailRepo": "Nintendo_-_Nintendo_3DS",
+    "launchValidated": true,
+    "coreId": "azahar_libretro_android.so",
+    "virtualExtension": "3ds",
+    "collections": [
+      "joyas-para-descubrir"
+    ],
+    "genre": "Action",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "killer-instinct-arcade-fbneo",
+    "title": "Killer Instinct",
+    "platform": "Arcade / FinalBurn Neo",
+    "systemId": "arcade-fbneo",
+    "year": 1994,
+    "region": "World",
+    "thumbnailRepo": "FBNeo_-_Arcade_Games",
+    "launchValidated": true,
+    "coreId": "FBNeo",
+    "virtualExtension": "zip",
+    "collections": [
+      "peleas-noventeras"
+    ],
+    "genre": "Fighting",
+    "romSet": "kinst",
+    "biosSets": []
+  },
+  {
+    "id": "killer-instinct-2-arcade-fbneo",
+    "title": "Killer Instinct 2",
+    "platform": "Arcade / FinalBurn Neo",
+    "systemId": "arcade-fbneo",
+    "year": 1995,
+    "region": "World",
+    "thumbnailRepo": "FBNeo_-_Arcade_Games",
+    "launchValidated": true,
+    "coreId": "FBNeo",
+    "virtualExtension": "zip",
+    "collections": [
+      "peleas-noventeras"
+    ],
+    "genre": "Fighting",
+    "romSet": "kinst2",
+    "biosSets": []
+  },
+  {
+    "id": "kingdom-hearts-ps2",
+    "title": "Kingdom Hearts",
+    "platform": "PlayStation 2",
+    "systemId": "ps2",
+    "year": 2002,
+    "region": "World",
+    "thumbnailRepo": "Sony_-_PlayStation_2",
+    "launchValidated": true,
+    "coreId": "play_libretro_android.so",
+    "virtualExtension": "iso",
+    "collections": [
+      "era-playstation-2",
+      "jrpg-y-aventura"
+    ],
+    "genre": "Action RPG",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "kingdom-hearts-ii-ps2",
+    "title": "Kingdom Hearts II",
+    "platform": "PlayStation 2",
+    "systemId": "ps2",
+    "year": 2005,
+    "region": "World",
+    "thumbnailRepo": "Sony_-_PlayStation_2",
+    "launchValidated": true,
+    "coreId": "play_libretro_android.so",
+    "virtualExtension": "iso",
+    "collections": [
+      "favoritos-de-oz",
+      "era-playstation-2",
+      "jrpg-y-aventura",
+      "favorites"
+    ],
+    "genre": "Action RPG",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "kingdom-hearts-re-chain-of-memories-ps2",
+    "title": "Kingdom Hearts Re:Chain of Memories",
+    "platform": "PlayStation 2",
+    "systemId": "ps2",
+    "year": 2007,
+    "region": "World",
+    "thumbnailRepo": "Sony_-_PlayStation_2",
+    "launchValidated": true,
+    "coreId": "play_libretro_android.so",
+    "virtualExtension": "iso",
+    "collections": [
+      "era-playstation-2"
+    ],
+    "genre": "Action RPG",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "kirby-64-the-crystal-shards-n64",
+    "title": "Kirby 64: The Crystal Shards",
+    "platform": "Nintendo 64",
+    "systemId": "n64",
+    "year": 2000,
+    "region": "World",
+    "thumbnailRepo": "Nintendo_-_Nintendo_64",
+    "launchValidated": true,
+    "coreId": "mupen64plus_next_gles3_libretro_android.so",
+    "virtualExtension": "n64",
+    "collections": [
+      "nintendo-64-nostalgia",
+      "para-josefa"
+    ],
+    "genre": "Platformer",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "kirby-super-star-snes",
+    "title": "Kirby Super Star",
+    "platform": "Super Nintendo",
+    "systemId": "snes",
+    "year": 1996,
+    "region": "World",
+    "thumbnailRepo": "Nintendo_-_Super_Nintendo_Entertainment_System",
+    "launchValidated": true,
+    "coreId": "snes9x_libretro_android.so",
+    "virtualExtension": "sfc",
+    "collections": [
+      "snes-esenciales",
+      "para-josefa"
+    ],
+    "genre": "Platformer",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "kirby-planet-robobot-3ds",
+    "title": "Kirby: Planet Robobot",
+    "platform": "Nintendo 3DS",
+    "systemId": "3ds",
+    "year": 2016,
+    "region": "World",
+    "thumbnailRepo": "Nintendo_-_Nintendo_3DS",
+    "launchValidated": true,
+    "coreId": "azahar_libretro_android.so",
+    "virtualExtension": "3ds",
+    "collections": [
+      "para-josefa"
+    ],
+    "genre": "Platformer",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "knights-of-the-round-arcade-fbneo",
+    "title": "Knights of the Round",
+    "platform": "Arcade / FinalBurn Neo",
+    "systemId": "arcade-fbneo",
+    "year": 1991,
+    "region": "World",
+    "thumbnailRepo": "FBNeo_-_Arcade_Games",
+    "launchValidated": true,
+    "coreId": "FBNeo",
+    "virtualExtension": "zip",
+    "collections": [
+      "arcade-esencial",
+      "beat-em-up-legendarios",
+      "capcom-power",
+      "cooperativo-de-sillon"
+    ],
+    "genre": "Beat em up",
+    "romSet": "knights",
+    "biosSets": []
+  },
+  {
+    "id": "luigis-mansion-dark-moon-3ds",
+    "title": "Luigi’s Mansion: Dark Moon",
+    "platform": "Nintendo 3DS",
+    "systemId": "3ds",
+    "year": 2013,
+    "region": "World",
+    "thumbnailRepo": "Nintendo_-_Nintendo_3DS",
+    "launchValidated": true,
+    "coreId": "azahar_libretro_android.so",
+    "virtualExtension": "3ds",
+    "collections": [
+      "para-josefa"
+    ],
+    "genre": "Action adventure",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "mario-luigi-dream-team-3ds",
+    "title": "Mario & Luigi: Dream Team",
+    "platform": "Nintendo 3DS",
+    "systemId": "3ds",
+    "year": 2013,
+    "region": "World",
+    "thumbnailRepo": "Nintendo_-_Nintendo_3DS",
+    "launchValidated": true,
+    "coreId": "azahar_libretro_android.so",
+    "virtualExtension": "3ds",
+    "collections": [
+      "jrpg-y-aventura",
+      "para-josefa"
+    ],
+    "genre": "JRPG",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "mario-luigi-superstar-saga-gba",
+    "title": "Mario & Luigi: Superstar Saga",
+    "platform": "Game Boy Advance",
+    "systemId": "gba",
+    "year": 2003,
+    "region": "World",
+    "thumbnailRepo": "Nintendo_-_Game_Boy_Advance",
+    "launchValidated": false,
+    "coreId": "mgba_libretro_android.so",
+    "virtualExtension": "gba",
+    "collections": [
+      "jrpg-y-aventura"
+    ],
+    "genre": "JRPG",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "mario-kart-64-n64",
+    "title": "Mario Kart 64",
+    "platform": "Nintendo 64",
+    "systemId": "n64",
+    "year": 1996,
+    "region": "World",
+    "thumbnailRepo": "Nintendo_-_Nintendo_64",
+    "launchValidated": true,
+    "coreId": "mupen64plus_next_gles3_libretro_android.so",
+    "virtualExtension": "n64",
+    "collections": [
+      "nintendo-64-nostalgia",
+      "cooperativo-de-sillon"
+    ],
+    "genre": "Kart racing",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "mario-kart-7-3ds",
+    "title": "Mario Kart 7",
+    "platform": "Nintendo 3DS",
+    "systemId": "3ds",
+    "year": 2011,
+    "region": "World",
+    "thumbnailRepo": "Nintendo_-_Nintendo_3DS",
+    "launchValidated": true,
+    "coreId": "azahar_libretro_android.so",
+    "virtualExtension": "3ds",
+    "collections": [
+      "cooperativo-de-sillon",
+      "para-josefa"
+    ],
+    "genre": "Kart racing",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "marvel-super-heroes-arcade-fbneo",
+    "title": "Marvel Super Heroes",
+    "platform": "Arcade / FinalBurn Neo",
+    "systemId": "arcade-fbneo",
+    "year": 1995,
+    "region": "World",
+    "thumbnailRepo": "FBNeo_-_Arcade_Games",
+    "launchValidated": true,
+    "coreId": "FBNeo",
+    "virtualExtension": "zip",
+    "collections": [
+      "peleas-noventeras",
+      "capcom-power"
+    ],
+    "genre": "Fighting",
+    "romSet": "msh",
+    "biosSets": []
+  },
+  {
+    "id": "marvel-super-heroes-vs-street-fighter-arcade-fbneo",
+    "title": "Marvel Super Heroes vs. Street Fighter",
+    "platform": "Arcade / FinalBurn Neo",
+    "systemId": "arcade-fbneo",
+    "year": 1997,
+    "region": "World",
+    "thumbnailRepo": "FBNeo_-_Arcade_Games",
+    "launchValidated": true,
+    "coreId": "FBNeo",
+    "virtualExtension": "zip",
+    "collections": [
+      "peleas-noventeras",
+      "capcom-power"
+    ],
+    "genre": "Fighting",
+    "romSet": "mshvsf",
+    "biosSets": []
+  },
+  {
+    "id": "marvel-vs-capcom-clash-of-super-heroes-arcade-fbneo",
+    "title": "Marvel vs. Capcom: Clash of Super Heroes",
+    "platform": "Arcade / FinalBurn Neo",
+    "systemId": "arcade-fbneo",
+    "year": 1998,
+    "region": "World",
+    "thumbnailRepo": "FBNeo_-_Arcade_Games",
+    "launchValidated": true,
+    "coreId": "FBNeo",
+    "virtualExtension": "zip",
+    "collections": [
+      "favoritos-de-oz",
+      "arcade-esencial",
+      "peleas-noventeras",
+      "capcom-power",
+      "favorites"
+    ],
+    "genre": "Fighting",
+    "romSet": "mvsc",
+    "biosSets": []
+  },
+  {
+    "id": "mega-man-legends-ps1",
+    "title": "Mega Man Legends",
+    "platform": "PlayStation",
+    "systemId": "ps1",
+    "year": 1997,
+    "region": "World",
+    "thumbnailRepo": "Sony_-_PlayStation",
+    "launchValidated": true,
+    "coreId": "pcsx_rearmed_libretro_android.so",
+    "virtualExtension": "cue",
+    "collections": [
+      "era-playstation"
+    ],
+    "genre": "Action adventure",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "mega-man-legends-2-ps1",
+    "title": "Mega Man Legends 2",
+    "platform": "PlayStation",
+    "systemId": "ps1",
+    "year": 2000,
+    "region": "World",
+    "thumbnailRepo": "Sony_-_PlayStation",
+    "launchValidated": true,
+    "coreId": "pcsx_rearmed_libretro_android.so",
+    "virtualExtension": "cue",
+    "collections": [
+      "era-playstation"
+    ],
+    "genre": "Action adventure",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "mega-man-x-snes",
+    "title": "Mega Man X",
+    "platform": "Super Nintendo",
+    "systemId": "snes",
+    "year": 1993,
+    "region": "World",
+    "thumbnailRepo": "Nintendo_-_Super_Nintendo_Entertainment_System",
+    "launchValidated": true,
+    "coreId": "snes9x_libretro_android.so",
+    "virtualExtension": "sfc",
+    "collections": [
+      "favoritos-de-oz",
+      "snes-esenciales",
+      "capcom-power",
+      "favorites"
+    ],
+    "genre": "Action platformer",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "mega-man-x2-snes",
+    "title": "Mega Man X2",
+    "platform": "Super Nintendo",
+    "systemId": "snes",
+    "year": 1994,
+    "region": "World",
+    "thumbnailRepo": "Nintendo_-_Super_Nintendo_Entertainment_System",
+    "launchValidated": true,
+    "coreId": "snes9x_libretro_android.so",
+    "virtualExtension": "sfc",
+    "collections": [
+      "snes-esenciales",
+      "capcom-power"
+    ],
+    "genre": "Action platformer",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "mega-man-x3-snes",
+    "title": "Mega Man X3",
+    "platform": "Super Nintendo",
+    "systemId": "snes",
+    "year": 1995,
+    "region": "World",
+    "thumbnailRepo": "Nintendo_-_Super_Nintendo_Entertainment_System",
+    "launchValidated": true,
+    "coreId": "snes9x_libretro_android.so",
+    "virtualExtension": "sfc",
+    "collections": [
+      "snes-esenciales",
+      "capcom-power"
+    ],
+    "genre": "Action platformer",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "mega-man-x4-ps1",
+    "title": "Mega Man X4",
+    "platform": "PlayStation",
+    "systemId": "ps1",
+    "year": 1997,
+    "region": "World",
+    "thumbnailRepo": "Sony_-_PlayStation",
+    "launchValidated": true,
+    "coreId": "pcsx_rearmed_libretro_android.so",
+    "virtualExtension": "cue",
+    "collections": [
+      "favoritos-de-oz",
+      "era-playstation",
+      "capcom-power",
+      "favorites"
+    ],
+    "genre": "Action platformer",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "mega-man-x5-ps1",
+    "title": "Mega Man X5",
+    "platform": "PlayStation",
+    "systemId": "ps1",
+    "year": 2000,
+    "region": "World",
+    "thumbnailRepo": "Sony_-_PlayStation",
+    "launchValidated": true,
+    "coreId": "pcsx_rearmed_libretro_android.so",
+    "virtualExtension": "cue",
+    "collections": [
+      "era-playstation",
+      "capcom-power"
+    ],
+    "genre": "Action platformer",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "mega-man-zero-gba",
+    "title": "Mega Man Zero",
+    "platform": "Game Boy Advance",
+    "systemId": "gba",
+    "year": 2002,
+    "region": "World",
+    "thumbnailRepo": "Nintendo_-_Game_Boy_Advance",
+    "launchValidated": false,
+    "coreId": "mgba_libretro_android.so",
+    "virtualExtension": "gba",
+    "collections": [
+      "capcom-power"
+    ],
+    "genre": "Action platformer",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "mega-man-zero-2-gba",
+    "title": "Mega Man Zero 2",
+    "platform": "Game Boy Advance",
+    "systemId": "gba",
+    "year": 2003,
+    "region": "World",
+    "thumbnailRepo": "Nintendo_-_Game_Boy_Advance",
+    "launchValidated": false,
+    "coreId": "mgba_libretro_android.so",
+    "virtualExtension": "gba",
+    "collections": [
+      "capcom-power"
+    ],
+    "genre": "Action platformer",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "mega-man-zero-3-gba",
+    "title": "Mega Man Zero 3",
+    "platform": "Game Boy Advance",
+    "systemId": "gba",
+    "year": 2004,
+    "region": "World",
+    "thumbnailRepo": "Nintendo_-_Game_Boy_Advance",
+    "launchValidated": false,
+    "coreId": "mgba_libretro_android.so",
+    "virtualExtension": "gba",
+    "collections": [
+      "capcom-power"
+    ],
+    "genre": "Action platformer",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "mega-man-zero-4-gba",
+    "title": "Mega Man Zero 4",
+    "platform": "Game Boy Advance",
+    "systemId": "gba",
+    "year": 2005,
+    "region": "World",
+    "thumbnailRepo": "Nintendo_-_Game_Boy_Advance",
+    "launchValidated": false,
+    "coreId": "mgba_libretro_android.so",
+    "virtualExtension": "gba",
+    "collections": [
+      "capcom-power"
+    ],
+    "genre": "Action platformer",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "metal-gear-solid-ps1",
+    "title": "Metal Gear Solid",
+    "platform": "PlayStation",
+    "systemId": "ps1",
+    "year": 1998,
+    "region": "World",
+    "thumbnailRepo": "Sony_-_PlayStation",
+    "launchValidated": true,
+    "coreId": "pcsx_rearmed_libretro_android.so",
+    "virtualExtension": "cue",
+    "collections": [
+      "favoritos-de-oz",
+      "era-playstation",
+      "favorites"
+    ],
+    "genre": "Stealth",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "metal-gear-solid-2-sons-of-liberty-ps2",
+    "title": "Metal Gear Solid 2: Sons of Liberty",
+    "platform": "PlayStation 2",
+    "systemId": "ps2",
+    "year": 2001,
+    "region": "World",
+    "thumbnailRepo": "Sony_-_PlayStation_2",
+    "launchValidated": true,
+    "coreId": "play_libretro_android.so",
+    "virtualExtension": "iso",
+    "collections": [
+      "era-playstation-2"
+    ],
+    "genre": "Stealth",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "metal-gear-solid-3-snake-eater-ps2",
+    "title": "Metal Gear Solid 3: Snake Eater",
+    "platform": "PlayStation 2",
+    "systemId": "ps2",
+    "year": 2004,
+    "region": "World",
+    "thumbnailRepo": "Sony_-_PlayStation_2",
+    "launchValidated": true,
+    "coreId": "play_libretro_android.so",
+    "virtualExtension": "iso",
+    "collections": [
+      "favoritos-de-oz",
+      "era-playstation-2",
+      "favorites"
+    ],
+    "genre": "Stealth",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "metal-slug-arcade-fbneo",
+    "title": "Metal Slug",
+    "platform": "Arcade / FinalBurn Neo",
+    "systemId": "arcade-fbneo",
+    "year": 1996,
+    "region": "World",
+    "thumbnailRepo": "FBNeo_-_Arcade_Games",
+    "launchValidated": true,
+    "coreId": "FBNeo",
+    "virtualExtension": "zip",
+    "collections": [
+      "arcade-esencial",
+      "cooperativo-de-sillon"
+    ],
+    "genre": "Run and gun",
+    "romSet": "mslug",
+    "biosSets": [
+      "neogeo"
+    ]
+  },
+  {
+    "id": "metal-slug-2-arcade-fbneo",
+    "title": "Metal Slug 2",
+    "platform": "Arcade / FinalBurn Neo",
+    "systemId": "arcade-fbneo",
+    "year": 1998,
+    "region": "World",
+    "thumbnailRepo": "FBNeo_-_Arcade_Games",
+    "launchValidated": true,
+    "coreId": "FBNeo",
+    "virtualExtension": "zip",
+    "collections": [
+      "arcade-esencial",
+      "cooperativo-de-sillon"
+    ],
+    "genre": "Run and gun",
+    "romSet": "mslug2",
+    "biosSets": [
+      "neogeo"
+    ]
+  },
+  {
+    "id": "metal-slug-3-arcade-fbneo",
+    "title": "Metal Slug 3",
+    "platform": "Arcade / FinalBurn Neo",
+    "systemId": "arcade-fbneo",
+    "year": 2000,
+    "region": "World",
+    "thumbnailRepo": "FBNeo_-_Arcade_Games",
+    "launchValidated": true,
+    "coreId": "FBNeo",
+    "virtualExtension": "zip",
+    "collections": [
+      "arcade-esencial",
+      "cooperativo-de-sillon"
+    ],
+    "genre": "Run and gun",
+    "romSet": "mslug3",
+    "biosSets": [
+      "neogeo"
+    ]
+  },
+  {
+    "id": "metal-slug-x-arcade-fbneo",
+    "title": "Metal Slug X",
+    "platform": "Arcade / FinalBurn Neo",
+    "systemId": "arcade-fbneo",
+    "year": 1999,
+    "region": "World",
+    "thumbnailRepo": "FBNeo_-_Arcade_Games",
+    "launchValidated": true,
+    "coreId": "FBNeo",
+    "virtualExtension": "zip",
+    "collections": [
+      "arcade-esencial",
+      "cooperativo-de-sillon"
+    ],
+    "genre": "Run and gun",
+    "romSet": "mslugx",
+    "biosSets": [
+      "neogeo"
+    ]
+  },
+  {
+    "id": "metroid-fusion-gba",
+    "title": "Metroid Fusion",
+    "platform": "Game Boy Advance",
+    "systemId": "gba",
+    "year": 2002,
+    "region": "World",
+    "thumbnailRepo": "Nintendo_-_Game_Boy_Advance",
+    "launchValidated": false,
+    "coreId": "mgba_libretro_android.so",
+    "virtualExtension": "gba",
+    "collections": [
+      "joyas-para-descubrir"
+    ],
+    "genre": "Metroidvania",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "metroid-zero-mission-gba",
+    "title": "Metroid: Zero Mission",
+    "platform": "Game Boy Advance",
+    "systemId": "gba",
+    "year": 2004,
+    "region": "World",
+    "thumbnailRepo": "Nintendo_-_Game_Boy_Advance",
+    "launchValidated": false,
+    "coreId": "mgba_libretro_android.so",
+    "virtualExtension": "gba",
+    "collections": [
+      "joyas-para-descubrir"
+    ],
+    "genre": "Metroidvania",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "mischief-makers-n64",
+    "title": "Mischief Makers",
+    "platform": "Nintendo 64",
+    "systemId": "n64",
+    "year": 1997,
+    "region": "World",
+    "thumbnailRepo": "Nintendo_-_Nintendo_64",
+    "launchValidated": true,
+    "coreId": "mupen64plus_next_gles3_libretro_android.so",
+    "virtualExtension": "n64",
+    "collections": [
+      "nintendo-64-nostalgia",
+      "joyas-para-descubrir"
+    ],
+    "genre": "Action platformer",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "monster-world-iv-genesis",
+    "title": "Monster World IV",
+    "platform": "Mega Drive / Genesis",
+    "systemId": "genesis",
+    "year": 1994,
+    "region": "World",
+    "thumbnailRepo": "Sega_-_Mega_Drive_-_Genesis",
+    "launchValidated": true,
+    "coreId": "genesis_plus_gx_libretro_android.so",
+    "virtualExtension": "md",
+    "collections": [
+      "joyas-para-descubrir"
+    ],
+    "genre": "Action RPG",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "mortal-kombat-ii-arcade-fbneo",
+    "title": "Mortal Kombat II",
+    "platform": "Arcade / FinalBurn Neo",
+    "systemId": "arcade-fbneo",
+    "year": 1993,
+    "region": "World",
+    "thumbnailRepo": "FBNeo_-_Arcade_Games",
+    "launchValidated": true,
+    "coreId": "FBNeo",
+    "virtualExtension": "zip",
+    "collections": [
+      "peleas-noventeras"
+    ],
+    "genre": "Fighting",
+    "romSet": "mk2",
+    "biosSets": []
+  },
+  {
+    "id": "mystic-warriors-arcade-fbneo",
+    "title": "Mystic Warriors",
+    "platform": "Arcade / FinalBurn Neo",
+    "systemId": "arcade-fbneo",
+    "year": 1993,
+    "region": "World",
+    "thumbnailRepo": "FBNeo_-_Arcade_Games",
+    "launchValidated": true,
+    "coreId": "FBNeo",
+    "virtualExtension": "zip",
+    "collections": [
+      "arcade-esencial",
+      "joyas-para-descubrir"
+    ],
+    "genre": "Run and gun",
+    "romSet": "mystwarr",
+    "biosSets": []
+  },
+  {
+    "id": "need-for-speed-underground-2-ps2",
+    "title": "Need for Speed: Underground 2",
+    "platform": "PlayStation 2",
+    "systemId": "ps2",
+    "year": 2004,
+    "region": "World",
+    "thumbnailRepo": "Sony_-_PlayStation_2",
+    "launchValidated": true,
+    "coreId": "play_libretro_android.so",
+    "virtualExtension": "iso",
+    "collections": [
+      "era-playstation-2"
+    ],
+    "genre": "Racing",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "neo-turf-masters-arcade-fbneo",
+    "title": "Neo Turf Masters",
+    "platform": "Arcade / FinalBurn Neo",
+    "systemId": "arcade-fbneo",
+    "year": 1996,
+    "region": "World",
+    "thumbnailRepo": "FBNeo_-_Arcade_Games",
+    "launchValidated": true,
+    "coreId": "FBNeo",
+    "virtualExtension": "zip",
+    "collections": [
+      "arcade-esencial",
+      "joyas-para-descubrir"
+    ],
+    "genre": "Sports",
+    "romSet": "turfmast",
+    "biosSets": [
+      "neogeo"
+    ]
+  },
+  {
+    "id": "okami-ps2",
+    "title": "Okami",
+    "platform": "PlayStation 2",
+    "systemId": "ps2",
+    "year": 2006,
+    "region": "World",
+    "thumbnailRepo": "Sony_-_PlayStation_2",
+    "launchValidated": true,
+    "coreId": "play_libretro_android.so",
+    "virtualExtension": "iso",
+    "collections": [
+      "favoritos-de-oz",
+      "era-playstation-2",
+      "favorites"
+    ],
+    "genre": "Action adventure",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "out-run-arcade-fbneo",
+    "title": "Out Run",
+    "platform": "Arcade / FinalBurn Neo",
+    "systemId": "arcade-fbneo",
+    "year": 1986,
+    "region": "World",
+    "thumbnailRepo": "FBNeo_-_Arcade_Games",
+    "launchValidated": true,
+    "coreId": "FBNeo",
+    "virtualExtension": "zip",
+    "collections": [
+      "arcade-esencial"
+    ],
+    "genre": "Racing",
+    "romSet": "outrun",
+    "biosSets": []
+  },
+  {
+    "id": "paper-mario-n64",
+    "title": "Paper Mario",
+    "platform": "Nintendo 64",
+    "systemId": "n64",
+    "year": 2000,
+    "region": "World",
+    "thumbnailRepo": "Nintendo_-_Nintendo_64",
+    "launchValidated": true,
+    "coreId": "mupen64plus_next_gles3_libretro_android.so",
+    "virtualExtension": "n64",
+    "collections": [
+      "nintendo-64-nostalgia"
+    ],
+    "genre": "JRPG",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "parasite-eve-ps1",
+    "title": "Parasite Eve",
+    "platform": "PlayStation",
+    "systemId": "ps1",
+    "year": 1998,
+    "region": "World",
+    "thumbnailRepo": "Sony_-_PlayStation",
+    "launchValidated": true,
+    "coreId": "pcsx_rearmed_libretro_android.so",
+    "virtualExtension": "cue",
+    "collections": [
+      "era-playstation",
+      "joyas-para-descubrir"
+    ],
+    "genre": "RPG / Horror",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "perfect-dark-n64",
+    "title": "Perfect Dark",
+    "platform": "Nintendo 64",
+    "systemId": "n64",
+    "year": 2000,
+    "region": "World",
+    "thumbnailRepo": "Nintendo_-_Nintendo_64",
+    "launchValidated": true,
+    "coreId": "mupen64plus_next_gles3_libretro_android.so",
+    "virtualExtension": "n64",
+    "collections": [
+      "nintendo-64-nostalgia"
+    ],
+    "genre": "First-person shooter",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "persona-3-fes-ps2",
+    "title": "Persona 3 FES",
+    "platform": "PlayStation 2",
+    "systemId": "ps2",
+    "year": 2007,
+    "region": "World",
+    "thumbnailRepo": "Sony_-_PlayStation_2",
+    "launchValidated": true,
+    "coreId": "play_libretro_android.so",
+    "virtualExtension": "iso",
+    "collections": [
+      "era-playstation-2",
+      "jrpg-y-aventura"
+    ],
+    "genre": "JRPG",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "persona-4-ps2",
+    "title": "Persona 4",
+    "platform": "PlayStation 2",
+    "systemId": "ps2",
+    "year": 2008,
+    "region": "World",
+    "thumbnailRepo": "Sony_-_PlayStation_2",
+    "launchValidated": true,
+    "coreId": "play_libretro_android.so",
+    "virtualExtension": "iso",
+    "collections": [
+      "era-playstation-2",
+      "jrpg-y-aventura"
+    ],
+    "genre": "JRPG",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "phantasy-star-iv-genesis",
+    "title": "Phantasy Star IV",
+    "platform": "Mega Drive / Genesis",
+    "systemId": "genesis",
+    "year": 1993,
+    "region": "World",
+    "thumbnailRepo": "Sega_-_Mega_Drive_-_Genesis",
+    "launchValidated": true,
+    "coreId": "genesis_plus_gx_libretro_android.so",
+    "virtualExtension": "md",
+    "collections": [
+      "jrpg-y-aventura"
+    ],
+    "genre": "JRPG",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "pilotwings-snes",
+    "title": "Pilotwings",
+    "platform": "Super Nintendo",
+    "systemId": "snes",
+    "year": 1990,
+    "region": "World",
+    "thumbnailRepo": "Nintendo_-_Super_Nintendo_Entertainment_System",
+    "launchValidated": true,
+    "coreId": "snes9x_libretro_android.so",
+    "virtualExtension": "sfc",
+    "collections": [
+      "snes-esenciales"
+    ],
+    "genre": "Flight simulation",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "pokemon-omega-ruby-3ds",
+    "title": "Pokémon Omega Ruby",
+    "platform": "Nintendo 3DS",
+    "systemId": "3ds",
+    "year": 2014,
+    "region": "World",
+    "thumbnailRepo": "Nintendo_-_Nintendo_3DS",
+    "launchValidated": true,
+    "coreId": "azahar_libretro_android.so",
+    "virtualExtension": "3ds",
+    "collections": [
+      "para-josefa"
+    ],
+    "genre": "JRPG",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "pokemon-snap-n64",
+    "title": "Pokémon Snap",
+    "platform": "Nintendo 64",
+    "systemId": "n64",
+    "year": 1999,
+    "region": "World",
+    "thumbnailRepo": "Nintendo_-_Nintendo_64",
+    "launchValidated": true,
+    "coreId": "mupen64plus_next_gles3_libretro_android.so",
+    "virtualExtension": "n64",
+    "collections": [
+      "nintendo-64-nostalgia",
+      "para-josefa"
+    ],
+    "genre": "Photography",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "pokemon-stadium-2-n64",
+    "title": "Pokémon Stadium 2",
+    "platform": "Nintendo 64",
+    "systemId": "n64",
+    "year": 2000,
+    "region": "World",
+    "thumbnailRepo": "Nintendo_-_Nintendo_64",
+    "launchValidated": true,
+    "coreId": "mupen64plus_next_gles3_libretro_android.so",
+    "virtualExtension": "n64",
+    "collections": [
+      "nintendo-64-nostalgia"
+    ],
+    "genre": "Battle / Party",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "pokemon-ultra-sun-3ds",
+    "title": "Pokémon Ultra Sun",
+    "platform": "Nintendo 3DS",
+    "systemId": "3ds",
+    "year": 2017,
+    "region": "World",
+    "thumbnailRepo": "Nintendo_-_Nintendo_3DS",
+    "launchValidated": true,
+    "coreId": "azahar_libretro_android.so",
+    "virtualExtension": "3ds",
+    "collections": [
+      "para-josefa"
+    ],
+    "genre": "JRPG",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "pokemon-x-3ds",
+    "title": "Pokémon X",
+    "platform": "Nintendo 3DS",
+    "systemId": "3ds",
+    "year": 2013,
+    "region": "World",
+    "thumbnailRepo": "Nintendo_-_Nintendo_3DS",
+    "launchValidated": true,
+    "coreId": "azahar_libretro_android.so",
+    "virtualExtension": "3ds",
+    "collections": [
+      "para-josefa"
+    ],
+    "genre": "JRPG",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "ratchet-clank-going-commando-ps2",
+    "title": "Ratchet & Clank: Going Commando",
+    "platform": "PlayStation 2",
+    "systemId": "ps2",
+    "year": 2003,
+    "region": "World",
+    "thumbnailRepo": "Sony_-_PlayStation_2",
+    "launchValidated": true,
+    "coreId": "play_libretro_android.so",
+    "virtualExtension": "iso",
+    "collections": [
+      "era-playstation-2"
+    ],
+    "genre": "Action platformer",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "resident-evil-2-ps1",
+    "title": "Resident Evil 2",
+    "platform": "PlayStation",
+    "systemId": "ps1",
+    "year": 1998,
+    "region": "World",
+    "thumbnailRepo": "Sony_-_PlayStation",
+    "launchValidated": true,
+    "coreId": "pcsx_rearmed_libretro_android.so",
+    "virtualExtension": "cue",
+    "collections": [
+      "favoritos-de-oz",
+      "era-playstation",
+      "capcom-power",
+      "favorites"
+    ],
+    "genre": "Survival horror",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "resident-evil-3-nemesis-ps1",
+    "title": "Resident Evil 3: Nemesis",
+    "platform": "PlayStation",
+    "systemId": "ps1",
+    "year": 1999,
+    "region": "World",
+    "thumbnailRepo": "Sony_-_PlayStation",
+    "launchValidated": true,
+    "coreId": "pcsx_rearmed_libretro_android.so",
+    "virtualExtension": "cue",
+    "collections": [
+      "era-playstation",
+      "capcom-power"
+    ],
+    "genre": "Survival horror",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "resident-evil-4-ps2",
+    "title": "Resident Evil 4",
+    "platform": "PlayStation 2",
+    "systemId": "ps2",
+    "year": 2005,
+    "region": "World",
+    "thumbnailRepo": "Sony_-_PlayStation_2",
+    "launchValidated": true,
+    "coreId": "play_libretro_android.so",
+    "virtualExtension": "iso",
+    "collections": [
+      "era-playstation-2",
+      "capcom-power"
+    ],
+    "genre": "Action horror",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "samurai-shodown-ii-arcade-fbneo",
+    "title": "Samurai Shodown II",
+    "platform": "Arcade / FinalBurn Neo",
+    "systemId": "arcade-fbneo",
+    "year": 1994,
+    "region": "World",
+    "thumbnailRepo": "FBNeo_-_Arcade_Games",
+    "launchValidated": true,
+    "coreId": "FBNeo",
+    "virtualExtension": "zip",
+    "collections": [
+      "arcade-esencial",
+      "peleas-noventeras"
+    ],
+    "genre": "Fighting",
+    "romSet": "samsho2",
+    "biosSets": [
+      "neogeo"
+    ]
+  },
+  {
+    "id": "samurai-shodown-v-special-arcade-fbneo",
+    "title": "Samurai Shodown V Special",
+    "platform": "Arcade / FinalBurn Neo",
+    "systemId": "arcade-fbneo",
+    "year": 2004,
+    "region": "World",
+    "thumbnailRepo": "FBNeo_-_Arcade_Games",
+    "launchValidated": true,
+    "coreId": "FBNeo",
+    "virtualExtension": "zip",
+    "collections": [
+      "peleas-noventeras"
+    ],
+    "genre": "Fighting",
+    "romSet": "samsh5sp",
+    "biosSets": [
+      "neogeo"
+    ]
+  },
+  {
+    "id": "secret-of-mana-snes",
+    "title": "Secret of Mana",
+    "platform": "Super Nintendo",
+    "systemId": "snes",
+    "year": 1993,
+    "region": "World",
+    "thumbnailRepo": "Nintendo_-_Super_Nintendo_Entertainment_System",
+    "launchValidated": true,
+    "coreId": "snes9x_libretro_android.so",
+    "virtualExtension": "sfc",
+    "collections": [
+      "snes-esenciales",
+      "jrpg-y-aventura"
+    ],
+    "genre": "Action RPG",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "sengoku-3-arcade-fbneo",
+    "title": "Sengoku 3",
+    "platform": "Arcade / FinalBurn Neo",
+    "systemId": "arcade-fbneo",
+    "year": 2001,
+    "region": "World",
+    "thumbnailRepo": "FBNeo_-_Arcade_Games",
+    "launchValidated": true,
+    "coreId": "FBNeo",
+    "virtualExtension": "zip",
+    "collections": [
+      "arcade-esencial",
+      "beat-em-up-legendarios"
+    ],
+    "genre": "Beat em up",
+    "romSet": "sengoku3",
+    "biosSets": [
+      "neogeo"
+    ]
+  },
+  {
+    "id": "shadow-of-the-colossus-ps2",
+    "title": "Shadow of the Colossus",
+    "platform": "PlayStation 2",
+    "systemId": "ps2",
+    "year": 2005,
+    "region": "World",
+    "thumbnailRepo": "Sony_-_PlayStation_2",
+    "launchValidated": true,
+    "coreId": "play_libretro_android.so",
+    "virtualExtension": "iso",
+    "collections": [
+      "favoritos-de-oz",
+      "era-playstation-2",
+      "favorites"
+    ],
+    "genre": "Action adventure",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "shin-megami-tensei-iv-3ds",
+    "title": "Shin Megami Tensei IV",
+    "platform": "Nintendo 3DS",
+    "systemId": "3ds",
+    "year": 2013,
+    "region": "World",
+    "thumbnailRepo": "Nintendo_-_Nintendo_3DS",
+    "launchValidated": true,
+    "coreId": "azahar_libretro_android.so",
+    "virtualExtension": "3ds",
+    "collections": [
+      "joyas-para-descubrir"
+    ],
+    "genre": "JRPG",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "shinobi-iii-return-of-the-ninja-master-genesis",
+    "title": "Shinobi III: Return of the Ninja Master",
+    "platform": "Mega Drive / Genesis",
+    "systemId": "genesis",
+    "year": 1993,
+    "region": "World",
+    "thumbnailRepo": "Sega_-_Mega_Drive_-_Genesis",
+    "launchValidated": true,
+    "coreId": "genesis_plus_gx_libretro_android.so",
+    "virtualExtension": "md",
+    "collections": [
+      "joyas-para-descubrir"
+    ],
+    "genre": "Action platformer",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "shock-troopers-arcade-fbneo",
+    "title": "Shock Troopers",
+    "platform": "Arcade / FinalBurn Neo",
+    "systemId": "arcade-fbneo",
+    "year": 1997,
+    "region": "World",
+    "thumbnailRepo": "FBNeo_-_Arcade_Games",
+    "launchValidated": true,
+    "coreId": "FBNeo",
+    "virtualExtension": "zip",
+    "collections": [
+      "arcade-esencial",
+      "joyas-para-descubrir"
+    ],
+    "genre": "Run and gun",
+    "romSet": "shocktro",
+    "biosSets": [
+      "neogeo"
+    ]
+  },
+  {
+    "id": "shock-troopers-2nd-squad-arcade-fbneo",
+    "title": "Shock Troopers: 2nd Squad",
+    "platform": "Arcade / FinalBurn Neo",
+    "systemId": "arcade-fbneo",
+    "year": 1998,
+    "region": "World",
+    "thumbnailRepo": "FBNeo_-_Arcade_Games",
+    "launchValidated": true,
+    "coreId": "FBNeo",
+    "virtualExtension": "zip",
+    "collections": [
+      "arcade-esencial",
+      "joyas-para-descubrir"
+    ],
+    "genre": "Run and gun",
+    "romSet": "shocktr2",
+    "biosSets": [
+      "neogeo"
+    ]
+  },
+  {
+    "id": "silent-hill-ps1",
+    "title": "Silent Hill",
+    "platform": "PlayStation",
+    "systemId": "ps1",
+    "year": 1999,
+    "region": "World",
+    "thumbnailRepo": "Sony_-_PlayStation",
+    "launchValidated": true,
+    "coreId": "pcsx_rearmed_libretro_android.so",
+    "virtualExtension": "cue",
+    "collections": [
+      "era-playstation"
+    ],
+    "genre": "Survival horror",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "silent-hill-2-ps2",
+    "title": "Silent Hill 2",
+    "platform": "PlayStation 2",
+    "systemId": "ps2",
+    "year": 2001,
+    "region": "World",
+    "thumbnailRepo": "Sony_-_PlayStation_2",
+    "launchValidated": true,
+    "coreId": "play_libretro_android.so",
+    "virtualExtension": "iso",
+    "collections": [
+      "era-playstation-2"
+    ],
+    "genre": "Survival horror",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "silent-hill-3-ps2",
+    "title": "Silent Hill 3",
+    "platform": "PlayStation 2",
+    "systemId": "ps2",
+    "year": 2003,
+    "region": "World",
+    "thumbnailRepo": "Sony_-_PlayStation_2",
+    "launchValidated": true,
+    "coreId": "play_libretro_android.so",
+    "virtualExtension": "iso",
+    "collections": [
+      "era-playstation-2"
+    ],
+    "genre": "Survival horror",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "sin-and-punishment-n64",
+    "title": "Sin and Punishment",
+    "platform": "Nintendo 64",
+    "systemId": "n64",
+    "year": 2000,
+    "region": "World",
+    "thumbnailRepo": "Nintendo_-_Nintendo_64",
+    "launchValidated": true,
+    "coreId": "mupen64plus_next_gles3_libretro_android.so",
+    "virtualExtension": "n64",
+    "collections": [
+      "nintendo-64-nostalgia",
+      "joyas-para-descubrir"
+    ],
+    "genre": "Rail shooter",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "sly-2-band-of-thieves-ps2",
+    "title": "Sly 2: Band of Thieves",
+    "platform": "PlayStation 2",
+    "systemId": "ps2",
+    "year": 2004,
+    "region": "World",
+    "thumbnailRepo": "Sony_-_PlayStation_2",
+    "launchValidated": true,
+    "coreId": "play_libretro_android.so",
+    "virtualExtension": "iso",
+    "collections": [
+      "era-playstation-2"
+    ],
+    "genre": "Stealth platformer",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "soul-blade-ps1",
+    "title": "Soul Blade",
+    "platform": "PlayStation",
+    "systemId": "ps1",
+    "year": 1996,
+    "region": "World",
+    "thumbnailRepo": "Sony_-_PlayStation",
+    "launchValidated": true,
+    "coreId": "pcsx_rearmed_libretro_android.so",
+    "virtualExtension": "cue",
+    "collections": [
+      "peleas-noventeras",
+      "era-playstation"
+    ],
+    "genre": "Fighting",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "soulcalibur-iii-ps2",
+    "title": "Soulcalibur III",
+    "platform": "PlayStation 2",
+    "systemId": "ps2",
+    "year": 2005,
+    "region": "World",
+    "thumbnailRepo": "Sony_-_PlayStation_2",
+    "launchValidated": true,
+    "coreId": "play_libretro_android.so",
+    "virtualExtension": "iso",
+    "collections": [
+      "peleas-noventeras",
+      "era-playstation-2"
+    ],
+    "genre": "Fighting",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "spyro-2-riptos-rage-ps1",
+    "title": "Spyro 2: Ripto’s Rage!",
+    "platform": "PlayStation",
+    "systemId": "ps1",
+    "year": 1999,
+    "region": "World",
+    "thumbnailRepo": "Sony_-_PlayStation",
+    "launchValidated": true,
+    "coreId": "pcsx_rearmed_libretro_android.so",
+    "virtualExtension": "cue",
+    "collections": [
+      "era-playstation"
+    ],
+    "genre": "3D platformer",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "spyro-the-dragon-ps1",
+    "title": "Spyro the Dragon",
+    "platform": "PlayStation",
+    "systemId": "ps1",
+    "year": 1998,
+    "region": "World",
+    "thumbnailRepo": "Sony_-_PlayStation",
+    "launchValidated": true,
+    "coreId": "pcsx_rearmed_libretro_android.so",
+    "virtualExtension": "cue",
+    "collections": [
+      "era-playstation"
+    ],
+    "genre": "3D platformer",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "star-fox-snes",
+    "title": "Star Fox",
+    "platform": "Super Nintendo",
+    "systemId": "snes",
+    "year": 1993,
+    "region": "World",
+    "thumbnailRepo": "Nintendo_-_Super_Nintendo_Entertainment_System",
+    "launchValidated": true,
+    "coreId": "snes9x_libretro_android.so",
+    "virtualExtension": "sfc",
+    "collections": [
+      "snes-esenciales"
+    ],
+    "genre": "Rail shooter",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "star-fox-64-n64",
+    "title": "Star Fox 64",
+    "platform": "Nintendo 64",
+    "systemId": "n64",
+    "year": 1997,
+    "region": "World",
+    "thumbnailRepo": "Nintendo_-_Nintendo_64",
+    "launchValidated": true,
+    "coreId": "mupen64plus_next_gles3_libretro_android.so",
+    "virtualExtension": "n64",
+    "collections": [
+      "nintendo-64-nostalgia"
+    ],
+    "genre": "Rail shooter",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "street-fighter-alpha-2-arcade-fbneo",
+    "title": "Street Fighter Alpha 2",
+    "platform": "Arcade / FinalBurn Neo",
+    "systemId": "arcade-fbneo",
+    "year": 1996,
+    "region": "World",
+    "thumbnailRepo": "FBNeo_-_Arcade_Games",
+    "launchValidated": true,
+    "coreId": "FBNeo",
+    "virtualExtension": "zip",
+    "collections": [
+      "peleas-noventeras",
+      "capcom-power"
+    ],
+    "genre": "Fighting",
+    "romSet": "sfa2",
+    "biosSets": []
+  },
+  {
+    "id": "street-fighter-alpha-3-ps1",
+    "title": "Street Fighter Alpha 3",
+    "platform": "PlayStation",
+    "systemId": "ps1",
+    "year": 1998,
+    "region": "World",
+    "thumbnailRepo": "Sony_-_PlayStation",
+    "launchValidated": true,
+    "coreId": "pcsx_rearmed_libretro_android.so",
+    "virtualExtension": "cue",
+    "collections": [
+      "peleas-noventeras",
+      "capcom-power"
+    ],
+    "genre": "Fighting",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "street-fighter-ii-champion-edition-arcade-fbneo",
+    "title": "Street Fighter II: Champion Edition",
+    "platform": "Arcade / FinalBurn Neo",
+    "systemId": "arcade-fbneo",
+    "year": 1992,
+    "region": "World",
+    "thumbnailRepo": "FBNeo_-_Arcade_Games",
+    "launchValidated": true,
+    "coreId": "FBNeo",
+    "virtualExtension": "zip",
+    "collections": [
+      "peleas-noventeras",
+      "capcom-power"
+    ],
+    "genre": "Fighting",
+    "romSet": "sf2ce",
+    "biosSets": []
+  },
+  {
+    "id": "street-fighter-iii-3rd-strike-arcade-fbneo",
+    "title": "Street Fighter III: 3rd Strike",
+    "platform": "Arcade / FinalBurn Neo",
+    "systemId": "arcade-fbneo",
+    "year": 1999,
+    "region": "World",
+    "thumbnailRepo": "FBNeo_-_Arcade_Games",
+    "launchValidated": true,
+    "coreId": "FBNeo",
+    "virtualExtension": "zip",
+    "collections": [
+      "arcade-esencial",
+      "peleas-noventeras",
+      "capcom-power"
+    ],
+    "genre": "Fighting",
+    "romSet": "sfiii3",
+    "biosSets": []
+  },
+  {
+    "id": "streets-of-rage-2-genesis",
+    "title": "Streets of Rage 2",
+    "platform": "Mega Drive / Genesis",
+    "systemId": "genesis",
+    "year": 1992,
+    "region": "World",
+    "thumbnailRepo": "Sega_-_Mega_Drive_-_Genesis",
+    "launchValidated": true,
+    "coreId": "genesis_plus_gx_libretro_android.so",
+    "virtualExtension": "md",
+    "collections": [
+      "favoritos-de-oz",
+      "beat-em-up-legendarios",
+      "cooperativo-de-sillon",
+      "favorites"
+    ],
+    "genre": "Beat em up",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "streets-of-rage-3-genesis",
+    "title": "Streets of Rage 3",
+    "platform": "Mega Drive / Genesis",
+    "systemId": "genesis",
+    "year": 1994,
+    "region": "World",
+    "thumbnailRepo": "Sega_-_Mega_Drive_-_Genesis",
+    "launchValidated": true,
+    "coreId": "genesis_plus_gx_libretro_android.so",
+    "virtualExtension": "md",
+    "collections": [
+      "beat-em-up-legendarios",
+      "cooperativo-de-sillon"
+    ],
+    "genre": "Beat em up",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "suikoden-ii-ps1",
+    "title": "Suikoden II",
+    "platform": "PlayStation",
+    "systemId": "ps1",
+    "year": 1998,
+    "region": "World",
+    "thumbnailRepo": "Sony_-_PlayStation",
+    "launchValidated": true,
+    "coreId": "pcsx_rearmed_libretro_android.so",
+    "virtualExtension": "cue",
+    "collections": [
+      "era-playstation",
+      "jrpg-y-aventura"
+    ],
+    "genre": "JRPG",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "sunset-riders-arcade-fbneo",
+    "title": "Sunset Riders",
+    "platform": "Arcade / FinalBurn Neo",
+    "systemId": "arcade-fbneo",
+    "year": 1991,
+    "region": "World",
+    "thumbnailRepo": "FBNeo_-_Arcade_Games",
+    "launchValidated": true,
+    "coreId": "FBNeo",
+    "virtualExtension": "zip",
+    "collections": [
+      "arcade-esencial",
+      "beat-em-up-legendarios",
+      "cooperativo-de-sillon"
+    ],
+    "genre": "Run and gun",
+    "romSet": "ssriders",
+    "biosSets": []
+  },
+  {
+    "id": "super-mario-3d-land-3ds",
+    "title": "Super Mario 3D Land",
+    "platform": "Nintendo 3DS",
+    "systemId": "3ds",
+    "year": 2011,
+    "region": "World",
+    "thumbnailRepo": "Nintendo_-_Nintendo_3DS",
+    "launchValidated": true,
+    "coreId": "azahar_libretro_android.so",
+    "virtualExtension": "3ds",
+    "collections": [
+      "para-josefa"
+    ],
+    "genre": "3D platformer",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "super-mario-64-n64",
+    "title": "Super Mario 64",
+    "platform": "Nintendo 64",
+    "systemId": "n64",
+    "year": 1996,
+    "region": "World",
+    "thumbnailRepo": "Nintendo_-_Nintendo_64",
+    "launchValidated": true,
+    "coreId": "mupen64plus_next_gles3_libretro_android.so",
+    "virtualExtension": "n64",
+    "collections": [
+      "nintendo-64-nostalgia"
+    ],
+    "genre": "3D platformer",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "super-mario-rpg-legend-of-the-seven-stars-snes",
+    "title": "Super Mario RPG: Legend of the Seven Stars",
+    "platform": "Super Nintendo",
+    "systemId": "snes",
+    "year": 1996,
+    "region": "World",
+    "thumbnailRepo": "Nintendo_-_Super_Nintendo_Entertainment_System",
+    "launchValidated": true,
+    "coreId": "snes9x_libretro_android.so",
+    "virtualExtension": "sfc",
+    "collections": [
+      "snes-esenciales",
+      "jrpg-y-aventura"
+    ],
+    "genre": "JRPG",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "super-mario-world-snes",
+    "title": "Super Mario World",
+    "platform": "Super Nintendo",
+    "systemId": "snes",
+    "year": 1990,
+    "region": "World",
+    "thumbnailRepo": "Nintendo_-_Super_Nintendo_Entertainment_System",
+    "launchValidated": true,
+    "coreId": "snes9x_libretro_android.so",
+    "virtualExtension": "sfc",
+    "collections": [
+      "snes-esenciales"
+    ],
+    "genre": "Platformer",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "super-mario-world-2-yoshis-island-snes",
+    "title": "Super Mario World 2: Yoshi’s Island",
+    "platform": "Super Nintendo",
+    "systemId": "snes",
+    "year": 1995,
+    "region": "World",
+    "thumbnailRepo": "Nintendo_-_Super_Nintendo_Entertainment_System",
+    "launchValidated": true,
+    "coreId": "snes9x_libretro_android.so",
+    "virtualExtension": "sfc",
+    "collections": [
+      "snes-esenciales",
+      "para-josefa"
+    ],
+    "genre": "Platformer",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "super-metroid-snes",
+    "title": "Super Metroid",
+    "platform": "Super Nintendo",
+    "systemId": "snes",
+    "year": 1994,
+    "region": "World",
+    "thumbnailRepo": "Nintendo_-_Super_Nintendo_Entertainment_System",
+    "launchValidated": true,
+    "coreId": "snes9x_libretro_android.so",
+    "virtualExtension": "sfc",
+    "collections": [
+      "favoritos-de-oz",
+      "snes-esenciales",
+      "favorites"
+    ],
+    "genre": "Metroidvania",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "super-punch-out-snes",
+    "title": "Super Punch-Out!!",
+    "platform": "Super Nintendo",
+    "systemId": "snes",
+    "year": 1994,
+    "region": "World",
+    "thumbnailRepo": "Nintendo_-_Super_Nintendo_Entertainment_System",
+    "launchValidated": true,
+    "coreId": "snes9x_libretro_android.so",
+    "virtualExtension": "sfc",
+    "collections": [
+      "snes-esenciales"
+    ],
+    "genre": "Sports action",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "super-smash-bros-n64",
+    "title": "Super Smash Bros.",
+    "platform": "Nintendo 64",
+    "systemId": "n64",
+    "year": 1999,
+    "region": "World",
+    "thumbnailRepo": "Nintendo_-_Nintendo_64",
+    "launchValidated": true,
+    "coreId": "mupen64plus_next_gles3_libretro_android.so",
+    "virtualExtension": "n64",
+    "collections": [
+      "nintendo-64-nostalgia",
+      "cooperativo-de-sillon"
+    ],
+    "genre": "Fighting",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "super-smash-bros-for-nintendo-3ds-3ds",
+    "title": "Super Smash Bros. for Nintendo 3DS",
+    "platform": "Nintendo 3DS",
+    "systemId": "3ds",
+    "year": 2014,
+    "region": "World",
+    "thumbnailRepo": "Nintendo_-_Nintendo_3DS",
+    "launchValidated": true,
+    "coreId": "azahar_libretro_android.so",
+    "virtualExtension": "3ds",
+    "collections": [
+      "cooperativo-de-sillon",
+      "para-josefa"
+    ],
+    "genre": "Fighting",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "super-street-fighter-ii-turbo-arcade-fbneo",
+    "title": "Super Street Fighter II Turbo",
+    "platform": "Arcade / FinalBurn Neo",
+    "systemId": "arcade-fbneo",
+    "year": 1994,
+    "region": "World",
+    "thumbnailRepo": "FBNeo_-_Arcade_Games",
+    "launchValidated": true,
+    "coreId": "FBNeo",
+    "virtualExtension": "zip",
+    "collections": [
+      "peleas-noventeras",
+      "capcom-power"
+    ],
+    "genre": "Fighting",
+    "romSet": "ssf2t",
+    "biosSets": []
+  },
+  {
+    "id": "teenage-mutant-ninja-turtles-arcade-fbneo",
+    "title": "Teenage Mutant Ninja Turtles",
+    "platform": "Arcade / FinalBurn Neo",
+    "systemId": "arcade-fbneo",
+    "year": 1989,
+    "region": "World",
+    "thumbnailRepo": "FBNeo_-_Arcade_Games",
+    "launchValidated": true,
+    "coreId": "FBNeo",
+    "virtualExtension": "zip",
+    "collections": [
+      "beat-em-up-legendarios",
+      "cooperativo-de-sillon"
+    ],
+    "genre": "Beat em up",
+    "romSet": "tmnt",
+    "biosSets": []
+  },
+  {
+    "id": "teenage-mutant-ninja-turtles-iv-turtles-in-time-snes",
+    "title": "Teenage Mutant Ninja Turtles IV: Turtles in Time",
+    "platform": "Super Nintendo",
+    "systemId": "snes",
+    "year": 1992,
+    "region": "World",
+    "thumbnailRepo": "Nintendo_-_Super_Nintendo_Entertainment_System",
+    "launchValidated": true,
+    "coreId": "snes9x_libretro_android.so",
+    "virtualExtension": "sfc",
+    "collections": [
+      "beat-em-up-legendarios"
+    ],
+    "genre": "Beat em up",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "teenage-mutant-ninja-turtles-turtles-in-time-arcade-fbneo",
+    "title": "Teenage Mutant Ninja Turtles: Turtles in Time",
+    "platform": "Arcade / FinalBurn Neo",
+    "systemId": "arcade-fbneo",
+    "year": 1991,
+    "region": "World",
+    "thumbnailRepo": "FBNeo_-_Arcade_Games",
+    "launchValidated": true,
+    "coreId": "FBNeo",
+    "virtualExtension": "zip",
+    "collections": [
+      "arcade-esencial",
+      "beat-em-up-legendarios",
+      "cooperativo-de-sillon"
+    ],
+    "genre": "Beat em up",
+    "romSet": "tmnt2",
+    "biosSets": []
+  },
+  {
+    "id": "tekken-3-ps1",
+    "title": "Tekken 3",
+    "platform": "PlayStation",
+    "systemId": "ps1",
+    "year": 1998,
+    "region": "World",
+    "thumbnailRepo": "Sony_-_PlayStation",
+    "launchValidated": true,
+    "coreId": "pcsx_rearmed_libretro_android.so",
+    "virtualExtension": "cue",
+    "collections": [
+      "peleas-noventeras",
+      "era-playstation"
+    ],
+    "genre": "Fighting",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "tekken-5-ps2",
+    "title": "Tekken 5",
+    "platform": "PlayStation 2",
+    "systemId": "ps2",
+    "year": 2004,
+    "region": "World",
+    "thumbnailRepo": "Sony_-_PlayStation_2",
+    "launchValidated": true,
+    "coreId": "play_libretro_android.so",
+    "virtualExtension": "iso",
+    "collections": [
+      "peleas-noventeras",
+      "era-playstation-2"
+    ],
+    "genre": "Fighting",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "terranigma-snes",
+    "title": "Terranigma",
+    "platform": "Super Nintendo",
+    "systemId": "snes",
+    "year": 1995,
+    "region": "World",
+    "thumbnailRepo": "Nintendo_-_Super_Nintendo_Entertainment_System",
+    "launchValidated": true,
+    "coreId": "snes9x_libretro_android.so",
+    "virtualExtension": "sfc",
+    "collections": [
+      "snes-esenciales",
+      "jrpg-y-aventura",
+      "joyas-para-descubrir"
+    ],
+    "genre": "Action RPG",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "the-king-of-fighters-2002-arcade-fbneo",
+    "title": "The King of Fighters 2002",
+    "platform": "Arcade / FinalBurn Neo",
+    "systemId": "arcade-fbneo",
+    "year": 2002,
+    "region": "World",
+    "thumbnailRepo": "FBNeo_-_Arcade_Games",
+    "launchValidated": true,
+    "coreId": "FBNeo",
+    "virtualExtension": "zip",
+    "collections": [
+      "peleas-noventeras"
+    ],
+    "genre": "Fighting",
+    "romSet": "kof2002",
+    "biosSets": [
+      "neogeo"
+    ]
+  },
+  {
+    "id": "the-king-of-fighters-98-arcade-fbneo",
+    "title": "The King of Fighters 98",
+    "platform": "Arcade / FinalBurn Neo",
+    "systemId": "arcade-fbneo",
+    "year": 1998,
+    "region": "World",
+    "thumbnailRepo": "FBNeo_-_Arcade_Games",
+    "launchValidated": true,
+    "coreId": "FBNeo",
+    "virtualExtension": "zip",
+    "collections": [
+      "favoritos-de-oz",
+      "arcade-esencial",
+      "peleas-noventeras",
+      "favorites"
+    ],
+    "genre": "Fighting",
+    "romSet": "kof98",
+    "biosSets": [
+      "neogeo"
+    ]
+  },
+  {
+    "id": "the-last-blade-2-arcade-fbneo",
+    "title": "The Last Blade 2",
+    "platform": "Arcade / FinalBurn Neo",
+    "systemId": "arcade-fbneo",
+    "year": 1998,
+    "region": "World",
+    "thumbnailRepo": "FBNeo_-_Arcade_Games",
+    "launchValidated": true,
+    "coreId": "FBNeo",
+    "virtualExtension": "zip",
+    "collections": [
+      "arcade-esencial",
+      "peleas-noventeras"
+    ],
+    "genre": "Fighting",
+    "romSet": "lastbld2",
+    "biosSets": [
+      "neogeo"
+    ]
+  },
+  {
+    "id": "the-legend-of-zelda-a-link-between-worlds-3ds",
+    "title": "The Legend of Zelda: A Link Between Worlds",
+    "platform": "Nintendo 3DS",
+    "systemId": "3ds",
+    "year": 2013,
+    "region": "World",
+    "thumbnailRepo": "Nintendo_-_Nintendo_3DS",
+    "launchValidated": true,
+    "coreId": "azahar_libretro_android.so",
+    "virtualExtension": "3ds",
+    "collections": [
+      "para-josefa"
+    ],
+    "genre": "Action adventure",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "the-legend-of-zelda-a-link-to-the-past-snes",
+    "title": "The Legend of Zelda: A Link to the Past",
+    "platform": "Super Nintendo",
+    "systemId": "snes",
+    "year": 1991,
+    "region": "World",
+    "thumbnailRepo": "Nintendo_-_Super_Nintendo_Entertainment_System",
+    "launchValidated": true,
+    "coreId": "snes9x_libretro_android.so",
+    "virtualExtension": "sfc",
+    "collections": [
+      "favoritos-de-oz",
+      "snes-esenciales",
+      "favorites"
+    ],
+    "genre": "Action adventure",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "the-legend-of-zelda-majoras-mask-n64",
+    "title": "The Legend of Zelda: Majora’s Mask",
+    "platform": "Nintendo 64",
+    "systemId": "n64",
+    "year": 2000,
+    "region": "World",
+    "thumbnailRepo": "Nintendo_-_Nintendo_64",
+    "launchValidated": true,
+    "coreId": "mupen64plus_next_gles3_libretro_android.so",
+    "virtualExtension": "n64",
+    "collections": [
+      "nintendo-64-nostalgia"
+    ],
+    "genre": "Action adventure",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "the-legend-of-zelda-majoras-mask-3d-3ds",
+    "title": "The Legend of Zelda: Majora’s Mask 3D",
+    "platform": "Nintendo 3DS",
+    "systemId": "3ds",
+    "year": 2015,
+    "region": "World",
+    "thumbnailRepo": "Nintendo_-_Nintendo_3DS",
+    "launchValidated": true,
+    "coreId": "azahar_libretro_android.so",
+    "virtualExtension": "3ds",
+    "collections": [
+      "para-josefa"
+    ],
+    "genre": "Action adventure",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "the-legend-of-zelda-ocarina-of-time-n64",
+    "title": "The Legend of Zelda: Ocarina of Time",
+    "platform": "Nintendo 64",
+    "systemId": "n64",
+    "year": 1998,
+    "region": "World",
+    "thumbnailRepo": "Nintendo_-_Nintendo_64",
+    "launchValidated": true,
+    "coreId": "mupen64plus_next_gles3_libretro_android.so",
+    "virtualExtension": "n64",
+    "collections": [
+      "favoritos-de-oz",
+      "nintendo-64-nostalgia",
+      "favorites"
+    ],
+    "genre": "Action adventure",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "the-legend-of-zelda-ocarina-of-time-3d-3ds",
+    "title": "The Legend of Zelda: Ocarina of Time 3D",
+    "platform": "Nintendo 3DS",
+    "systemId": "3ds",
+    "year": 2011,
+    "region": "World",
+    "thumbnailRepo": "Nintendo_-_Nintendo_3DS",
+    "launchValidated": true,
+    "coreId": "azahar_libretro_android.so",
+    "virtualExtension": "3ds",
+    "collections": [
+      "para-josefa"
+    ],
+    "genre": "Action adventure",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "the-punisher-arcade-fbneo",
+    "title": "The Punisher",
+    "platform": "Arcade / FinalBurn Neo",
+    "systemId": "arcade-fbneo",
+    "year": 1993,
+    "region": "World",
+    "thumbnailRepo": "FBNeo_-_Arcade_Games",
+    "launchValidated": true,
+    "coreId": "FBNeo",
+    "virtualExtension": "zip",
+    "collections": [
+      "arcade-esencial",
+      "beat-em-up-legendarios",
+      "capcom-power",
+      "cooperativo-de-sillon"
+    ],
+    "genre": "Beat em up",
+    "romSet": "punisher",
+    "biosSets": []
+  },
+  {
+    "id": "the-simpsons-arcade-fbneo",
+    "title": "The Simpsons",
+    "platform": "Arcade / FinalBurn Neo",
+    "systemId": "arcade-fbneo",
+    "year": 1991,
+    "region": "World",
+    "thumbnailRepo": "FBNeo_-_Arcade_Games",
+    "launchValidated": true,
+    "coreId": "FBNeo",
+    "virtualExtension": "zip",
+    "collections": [
+      "arcade-esencial",
+      "beat-em-up-legendarios",
+      "cooperativo-de-sillon"
+    ],
+    "genre": "Beat em up",
+    "romSet": "simpsons",
+    "biosSets": []
+  },
+  {
+    "id": "ultimate-mortal-kombat-3-arcade-fbneo",
+    "title": "Ultimate Mortal Kombat 3",
+    "platform": "Arcade / FinalBurn Neo",
+    "systemId": "arcade-fbneo",
+    "year": 1995,
+    "region": "World",
+    "thumbnailRepo": "FBNeo_-_Arcade_Games",
+    "launchValidated": true,
+    "coreId": "FBNeo",
+    "virtualExtension": "zip",
+    "collections": [
+      "peleas-noventeras"
+    ],
+    "genre": "Fighting",
+    "romSet": "umk3",
+    "biosSets": []
+  },
+  {
+    "id": "vagrant-story-ps1",
+    "title": "Vagrant Story",
+    "platform": "PlayStation",
+    "systemId": "ps1",
+    "year": 2000,
+    "region": "World",
+    "thumbnailRepo": "Sony_-_PlayStation",
+    "launchValidated": true,
+    "coreId": "pcsx_rearmed_libretro_android.so",
+    "virtualExtension": "cue",
+    "collections": [
+      "era-playstation",
+      "jrpg-y-aventura",
+      "joyas-para-descubrir"
+    ],
+    "genre": "Action RPG",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "vampire-savior-the-lord-of-vampire-arcade-fbneo",
+    "title": "Vampire Savior: The Lord of Vampire",
+    "platform": "Arcade / FinalBurn Neo",
+    "systemId": "arcade-fbneo",
+    "year": 1997,
+    "region": "World",
+    "thumbnailRepo": "FBNeo_-_Arcade_Games",
+    "launchValidated": true,
+    "coreId": "FBNeo",
+    "virtualExtension": "zip",
+    "collections": [
+      "peleas-noventeras",
+      "capcom-power"
+    ],
+    "genre": "Fighting",
+    "romSet": "vsav",
+    "biosSets": []
+  },
+  {
+    "id": "virtua-fighter-4-evolution-ps2",
+    "title": "Virtua Fighter 4: Evolution",
+    "platform": "PlayStation 2",
+    "systemId": "ps2",
+    "year": 2003,
+    "region": "World",
+    "thumbnailRepo": "Sony_-_PlayStation_2",
+    "launchValidated": true,
+    "coreId": "play_libretro_android.so",
+    "virtualExtension": "iso",
+    "collections": [
+      "peleas-noventeras"
+    ],
+    "genre": "Fighting",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "warriors-of-fate-arcade-fbneo",
+    "title": "Warriors of Fate",
+    "platform": "Arcade / FinalBurn Neo",
+    "systemId": "arcade-fbneo",
+    "year": 1992,
+    "region": "World",
+    "thumbnailRepo": "FBNeo_-_Arcade_Games",
+    "launchValidated": true,
+    "coreId": "FBNeo",
+    "virtualExtension": "zip",
+    "collections": [
+      "arcade-esencial",
+      "beat-em-up-legendarios"
+    ],
+    "genre": "Beat em up",
+    "romSet": "wof",
+    "biosSets": []
+  },
+  {
+    "id": "wave-race-64-n64",
+    "title": "Wave Race 64",
+    "platform": "Nintendo 64",
+    "systemId": "n64",
+    "year": 1996,
+    "region": "World",
+    "thumbnailRepo": "Nintendo_-_Nintendo_64",
+    "launchValidated": true,
+    "coreId": "mupen64plus_next_gles3_libretro_android.so",
+    "virtualExtension": "n64",
+    "collections": [
+      "nintendo-64-nostalgia"
+    ],
+    "genre": "Racing",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "wild-arms-ps1",
+    "title": "Wild Arms",
+    "platform": "PlayStation",
+    "systemId": "ps1",
+    "year": 1996,
+    "region": "World",
+    "thumbnailRepo": "Sony_-_PlayStation",
+    "launchValidated": true,
+    "coreId": "pcsx_rearmed_libretro_android.so",
+    "virtualExtension": "cue",
+    "collections": [
+      "era-playstation",
+      "jrpg-y-aventura",
+      "joyas-para-descubrir"
+    ],
+    "genre": "JRPG",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "windjammers-arcade-fbneo",
+    "title": "Windjammers",
+    "platform": "Arcade / FinalBurn Neo",
+    "systemId": "arcade-fbneo",
+    "year": 1994,
+    "region": "World",
+    "thumbnailRepo": "FBNeo_-_Arcade_Games",
+    "launchValidated": true,
+    "coreId": "FBNeo",
+    "virtualExtension": "zip",
+    "collections": [
+      "arcade-esencial",
+      "joyas-para-descubrir"
+    ],
+    "genre": "Sports action",
+    "romSet": "wjammers",
+    "biosSets": [
+      "neogeo"
+    ]
+  },
+  {
+    "id": "x-men-vs-street-fighter-arcade-fbneo",
+    "title": "X-Men vs. Street Fighter",
+    "platform": "Arcade / FinalBurn Neo",
+    "systemId": "arcade-fbneo",
+    "year": 1996,
+    "region": "World",
+    "thumbnailRepo": "FBNeo_-_Arcade_Games",
+    "launchValidated": true,
+    "coreId": "FBNeo",
+    "virtualExtension": "zip",
+    "collections": [
+      "peleas-noventeras",
+      "capcom-power"
+    ],
+    "genre": "Fighting",
+    "romSet": "xmvsf",
+    "biosSets": []
+  },
+  {
+    "id": "x-men-children-of-the-atom-arcade-fbneo",
+    "title": "X-Men: Children of the Atom",
+    "platform": "Arcade / FinalBurn Neo",
+    "systemId": "arcade-fbneo",
+    "year": 1994,
+    "region": "World",
+    "thumbnailRepo": "FBNeo_-_Arcade_Games",
+    "launchValidated": true,
+    "coreId": "FBNeo",
+    "virtualExtension": "zip",
+    "collections": [
+      "peleas-noventeras",
+      "capcom-power"
+    ],
+    "genre": "Fighting",
+    "romSet": "xmcota",
+    "biosSets": []
+  },
+  {
+    "id": "xenogears-ps1",
+    "title": "Xenogears",
+    "platform": "PlayStation",
+    "systemId": "ps1",
+    "year": 1998,
+    "region": "World",
+    "thumbnailRepo": "Sony_-_PlayStation",
+    "launchValidated": true,
+    "coreId": "pcsx_rearmed_libretro_android.so",
+    "virtualExtension": "cue",
+    "collections": [
+      "era-playstation",
+      "jrpg-y-aventura"
+    ],
+    "genre": "JRPG",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "id": "yoshis-new-island-3ds",
+    "title": "Yoshi’s New Island",
+    "platform": "Nintendo 3DS",
+    "systemId": "3ds",
+    "year": 2014,
+    "region": "World",
+    "thumbnailRepo": "Nintendo_-_Nintendo_3DS",
+    "launchValidated": true,
+    "coreId": "azahar_libretro_android.so",
+    "virtualExtension": "3ds",
+    "collections": [
+      "para-josefa"
+    ],
+    "genre": "Platformer",
+    "romSet": null,
+    "biosSets": []
+  }
+]

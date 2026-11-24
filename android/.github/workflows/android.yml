@@ -1,0 +1,218 @@
+name: Oz RetroRom Android CI
+
+on:
+  push:
+    branches:
+      - main
+      - "release/**"
+      - "fix/**"
+      - "infra/**"
+    tags:
+      - "v*"
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+concurrency:
+  group: oz-android-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Validate and build APK
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+
+    env:
+      OZ_BETA_DEBUG_KEYSTORE_B64: ${{ secrets.OZ_BETA_DEBUG_KEYSTORE_B64 }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+          cache: gradle
+
+      - name: Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Install Android SDK 36
+        shell: bash
+        run: |
+          sdkmanager \
+            "platforms;android-36" \
+            "build-tools;36.0.0" \
+            "platform-tools"
+
+      - name: Restore shared Oz Beta debug signing key
+        if: ${{ env.OZ_BETA_DEBUG_KEYSTORE_B64 != '' }}
+        shell: bash
+        run: |
+          mkdir -p "$HOME/.android"
+          printf '%s' "$OZ_BETA_DEBUG_KEYSTORE_B64" \
+            | base64 --decode \
+            > "$HOME/.android/debug.keystore"
+
+          chmod 600 "$HOME/.android/debug.keystore"
+      - name: Verify Oz Beta signing key
+        shell: bash
+        run: |
+          EXPECTED="dac56291d868836cbf819eb87a72119283da6b8716714f8ee0588d7099c19030"
+
+          KEY_SHA="$(
+            keytool -list -v \
+              -keystore "$HOME/.android/debug.keystore" \
+              -storepass android \
+              -alias androiddebugkey 2>/dev/null \
+            | sed -n 's/^[[:space:]]*SHA256:[[:space:]]*//p' \
+            | head -n1 \
+            | tr -d ':' \
+            | tr '[:upper:]' '[:lower:]'
+          )"
+
+          echo "Expected certificate : $EXPECTED"
+          echo "Restored keystore    : $KEY_SHA"
+
+          if [ "$KEY_SHA" != "$EXPECTED" ]; then
+            echo "ERROR: GitHub restored the wrong Oz Beta signing key."
+            exit 1
+          fi
+      - name: Prepare Gradle Wrapper
+        shell: bash
+        run: |
+          chmod +x gradlew
+
+          if [ ! -f gradle/wrapper/gradle-wrapper.jar ]; then
+            curl -fL --retry 3 \
+              https://raw.githubusercontent.com/gradle/gradle/v8.11.1/gradle/wrapper/gradle-wrapper.jar \
+              -o gradle/wrapper/gradle-wrapper.jar
+          fi
+
+          echo "2db75c40782f5e8ba1fc278a5574bab070adccb2d21ca5a6e5ed840888448046  gradle/wrapper/gradle-wrapper.jar" \
+            | sha256sum -c -
+
+      - name: Static validation
+        run: python3 scripts/validate_project.py
+
+      - name: Fix 12 regression tests
+        shell: bash
+        run: |
+          python3 scripts/test_beta4_fix12_controller_collections.py
+          python3 scripts/test_beta4_fix11_ps1_first_launch.py
+          python3 scripts/test_beta4_fix10_visual_identity.py
+          python3 scripts/test_beta4_fix9_portrait_session.py
+          python3 scripts/test_beta4_fix8_fullscreen_session.py
+          python3 scripts/test_beta4_fix7_compact_icons.py
+
+      - name: Unit tests and APK
+        run: |
+          ./gradlew \
+            testDebugUnitTest \
+            assembleDebug \
+            --no-daemon \
+            --stacktrace
+      - name: Verify generated APK signature
+        shell: bash
+        run: |
+          EXPECTED="dac56291d868836cbf819eb87a72119283da6b8716714f8ee0588d7099c19030"
+
+          APK="app/build/outputs/apk/debug/app-debug.apk"
+          APKSIGNER="$ANDROID_HOME/build-tools/36.0.0/apksigner"
+
+          APK_SHA="$(
+            "$APKSIGNER" verify --print-certs "$APK" 2>/dev/null \
+            | sed -n 's/^Signer #1 certificate SHA-256 digest: //p' \
+            | head -n1 \
+            | tr -d ':' \
+            | tr '[:upper:]' '[:lower:]'
+          )"
+
+          echo "Expected certificate : $EXPECTED"
+          echo "Generated APK        : $APK_SHA"
+
+          if [ "$APK_SHA" != "$EXPECTED" ]; then
+            echo "ERROR: APK was signed with the wrong certificate."
+            exit 1
+          fi
+
+          echo "Oz Beta APK signing certificate verified."
+      - name: Prepare downloadable APK
+        id: package
+        shell: bash
+        run: |
+          VERSION_NAME="$(grep -m1 'versionName =' app/build.gradle.kts \
+            | sed -E 's/.*"([^"]+)".*/\1/')"
+
+          VERSION_CODE="$(grep -m1 'versionCode =' app/build.gradle.kts \
+            | sed -E 's/[^0-9]*([0-9]+).*/\1/')"
+
+          SAFE_REF="$(printf '%s' "${GITHUB_REF_NAME}" \
+            | tr '/' '-')"
+
+          if [ "${GITHUB_REF_TYPE}" = "tag" ]; then
+            LABEL="${GITHUB_REF_NAME}"
+          else
+            LABEL="${VERSION_NAME}-${SAFE_REF}-r${GITHUB_RUN_NUMBER}"
+          fi
+
+          APK_NAME="Oz-RetroRom-${LABEL}-arm64.apk"
+
+          mkdir -p dist
+          cp app/build/outputs/apk/debug/app-debug.apk \
+             "dist/${APK_NAME}"
+
+          sha256sum "dist/${APK_NAME}" \
+            > "dist/${APK_NAME}.sha256"
+
+          echo "apk_name=${APK_NAME}" >> "$GITHUB_OUTPUT"
+          echo "version_name=${VERSION_NAME}" >> "$GITHUB_OUTPUT"
+          echo "version_code=${VERSION_CODE}" >> "$GITHUB_OUTPUT"
+          echo "safe_ref=${SAFE_REF}" >> "$GITHUB_OUTPUT"
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: Oz-RetroRom-${{ steps.package.outputs.version_name }}-${{ steps.package.outputs.safe_ref }}-${{ github.run_number }}
+          path: |
+            dist/*.apk
+            dist/*.sha256
+          if-no-files-found: error
+          retention-days: 14
+
+  release:
+    name: Publish GitHub Release
+    if: ${{ github.ref_type == 'tag' && startsWith(github.ref_name, 'v') }}
+    needs: build
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    steps:
+      - name: Download built APK
+        uses: actions/download-artifact@v4
+        with:
+          pattern: Oz-RetroRom-*
+          path: dist
+          merge-multiple: true
+
+      - name: Publish prerelease
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "${GITHUB_REF_NAME}" \
+            dist/*.apk \
+            dist/*.sha256 \
+            --repo "${GITHUB_REPOSITORY}" \
+            --verify-tag \
+            --generate-notes \
+            --prerelease \
+            --title "Oz RetroRom ${GITHUB_REF_NAME}"

@@ -1,0 +1,17 @@
+Oz RetroRom diagnostic log
+app_version=0.6.0-beta.4 (60018)
+android=15 sdk=35
+device=Xiaomi 2406APNFAG
+abi=arm64-v8a
+session_id=download-56cb4866-3917-49cc-97b8-23f452fc0d4c
+started_utc=2026-09-03T04:54:29.377Z
+privacy=No ROM contents, credentials, cookies or complete source URLs are recorded.
+---
+2026-09-03T04:54:29.378Z | INFO | DefaultDispatcher-worker-2 | SESSION_CREATED
+2026-09-03T04:54:29.380Z | INFO | DefaultDispatcher-worker-2 | BACKGROUND_DOWNLOAD_BEGIN | game_id=oz-source-index-genesis-game-cf9d21eb386a124ec6919ce7c053c5bc180aba3abcb07d03133b5aae56514653 system=genesis task=dc9df3a4-e94c-4a2e-98bc-43f94a68c4b9
+2026-09-03T04:54:29.451Z | INFO | DefaultDispatcher-worker-2 | TORRENT_STARTED | infohash=7bed1007999d817da4605282780a2715f08d470a
+2026-09-03T04:54:33.469Z | INFO | DefaultDispatcher-worker-2 | TORRENT_FILE_SELECTED | index=1410 path=Minerva_Myrient/No-Intro/Sega - Mega Drive - Genesis/Gunstar Heroes (USA).zip bytes=661835
+2026-09-03T04:54:33.479Z | INFO | DefaultDispatcher-worker-2 | TORRENT_PRIORITIES_APPLIED | target=1410 active=1 ignored=4232
+2026-09-03T04:54:37.557Z | INFO | DefaultDispatcher-worker-2 | ROM_ARCHIVE_EXTRACTED | system=genesis archive=Gunstar Heroes (USA).zip entry=Gunstar Heroes (USA).md bytes=1048576
+2026-09-03T04:54:37.564Z | INFO | DefaultDispatcher-worker-2 | VALIDATION_OK | file=Gunstar Heroes (USA).md bytes=1048576 romset= bios=
+2026-09-03T04:54:38.135Z | INFO | DefaultDispatcher-worker-2 | BACKGROUND_DOWNLOAD_SAVED | game_id=oz-source-index-genesis-game-cf9d21eb386a124ec6919ce7c053c5bc180aba3abcb07d03133b5aae56514653 file=Gunstar Heroes (USA).md bytes=1048576

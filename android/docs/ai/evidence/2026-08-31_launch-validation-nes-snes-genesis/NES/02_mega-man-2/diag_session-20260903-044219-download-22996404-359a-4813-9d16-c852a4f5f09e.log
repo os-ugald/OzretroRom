@@ -1,0 +1,17 @@
+Oz RetroRom diagnostic log
+app_version=0.6.0-beta.4 (60018)
+android=15 sdk=35
+device=Xiaomi 2406APNFAG
+abi=arm64-v8a
+session_id=download-22996404-359a-4813-9d16-c852a4f5f09e
+started_utc=2026-09-03T04:42:19.519Z
+privacy=No ROM contents, credentials, cookies or complete source URLs are recorded.
+---
+2026-09-03T04:42:19.520Z | INFO | DefaultDispatcher-worker-7 | SESSION_CREATED
+2026-09-03T04:42:19.522Z | INFO | DefaultDispatcher-worker-7 | BACKGROUND_DOWNLOAD_BEGIN | game_id=oz-source-index-nes-game-1b99e423f8f821c3d25afd253800c4f5ccc038a81c1820b8928cd39e3d55986d system=nes task=1aa2447e-6836-4e33-bb56-c1bcbb920bec
+2026-09-03T04:42:19.621Z | INFO | DefaultDispatcher-worker-7 | TORRENT_STARTED | infohash=6864d0c06b48365d208c7c5f2b1570087f4712de
+2026-09-03T04:42:24.291Z | INFO | DefaultDispatcher-worker-7 | TORRENT_FILE_SELECTED | index=3793 path=Minerva_Myrient/No-Intro/Nintendo - Nintendo Entertainment System (Headered)/Mega Man 2 (USA) (Capcom Town).zip bytes=135156
+2026-09-03T04:42:24.306Z | INFO | DefaultDispatcher-worker-7 | TORRENT_PRIORITIES_APPLIED | target=3793 active=1 ignored=7100
+2026-09-03T04:42:25.676Z | INFO | DefaultDispatcher-worker-7 | ROM_ARCHIVE_EXTRACTED | system=nes archive=Mega Man 2 (USA) (Capcom Town).zip entry=Mega Man 2 (USA) (Capcom Town).nes bytes=262160
+2026-09-03T04:42:25.682Z | INFO | DefaultDispatcher-worker-7 | VALIDATION_OK | file=Mega Man 2 (USA) (Capcom Town).nes bytes=262160 romset= bios=
+2026-09-03T04:42:26.402Z | INFO | DefaultDispatcher-worker-7 | BACKGROUND_DOWNLOAD_SAVED | game_id=oz-source-index-nes-game-1b99e423f8f821c3d25afd253800c4f5ccc038a81c1820b8928cd39e3d55986d file=Mega Man 2 (USA) (Capcom Town).nes bytes=262160

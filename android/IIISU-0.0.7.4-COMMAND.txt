@@ -1,0 +1,25 @@
+OZ RETROROM · iiSU 0.0.7.4 · JUEGO CON UN TOQUE
+
+Custom Launch Command:
+cl.gakuto.kizuna/cl.gakuto.kizuna.launch.SessionActivity -a cl.gakuto.kizuna.action.PLAY -e ROM "%ROM%" --activity-clear-top
+
+CONFIGURACIÓN
+1. En Oz RetroRom > Configuración, selecciona la carpeta real de ROMs global o por sistema.
+2. Selecciona UNA carpeta global de Bridge en Oz y publica la colección deseada.
+3. En iiSU usa la subcarpeta de esa plataforma del Bridge como única ROM folder de la consola.
+4. En Emulator > Custom Launch Command pega el comando anterior y luego Summary > Update.
+5. No añadas simultáneamente la carpeta real de ROMs y el Bridge a la misma consola: iiSU admite dos carpetas y verás duplicados.
+6. Al pulsar Jugar, iiSU pasa %ROM% a Oz RetroRom; Oz resuelve el descriptor o ROM real y abre el emulador automáticamente.
+
+IMPORTANTE
+- Los accesos virtuales no contienen ROMs.
+- Para Arcade/FBNeo, la ROM real debe conservar el nombre exacto del romset, por ejemplo ssriders.zip.
+- No habilites hashing de RetroAchievements sobre los accesos virtuales.
+- Oz RetroRom no incluye ROMs ni BIOS.
+
+
+REPARACIÓN BETA 4 FIX 4
+- Las comillas alrededor de %ROM% evitan que rutas con espacios se corten al lanzar.
+- Publicar una colección ya no borra accesos de otras colecciones.
+- Oz puede identificar el acceso virtual por el nombre estable del descriptor aunque Android no permita abrir su ruta raw.
+- Si ves un juego duplicado, deja SOLO la carpeta Bridge como ROM folder de esa consola en iiSU y ejecuta Summary > Update.

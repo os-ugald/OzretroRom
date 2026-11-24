@@ -1,0 +1,43 @@
+INFORMACIÓN: Constructing runner from config.
+INFORMACIÓN: Configuring Android Instrumentation driver: android_instrumentation_runtime {
+  instrumentation_info {
+    app_package: "cl.gakuto.kizuna"
+    test_package: "cl.gakuto.kizuna.test"
+    test_runner_class: "androidx.test.runner.AndroidJUnitRunner"
+  }
+  instrumentation_args {
+    args_map {
+      key: "additionalTestOutputDir"
+      value: "/sdcard/Android/media/cl.gakuto.kizuna/additional_test_output"
+    }
+    args_map {
+      key: "class"
+      value: "cl.gakuto.kizuna.launch.PersistentRomLibraryRealSafDeviceTest#externalStorageProviderCreatesAndPromotesPendingArtifactWithoutRoomPendingReference"
+    }
+  }
+}
+am_instrument_timeout: 31536000
+
+INFORMACIÓN: Configuring AndroidTestApkInstallerPlugin: apks_to_install {
+  apk_paths: "C:\\Users\\Osvaldo\\StudioProjects\\gakuto-kizuna-android\\app\\build\\outputs\\apk\\debug\\app-debug.apk"
+  install_options {
+  }
+  uninstall_after_test: true
+}
+apks_to_install {
+  apk_paths: "C:\\Users\\Osvaldo\\StudioProjects\\gakuto-kizuna-android\\app\\build\\outputs\\apk\\androidTest\\debug\\app-debug-androidTest.apk"
+  install_options {
+  }
+  uninstall_after_test: true
+}
+
+INFORMACIÓN: No installables found in test fixture. Nothing to install.
+INFORMACIÓN: Installing [C:\Users\Osvaldo\StudioProjects\gakuto-kizuna-android\app\build\outputs\apk\debug\app-debug.apk] on device R4RWNBOZPFVSL765.
+INFORMACIÓN: Installing [C:\Users\Osvaldo\StudioProjects\gakuto-kizuna-android\app\build\outputs\apk\androidTest\debug\app-debug-androidTest.apk] on device R4RWNBOZPFVSL765.
+INFORMACIÓN: Start logcat streaming.
+INFORMACIÓN: Running Android Instrumentation driver.
+INFORMACIÓN: Copying files from device to host: /sdcard/Android/media/cl.gakuto.kizuna/additional_test_output to C:\Users\Osvaldo\StudioProjects\gakuto-kizuna-android\app\build\outputs\connected_android_test_additional_output\debugAndroidTest\connected\2406APNFAG - 15
+INFORMACIÓN: Stop logcat streaming.
+INFORMACIÓN: Uninstalling cl.gakuto.kizuna for device R4RWNBOZPFVSL765.
+INFORMACIÓN: Uninstalling cl.gakuto.kizuna.test for device R4RWNBOZPFVSL765.
+INFORMACIÓN: Execute cl.gakuto.kizuna.launch.PersistentRomLibraryRealSafDeviceTest.externalStorageProviderCreatesAndPromotesPendingArtifactWithoutRoomPendingReference: PASSED

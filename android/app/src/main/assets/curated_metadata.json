@@ -1,0 +1,1186 @@
+[
+  {
+    "title": "1080° Snowboarding",
+    "genre": "Sports",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "ActRaiser",
+    "genre": "Action / Simulation",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Advance Wars",
+    "genre": "Strategy",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Alien vs. Predator",
+    "genre": "Beat em up",
+    "romSet": "avsp",
+    "biosSets": []
+  },
+  {
+    "title": "Animal Crossing: New Leaf",
+    "genre": "Life simulation",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Banjo-Kazooie",
+    "genre": "3D platformer",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Banjo-Tooie",
+    "genre": "3D platformer",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Bravely Default",
+    "genre": "JRPG",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Breath of Fire III",
+    "genre": "JRPG",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Breath of Fire IV",
+    "genre": "JRPG",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Burnout 3: Takedown",
+    "genre": "Racing",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Cadillacs and Dinosaurs",
+    "genre": "Beat em up",
+    "romSet": "dino",
+    "biosSets": []
+  },
+  {
+    "title": "Captain Commando",
+    "genre": "Beat em up",
+    "romSet": "captcomm",
+    "biosSets": []
+  },
+  {
+    "title": "Castlevania IV",
+    "genre": "Action platformer",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Castlevania: Symphony of the Night",
+    "genre": "Metroidvania",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Chrono Cross",
+    "genre": "JRPG",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Chrono Trigger",
+    "genre": "JRPG",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Comix Zone",
+    "genre": "Beat em up",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Conker’s Bad Fur Day",
+    "genre": "3D platformer",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Contra III: The Alien Wars",
+    "genre": "Run and gun",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Crash Bandicoot",
+    "genre": "3D platformer",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Crash Bandicoot 2: Cortex Strikes Back",
+    "genre": "3D platformer",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Crash Bandicoot 3: Warped",
+    "genre": "3D platformer",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Crash Team Racing",
+    "genre": "Kart racing",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Darkstalkers: The Night Warriors",
+    "genre": "Fighting",
+    "romSet": "dstlk",
+    "biosSets": []
+  },
+  {
+    "title": "Devil May Cry",
+    "genre": "Action",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Devil May Cry 3: Dante’s Awakening",
+    "genre": "Action",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Diddy Kong Racing",
+    "genre": "Kart racing",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Dino Crisis",
+    "genre": "Survival horror",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Donkey Kong 64",
+    "genre": "3D platformer",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Donkey Kong Country",
+    "genre": "Platformer",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Donkey Kong Country 2: Diddy’s Kong Quest",
+    "genre": "Platformer",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Donkey Kong Country 3: Dixie Kong’s Double Trouble!",
+    "genre": "Platformer",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Donkey Kong Country Returns 3D",
+    "genre": "Platformer",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Dragon Quest VIII",
+    "genre": "JRPG",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Dungeons & Dragons: Shadow over Mystara",
+    "genre": "Beat em up / RPG",
+    "romSet": "ddsom",
+    "biosSets": []
+  },
+  {
+    "title": "Dungeons & Dragons: Tower of Doom",
+    "genre": "Beat em up / RPG",
+    "romSet": "ddtod",
+    "biosSets": []
+  },
+  {
+    "title": "EarthBound",
+    "genre": "JRPG",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "F-Zero",
+    "genre": "Racing",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "F-Zero X",
+    "genre": "Racing",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Fatal Fury Special",
+    "genre": "Fighting",
+    "romSet": "fatfursp",
+    "biosSets": [
+      "neogeo"
+    ]
+  },
+  {
+    "title": "Final Fantasy IV",
+    "genre": "JRPG",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Final Fantasy IX",
+    "genre": "JRPG",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Final Fantasy VI",
+    "genre": "JRPG",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Final Fantasy VII",
+    "genre": "JRPG",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Final Fantasy VIII",
+    "genre": "JRPG",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Final Fantasy X",
+    "genre": "JRPG",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Final Fantasy X-2",
+    "genre": "JRPG",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Final Fantasy XII",
+    "genre": "JRPG",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Final Fight",
+    "genre": "Beat em up",
+    "romSet": "ffight",
+    "biosSets": []
+  },
+  {
+    "title": "Garou: Mark of the Wolves",
+    "genre": "Fighting",
+    "romSet": "garou",
+    "biosSets": [
+      "neogeo"
+    ]
+  },
+  {
+    "title": "God of War",
+    "genre": "Action",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "God of War II",
+    "genre": "Action",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Golden Axe",
+    "genre": "Beat em up",
+    "romSet": "goldnaxe",
+    "biosSets": []
+  },
+  {
+    "title": "Golden Axe II",
+    "genre": "Beat em up",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Golden Sun",
+    "genre": "JRPG",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Golden Sun: The Lost Age",
+    "genre": "JRPG",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "GoldenEye 007",
+    "genre": "First-person shooter",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Grand Theft Auto: San Andreas",
+    "genre": "Open world",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Gunstar Heroes",
+    "genre": "Run and gun",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "ICO",
+    "genre": "Puzzle adventure",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Illusion of Gaia",
+    "genre": "Action RPG",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Jak II",
+    "genre": "Action platformer",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Kid Icarus: Uprising",
+    "genre": "Action",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Killer Instinct",
+    "genre": "Fighting",
+    "romSet": "kinst",
+    "biosSets": []
+  },
+  {
+    "title": "Killer Instinct 2",
+    "genre": "Fighting",
+    "romSet": "kinst2",
+    "biosSets": []
+  },
+  {
+    "title": "Kingdom Hearts",
+    "genre": "Action RPG",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Kingdom Hearts II",
+    "genre": "Action RPG",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Kingdom Hearts Re:Chain of Memories",
+    "genre": "Action RPG",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Kirby 64: The Crystal Shards",
+    "genre": "Platformer",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Kirby Super Star",
+    "genre": "Platformer",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Kirby: Planet Robobot",
+    "genre": "Platformer",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Knights of the Round",
+    "genre": "Beat em up",
+    "romSet": "knights",
+    "biosSets": []
+  },
+  {
+    "title": "Luigi’s Mansion: Dark Moon",
+    "genre": "Action adventure",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Mario & Luigi: Dream Team",
+    "genre": "JRPG",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Mario & Luigi: Superstar Saga",
+    "genre": "JRPG",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Mario Kart 64",
+    "genre": "Kart racing",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Mario Kart 7",
+    "genre": "Kart racing",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Marvel Super Heroes",
+    "genre": "Fighting",
+    "romSet": "msh",
+    "biosSets": []
+  },
+  {
+    "title": "Marvel Super Heroes vs. Street Fighter",
+    "genre": "Fighting",
+    "romSet": "mshvsf",
+    "biosSets": []
+  },
+  {
+    "title": "Marvel vs. Capcom: Clash of Super Heroes",
+    "genre": "Fighting",
+    "romSet": "mvsc",
+    "biosSets": []
+  },
+  {
+    "title": "Mega Man Legends",
+    "genre": "Action adventure",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Mega Man Legends 2",
+    "genre": "Action adventure",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Mega Man X",
+    "genre": "Action platformer",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Mega Man X2",
+    "genre": "Action platformer",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Mega Man X3",
+    "genre": "Action platformer",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Mega Man X4",
+    "genre": "Action platformer",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Mega Man X5",
+    "genre": "Action platformer",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Mega Man Zero",
+    "genre": "Action platformer",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Mega Man Zero 2",
+    "genre": "Action platformer",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Mega Man Zero 3",
+    "genre": "Action platformer",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Mega Man Zero 4",
+    "genre": "Action platformer",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Metal Gear Solid",
+    "genre": "Stealth",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Metal Gear Solid 2: Sons of Liberty",
+    "genre": "Stealth",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Metal Gear Solid 3: Snake Eater",
+    "genre": "Stealth",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Metal Slug",
+    "genre": "Run and gun",
+    "romSet": "mslug",
+    "biosSets": [
+      "neogeo"
+    ]
+  },
+  {
+    "title": "Metal Slug 2",
+    "genre": "Run and gun",
+    "romSet": "mslug2",
+    "biosSets": [
+      "neogeo"
+    ]
+  },
+  {
+    "title": "Metal Slug 3",
+    "genre": "Run and gun",
+    "romSet": "mslug3",
+    "biosSets": [
+      "neogeo"
+    ]
+  },
+  {
+    "title": "Metal Slug X",
+    "genre": "Run and gun",
+    "romSet": "mslugx",
+    "biosSets": [
+      "neogeo"
+    ]
+  },
+  {
+    "title": "Metroid Fusion",
+    "genre": "Metroidvania",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Metroid: Zero Mission",
+    "genre": "Metroidvania",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Mischief Makers",
+    "genre": "Action platformer",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Monster World IV",
+    "genre": "Action RPG",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Mortal Kombat II",
+    "genre": "Fighting",
+    "romSet": "mk2",
+    "biosSets": []
+  },
+  {
+    "title": "Mystic Warriors",
+    "genre": "Run and gun",
+    "romSet": "mystwarr",
+    "biosSets": []
+  },
+  {
+    "title": "Need for Speed: Underground 2",
+    "genre": "Racing",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Neo Turf Masters",
+    "genre": "Sports",
+    "romSet": "turfmast",
+    "biosSets": [
+      "neogeo"
+    ]
+  },
+  {
+    "title": "Okami",
+    "genre": "Action adventure",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Out Run",
+    "genre": "Racing",
+    "romSet": "outrun",
+    "biosSets": []
+  },
+  {
+    "title": "Paper Mario",
+    "genre": "JRPG",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Parasite Eve",
+    "genre": "RPG / Horror",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Perfect Dark",
+    "genre": "First-person shooter",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Persona 3 FES",
+    "genre": "JRPG",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Persona 4",
+    "genre": "JRPG",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Phantasy Star IV",
+    "genre": "JRPG",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Pilotwings",
+    "genre": "Flight simulation",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Pokémon Omega Ruby",
+    "genre": "JRPG",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Pokémon Snap",
+    "genre": "Photography",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Pokémon Stadium 2",
+    "genre": "Battle / Party",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Pokémon Ultra Sun",
+    "genre": "JRPG",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Pokémon X",
+    "genre": "JRPG",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Ratchet & Clank: Going Commando",
+    "genre": "Action platformer",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Resident Evil 2",
+    "genre": "Survival horror",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Resident Evil 3: Nemesis",
+    "genre": "Survival horror",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Resident Evil 4",
+    "genre": "Action horror",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Samurai Shodown II",
+    "genre": "Fighting",
+    "romSet": "samsho2",
+    "biosSets": [
+      "neogeo"
+    ]
+  },
+  {
+    "title": "Samurai Shodown V Special",
+    "genre": "Fighting",
+    "romSet": "samsh5sp",
+    "biosSets": [
+      "neogeo"
+    ]
+  },
+  {
+    "title": "Secret of Mana",
+    "genre": "Action RPG",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Sengoku 3",
+    "genre": "Beat em up",
+    "romSet": "sengoku3",
+    "biosSets": [
+      "neogeo"
+    ]
+  },
+  {
+    "title": "Shadow of the Colossus",
+    "genre": "Action adventure",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Shin Megami Tensei IV",
+    "genre": "JRPG",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Shinobi III: Return of the Ninja Master",
+    "genre": "Action platformer",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Shock Troopers",
+    "genre": "Run and gun",
+    "romSet": "shocktro",
+    "biosSets": [
+      "neogeo"
+    ]
+  },
+  {
+    "title": "Shock Troopers: 2nd Squad",
+    "genre": "Run and gun",
+    "romSet": "shocktr2",
+    "biosSets": [
+      "neogeo"
+    ]
+  },
+  {
+    "title": "Silent Hill",
+    "genre": "Survival horror",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Silent Hill 2",
+    "genre": "Survival horror",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Silent Hill 3",
+    "genre": "Survival horror",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Sin and Punishment",
+    "genre": "Rail shooter",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Sly 2: Band of Thieves",
+    "genre": "Stealth platformer",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Soul Blade",
+    "genre": "Fighting",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Soulcalibur III",
+    "genre": "Fighting",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Spyro 2: Ripto’s Rage!",
+    "genre": "3D platformer",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Spyro the Dragon",
+    "genre": "3D platformer",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Star Fox",
+    "genre": "Rail shooter",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Star Fox 64",
+    "genre": "Rail shooter",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Street Fighter Alpha 2",
+    "genre": "Fighting",
+    "romSet": "sfa2",
+    "biosSets": []
+  },
+  {
+    "title": "Street Fighter Alpha 3",
+    "genre": "Fighting",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Street Fighter II: Champion Edition",
+    "genre": "Fighting",
+    "romSet": "sf2ce",
+    "biosSets": []
+  },
+  {
+    "title": "Street Fighter III: 3rd Strike",
+    "genre": "Fighting",
+    "romSet": "sfiii3",
+    "biosSets": []
+  },
+  {
+    "title": "Streets of Rage 2",
+    "genre": "Beat em up",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Streets of Rage 3",
+    "genre": "Beat em up",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Suikoden II",
+    "genre": "JRPG",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Sunset Riders",
+    "genre": "Run and gun",
+    "romSet": "ssriders",
+    "biosSets": []
+  },
+  {
+    "title": "Super Mario 3D Land",
+    "genre": "3D platformer",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Super Mario 64",
+    "genre": "3D platformer",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Super Mario RPG: Legend of the Seven Stars",
+    "genre": "JRPG",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Super Mario World",
+    "genre": "Platformer",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Super Mario World 2: Yoshi’s Island",
+    "genre": "Platformer",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Super Metroid",
+    "genre": "Metroidvania",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Super Punch-Out!!",
+    "genre": "Sports action",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Super Smash Bros.",
+    "genre": "Fighting",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Super Smash Bros. for Nintendo 3DS",
+    "genre": "Fighting",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Super Street Fighter II Turbo",
+    "genre": "Fighting",
+    "romSet": "ssf2t",
+    "biosSets": []
+  },
+  {
+    "title": "Teenage Mutant Ninja Turtles",
+    "genre": "Beat em up",
+    "romSet": "tmnt",
+    "biosSets": []
+  },
+  {
+    "title": "Teenage Mutant Ninja Turtles IV: Turtles in Time",
+    "genre": "Beat em up",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Teenage Mutant Ninja Turtles: Turtles in Time",
+    "genre": "Beat em up",
+    "romSet": "tmnt2",
+    "biosSets": []
+  },
+  {
+    "title": "Tekken 3",
+    "genre": "Fighting",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Tekken 5",
+    "genre": "Fighting",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Terranigma",
+    "genre": "Action RPG",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "The King of Fighters 2002",
+    "genre": "Fighting",
+    "romSet": "kof2002",
+    "biosSets": [
+      "neogeo"
+    ]
+  },
+  {
+    "title": "The King of Fighters 98",
+    "genre": "Fighting",
+    "romSet": "kof98",
+    "biosSets": [
+      "neogeo"
+    ]
+  },
+  {
+    "title": "The Last Blade 2",
+    "genre": "Fighting",
+    "romSet": "lastbld2",
+    "biosSets": [
+      "neogeo"
+    ]
+  },
+  {
+    "title": "The Legend of Zelda: A Link Between Worlds",
+    "genre": "Action adventure",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "The Legend of Zelda: A Link to the Past",
+    "genre": "Action adventure",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "The Legend of Zelda: Majora’s Mask",
+    "genre": "Action adventure",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "The Legend of Zelda: Majora’s Mask 3D",
+    "genre": "Action adventure",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "The Legend of Zelda: Ocarina of Time",
+    "genre": "Action adventure",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "The Legend of Zelda: Ocarina of Time 3D",
+    "genre": "Action adventure",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "The Punisher",
+    "genre": "Beat em up",
+    "romSet": "punisher",
+    "biosSets": []
+  },
+  {
+    "title": "The Simpsons",
+    "genre": "Beat em up",
+    "romSet": "simpsons",
+    "biosSets": []
+  },
+  {
+    "title": "Ultimate Mortal Kombat 3",
+    "genre": "Fighting",
+    "romSet": "umk3",
+    "biosSets": []
+  },
+  {
+    "title": "Vagrant Story",
+    "genre": "Action RPG",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Vampire Savior: The Lord of Vampire",
+    "genre": "Fighting",
+    "romSet": "vsav",
+    "biosSets": []
+  },
+  {
+    "title": "Virtua Fighter 4: Evolution",
+    "genre": "Fighting",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Warriors of Fate",
+    "genre": "Beat em up",
+    "romSet": "wof",
+    "biosSets": []
+  },
+  {
+    "title": "Wave Race 64",
+    "genre": "Racing",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Wild Arms",
+    "genre": "JRPG",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Windjammers",
+    "genre": "Sports action",
+    "romSet": "wjammers",
+    "biosSets": [
+      "neogeo"
+    ]
+  },
+  {
+    "title": "X-Men vs. Street Fighter",
+    "genre": "Fighting",
+    "romSet": "xmvsf",
+    "biosSets": []
+  },
+  {
+    "title": "X-Men: Children of the Atom",
+    "genre": "Fighting",
+    "romSet": "xmcota",
+    "biosSets": []
+  },
+  {
+    "title": "Xenogears",
+    "genre": "JRPG",
+    "romSet": null,
+    "biosSets": []
+  },
+  {
+    "title": "Yoshi’s New Island",
+    "genre": "Platformer",
+    "romSet": null,
+    "biosSets": []
+  }
+]

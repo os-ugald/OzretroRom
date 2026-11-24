@@ -1,0 +1,17 @@
+Oz RetroRom diagnostic log
+app_version=0.6.0-beta.4 (60018)
+android=15 sdk=35
+device=Xiaomi 2406APNFAG
+abi=arm64-v8a
+session_id=download-54f2e98d-6aca-4c11-973a-c6e25b002823
+started_utc=2026-09-03T04:36:06.896Z
+privacy=No ROM contents, credentials, cookies or complete source URLs are recorded.
+---
+2026-09-03T04:36:06.896Z | INFO | DefaultDispatcher-worker-3 | SESSION_CREATED
+2026-09-03T04:36:06.899Z | INFO | DefaultDispatcher-worker-3 | BACKGROUND_DOWNLOAD_BEGIN | game_id=oz-source-index-nes-game-9e7c22b974cc368430d660c4a2dfa08dc65ba036f89bd4eb0239e91f2e3ad830 system=nes task=2b4258b0-f33d-461e-a400-66ec7020b7d9
+2026-09-03T04:36:07.045Z | INFO | DefaultDispatcher-worker-3 | TORRENT_STARTED | infohash=6864d0c06b48365d208c7c5f2b1570087f4712de
+2026-09-03T04:36:12.410Z | INFO | DefaultDispatcher-worker-3 | TORRENT_FILE_SELECTED | index=5978 path=Minerva_Myrient/No-Intro/Nintendo - Nintendo Entertainment System (Headered)/Super Mario Bros. 3 (USA).zip bytes=226318
+2026-09-03T04:36:12.424Z | INFO | DefaultDispatcher-worker-3 | TORRENT_PRIORITIES_APPLIED | target=5978 active=1 ignored=7100
+2026-09-03T04:36:13.804Z | INFO | DefaultDispatcher-worker-3 | ROM_ARCHIVE_EXTRACTED | system=nes archive=Super Mario Bros. 3 (USA).zip entry=Super Mario Bros. 3 (USA).nes bytes=393232
+2026-09-03T04:36:13.810Z | INFO | DefaultDispatcher-worker-3 | VALIDATION_OK | file=Super Mario Bros. 3 (USA).nes bytes=393232 romset= bios=
+2026-09-03T04:36:14.330Z | INFO | DefaultDispatcher-worker-3 | BACKGROUND_DOWNLOAD_SAVED | game_id=oz-source-index-nes-game-9e7c22b974cc368430d660c4a2dfa08dc65ba036f89bd4eb0239e91f2e3ad830 file=Super Mario Bros. 3 (USA) (Oz 2).nes bytes=393232

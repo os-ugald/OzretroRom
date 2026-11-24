@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/oz_background"
+    android:orientation="vertical"
+    android:paddingTop="8dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingHorizontal="20dp"
+        android:paddingVertical="12dp"
+        android:text="Filtros del catálogo"
+        android:textColor="@color/oz_text_primary"
+        android:textSize="22sp"
+        android:textStyle="bold" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="18dp"
+            android:paddingBottom="12dp">
+
+            <TextView style="@style/OzSectionTitle" android:text="REGIONES" />
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/regionGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:chipSpacingHorizontal="6dp"
+                app:chipSpacingVertical="6dp"
+                app:singleSelection="false" />
+
+            <TextView android:id="@+id/platformTitle" style="@style/OzSectionTitle" android:text="PLATAFORMAS" />
+            <LinearLayout
+                android:id="@+id/platformContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" />
+
+            <TextView android:id="@+id/genreTitle" style="@style/OzSectionTitle" android:text="GÉNEROS" />
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/genreGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:chipSpacingHorizontal="6dp"
+                app:chipSpacingVertical="6dp"
+                app:singleSelection="false" />
+
+            <TextView android:id="@+id/statusTitle" style="@style/OzSectionTitle" android:text="ORIGEN Y ESTADO" />
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/statusGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:chipSpacingHorizontal="6dp"
+                app:chipSpacingVertical="6dp"
+                app:singleSelection="false" />
+
+            <TextView style="@style/OzSectionTitle" android:text="ORDEN" />
+            <RadioGroup
+                android:id="@+id/sortGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" />
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="12dp">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/clearButton"
+            style="@style/Widget.Oz.Button.Secondary"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Limpiar todo" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/cancelButton"
+            style="@style/Widget.Oz.Button.Secondary"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="6dp"
+            android:layout_weight="1"
+            android:text="Cancelar" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/applyButton"
+            style="@style/Widget.Oz.Button.Primary"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="6dp"
+            android:layout_weight="1"
+            android:text="Aplicar filtros" />
+    </LinearLayout>
+</LinearLayout>

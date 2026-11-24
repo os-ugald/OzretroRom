@@ -1,0 +1,6 @@
+09-03 00:36:27.412  1842  2050 I ActivityManager: Killing 25803:com.retroarch/u0a353 (adj 900): SwipeUpClean
+09-03 00:36:27.938  1842  2033 I ActivityManager: Start proc 28132:com.retroarch/u0a353 for broadcast {com.retroarch/com.retroarch.browser.receiver.InstalledCoresReceiver} caller=cl.gakuto.kizuna
+09-03 00:38:46.423  1842  2594 I ActivityManager: Process com.retroarch (pid 28132) has died: fg  TOP 
+09-03 00:38:46.461  1842  2033 I ActivityManager: Start proc 22028:com.retroarch/u0a353 for top-activity {com.retroarch/com.retroarch.browser.retroactivity.RetroActivityFuture} caller=com.retroarch
+09-03 00:42:00.078  1842  2050 I ActivityManager: Killing 22028:com.retroarch/u0a353 (adj 900): SwipeUpClean
+09-03 00:42:27.046  1842  2033 I ActivityManager: Start proc 30735:com.retroarch/u0a353 for broadcast {com.retroarch/com.retroarch.browser.receiver.InstalledCoresReceiver} caller=cl.gakuto.kizuna

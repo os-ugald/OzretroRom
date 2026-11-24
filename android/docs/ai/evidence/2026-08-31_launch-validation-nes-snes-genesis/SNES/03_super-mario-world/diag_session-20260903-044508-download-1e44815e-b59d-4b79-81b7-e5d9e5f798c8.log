@@ -1,0 +1,17 @@
+Oz RetroRom diagnostic log
+app_version=0.6.0-beta.4 (60018)
+android=15 sdk=35
+device=Xiaomi 2406APNFAG
+abi=arm64-v8a
+session_id=download-1e44815e-b59d-4b79-81b7-e5d9e5f798c8
+started_utc=2026-09-03T04:45:08.976Z
+privacy=No ROM contents, credentials, cookies or complete source URLs are recorded.
+---
+2026-09-03T04:45:08.977Z | INFO | DefaultDispatcher-worker-3 | SESSION_CREATED
+2026-09-03T04:45:08.978Z | INFO | DefaultDispatcher-worker-3 | BACKGROUND_DOWNLOAD_BEGIN | game_id=oz-source-index-snes-game-994381892c860ae9aca615cd5fcfe73c9d14aed5dd6172e7973e71d6ab216d8c system=snes task=9f4cd79c-0818-42b3-8255-4efbd0e30cfc
+2026-09-03T04:45:09.031Z | INFO | DefaultDispatcher-worker-3 | TORRENT_STARTED | infohash=93e0d2060d1b05f5b19d0a9e40011b51a76a933c
+2026-09-03T04:45:11.036Z | INFO | DefaultDispatcher-worker-3 | TORRENT_FILE_SELECTED | index=3753 path=Minerva_Myrient/No-Intro/Nintendo - Super Nintendo Entertainment System/Super Mario World (USA).zip bytes=345695
+2026-09-03T04:45:11.047Z | INFO | DefaultDispatcher-worker-3 | TORRENT_PRIORITIES_APPLIED | target=3753 active=1 ignored=4641
+2026-09-03T04:45:16.475Z | INFO | DefaultDispatcher-worker-3 | ROM_ARCHIVE_EXTRACTED | system=snes archive=Super Mario World (USA).zip entry=Super Mario World (USA).sfc bytes=524288
+2026-09-03T04:45:16.480Z | INFO | DefaultDispatcher-worker-3 | VALIDATION_OK | file=Super Mario World (USA).sfc bytes=524288 romset= bios=
+2026-09-03T04:45:17.245Z | INFO | DefaultDispatcher-worker-3 | BACKGROUND_DOWNLOAD_SAVED | game_id=oz-source-index-snes-game-994381892c860ae9aca615cd5fcfe73c9d14aed5dd6172e7973e71d6ab216d8c file=Super Mario World (USA).sfc bytes=524288

@@ -1,0 +1,20 @@
+Oz RetroRom diagnostic log
+app_version=0.6.0-beta.4 (60018)
+android=15 sdk=35
+device=Xiaomi 2406APNFAG
+abi=arm64-v8a
+session_id=18a3005f-220e-4538-b677-36aa37f61cbe
+started_utc=2026-09-03T04:53:15.875Z
+privacy=No ROM contents, credentials, cookies or complete source URLs are recorded.
+---
+2026-09-03T04:53:15.876Z | INFO | main | SESSION_CREATED
+2026-09-03T04:53:15.877Z | INFO | main | SESSION_ORIGIN | Oz
+2026-09-03T04:53:16.067Z | INFO | main | LOCAL_LIBRARY_LEGACY_FALLBACK_SKIPPED | projection_id=oz-source-index-genesis-game-d3189078f86cf5c8301095748fa5db064dcf2f918cbc62c56435379c6c1298f6 source_index_game_id=d3189078f86cf5c8301095748fa5db064dcf2f918cbc62c56435379c6c1298f6 mechanism=STRONG_GAME_ID_REQUIRED
+2026-09-03T04:53:16.069Z | INFO | main | SESSION_BEGIN | game_id=oz-source-index-genesis-game-d3189078f86cf5c8301095748fa5db064dcf2f918cbc62c56435379c6c1298f6 system=genesis
+2026-09-03T04:53:16.073Z | INFO | main | DIRECT_ROM_READY | file=Sonic The Hedgehog 2 (World) (Rev A) (Sonic Classic Collection).md path=<private-path>/Download
+2026-09-03T04:53:16.074Z | INFO | main | ENGINE_AUTO_SELECTED | system=genesis engine=retroarch external_ready=false
+2026-09-03T04:53:16.132Z | INFO | DefaultDispatcher-worker-2 | RETROARCH_SAF_COMPAT_MIRROR | file=Sonic The Hedgehog 2 (World) (Rev A) (Sonic Classic Collection).md source_scheme=content mirror=Sonic The Hedgehog 2 (World) (Rev A) (Sonic Classic Collection).md
+2026-09-03T04:53:16.134Z | INFO | DefaultDispatcher-worker-2 | VALIDATION_OK | file=Sonic The Hedgehog 2 (World) (Rev A) (Sonic Classic Collection).md bytes=1048576 romset= bios=
+2026-09-03T04:53:16.235Z | INFO | main | RETROARCH_BIOS_REQUIREMENT_UNMAPPED | system=genesis requirement=No requerida
+2026-09-03T04:53:16.276Z | INFO | main | RETROARCH_NATIVE_LAUNCHED | package=com.retroarch core=genesis_plus_gx_libretro_android.so file=Sonic The Hedgehog 2 (World) (Rev A) (Sonic Classic Collection).md
+2026-09-03T04:53:51.603Z | INFO | main | SESSION_RETURN_TARGET | Oz

@@ -1,0 +1,10 @@
+[INSTRUCCIONES ENTENDIDAS]
+- Añadir lanzamiento nativo desde Oz RetroRom hacia RetroArch, sin depender de iiSU.
+- Conservar intacta toda la integración con iiSU.
+- Detectar si RetroArch está instalado y, si falta, guiar su instalación.
+- Continuar automáticamente la sesión al volver después de instalar RetroArch.
+- Detectar si falta el core necesario para el sistema seleccionado.
+- Descargar cores únicamente desde el buildbot oficial de Libretro.
+- Permitir seleccionar variante de RetroArch y carpeta externa de cores en Configuración.
+- No intentar instalar APK ni escribir en datos privados de otra aplicación sin confirmación del usuario.
+- Corregir el error del parser magnet detectado en el diagnóstico de Android 15.

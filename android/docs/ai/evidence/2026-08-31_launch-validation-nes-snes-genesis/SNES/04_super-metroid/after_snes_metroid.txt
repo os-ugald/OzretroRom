@@ -1,0 +1,5 @@
+total 58296
+-rw-rw---- 1 u0_a279 media_rw 3145728 2026-08-24 00:53 Metroid (World) (2023-11-30) (Beta) (Aftermarket) (Pirate).sfc
+-rw-rw---- 1 u0_a279 media_rw 3145728 2026-08-12 14:21 Super Metroid (Japan, USA) (En,Ja).sfc
+-rw-rw---- 1 u0_a279 media_rw 3145728 2026-09-03 00:50 Super Metroid (USA, Europe) (En,Ja) (Virtual Console, Classic Mini, Switch Online) (Oz 2).sfc
+-rw-rw---- 1 u0_a279 media_rw 3145728 2026-08-28 15:05 Super Metroid (USA, Europe) (En,Ja) (Virtual Console, Classic Mini, Switch Online).sfc

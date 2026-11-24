@@ -1,0 +1,21 @@
+Oz RetroRom diagnostic log
+app_version=0.6.0-beta.4 (60018)
+android=15 sdk=35
+device=Xiaomi 2406APNFAG
+abi=arm64-v8a
+session_id=e2e1efdc-6f6f-45f4-b6a3-16e2c052127b
+started_utc=2026-09-03T04:45:08.816Z
+privacy=No ROM contents, credentials, cookies or complete source URLs are recorded.
+---
+2026-09-03T04:45:08.817Z | INFO | main | SESSION_CREATED
+2026-09-03T04:45:08.818Z | INFO | main | SESSION_ORIGIN | Oz
+2026-09-03T04:45:08.941Z | INFO | main | LOCAL_LIBRARY_LEGACY_FALLBACK_SKIPPED | projection_id=oz-source-index-snes-game-994381892c860ae9aca615cd5fcfe73c9d14aed5dd6172e7973e71d6ab216d8c source_index_game_id=994381892c860ae9aca615cd5fcfe73c9d14aed5dd6172e7973e71d6ab216d8c mechanism=STRONG_GAME_ID_REQUIRED
+2026-09-03T04:45:08.948Z | INFO | main | SOURCE_INDEX_CANDIDATE_SELECTED | game=994381892c860ae9aca615cd5fcfe73c9d14aed5dd6172e7973e71d6ab216d8c release=dc8b1728a910a4212c627f009178161fc5d1f71bdc8c26a613d71e0a7e21734b candidate=a4f2a1c8eeab6347eb23b873a5331e66a54ac4f50cbcd5942170223383f681b0 provider=minerva transport=torrent infohash=93e0d2060d1b05f5b19d0a9e40011b51a76a933c file_index=3753 path=Minerva_Myrient/No-Intro/Nintendo - Super Nintendo Entertainment System/Super Mario World (USA).zip
+2026-09-03T04:45:08.953Z | INFO | main | BACKGROUND_DOWNLOAD_SCHEDULED | game_id=oz-source-index-snes-game-994381892c860ae9aca615cd5fcfe73c9d14aed5dd6172e7973e71d6ab216d8c task=9f4cd79c-0818-42b3-8255-4efbd0e30cfc mode=USER_INITIATED_JOB
+2026-09-03T04:45:08.958Z | INFO | main | SESSION_PHASE | phase=DOWNLOADING source=Minerva file=Super Mario World (USA).zip total=345695
+2026-09-03T04:45:17.949Z | INFO | main | SESSION_BEGIN | game_id=oz-source-index-snes-game-994381892c860ae9aca615cd5fcfe73c9d14aed5dd6172e7973e71d6ab216d8c system=snes
+2026-09-03T04:45:17.957Z | INFO | main | DIRECT_ROM_READY | file=Super Mario World (USA).sfc path=<private-path>/Download
+2026-09-03T04:45:17.958Z | INFO | main | ENGINE_AUTO_SELECTED | system=snes engine=retroarch external_ready=false
+2026-09-03T04:45:18.038Z | INFO | DefaultDispatcher-worker-3 | RETROARCH_SAF_COMPAT_MIRROR | file=Super Mario World (USA).sfc source_scheme=content mirror=Super Mario World (USA).sfc
+2026-09-03T04:45:18.044Z | INFO | DefaultDispatcher-worker-3 | VALIDATION_OK | file=Super Mario World (USA).sfc bytes=524288 romset= bios=
+2026-09-03T04:45:18.219Z | INFO | main | RETROARCH_NATIVE_LAUNCHED | package=com.retroarch core=snes9x_libretro_android.so file=Super Mario World (USA).sfc

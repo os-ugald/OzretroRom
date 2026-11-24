@@ -1,0 +1,23 @@
+240p Test Suite (World) (v1.061) (NTSC) (Program) (Aftermarket) (Unl).sfc
+ActRaiser (USA) (Beta).sfc
+ActRaiser (USA).zip
+Contra III - The Alien Wars (USA) (Beta).sfc
+Donkey Kong Country (USA).sfc
+Final Fight (USA).sfc
+Final Fight 2 (USA) (Virtual Console).sfc
+Final Fight 3 (USA).sfc
+Killer Instinct (USA).sfc
+Kirby Super Star (USA).sfc
+Mega Man 7 (USA).sfc
+Mega Man II (World) (REV-B) (Aftermarket) (Pirate).sfc
+Mega Man III (World) (REV-B) (NES Conversion) (Aftermarket) (Unl).sfc
+Mega Man X2 (USA).sfc
+Metroid (World) (2023-11-30) (Beta) (Aftermarket) (Pirate).sfc
+Pokemon Stadium (USA) (Pirate).sfc
+SOS (USA).sfc
+Super Castlevania IV (USA) (Virtual Console).sfc
+Super Full Metal Planet (Europe) (En) (Proto).sfc
+Super Mario - Yoshi Island (Japan) (Rev 1).sfc
+Super Mario World 2 - Yoshi's Island (USA).sfc
+Super Metroid (Japan, USA) (En,Ja).sfc
+Super Metroid (USA, Europe) (En,Ja) (Virtual Console, Classic Mini, Switch Online).sfc

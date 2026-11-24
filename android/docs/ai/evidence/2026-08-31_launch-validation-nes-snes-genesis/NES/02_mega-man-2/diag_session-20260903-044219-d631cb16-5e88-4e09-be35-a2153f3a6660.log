@@ -1,0 +1,21 @@
+Oz RetroRom diagnostic log
+app_version=0.6.0-beta.4 (60018)
+android=15 sdk=35
+device=Xiaomi 2406APNFAG
+abi=arm64-v8a
+session_id=d631cb16-5e88-4e09-be35-a2153f3a6660
+started_utc=2026-09-03T04:42:19.287Z
+privacy=No ROM contents, credentials, cookies or complete source URLs are recorded.
+---
+2026-09-03T04:42:19.288Z | INFO | main | SESSION_CREATED
+2026-09-03T04:42:19.290Z | INFO | main | SESSION_ORIGIN | Oz
+2026-09-03T04:42:19.478Z | INFO | main | LOCAL_LIBRARY_LEGACY_FALLBACK_SKIPPED | projection_id=oz-source-index-nes-game-1b99e423f8f821c3d25afd253800c4f5ccc038a81c1820b8928cd39e3d55986d source_index_game_id=1b99e423f8f821c3d25afd253800c4f5ccc038a81c1820b8928cd39e3d55986d mechanism=STRONG_GAME_ID_REQUIRED
+2026-09-03T04:42:19.485Z | INFO | main | SOURCE_INDEX_CANDIDATE_SELECTED | game=1b99e423f8f821c3d25afd253800c4f5ccc038a81c1820b8928cd39e3d55986d release=4e9908097f5fd37883fbfc340f5c97c8bf35daad010f5a8ec960ca36f79cf66b candidate=f075f2d1a275b81d91eb429f94fdb4fe93b54f07216301b4a2830082649c5458 provider=minerva transport=torrent infohash=6864d0c06b48365d208c7c5f2b1570087f4712de file_index=3793 path=Minerva_Myrient/No-Intro/Nintendo - Nintendo Entertainment System (Headered)/Mega Man 2 (USA) (Capcom Town).zip
+2026-09-03T04:42:19.491Z | INFO | main | BACKGROUND_DOWNLOAD_SCHEDULED | game_id=oz-source-index-nes-game-1b99e423f8f821c3d25afd253800c4f5ccc038a81c1820b8928cd39e3d55986d task=1aa2447e-6836-4e33-bb56-c1bcbb920bec mode=USER_INITIATED_JOB
+2026-09-03T04:42:19.501Z | INFO | main | SESSION_PHASE | phase=DOWNLOADING source=Minerva file=Mega Man 2 (USA) (Capcom Town).zip total=135156
+2026-09-03T04:42:26.912Z | INFO | main | SESSION_BEGIN | game_id=oz-source-index-nes-game-1b99e423f8f821c3d25afd253800c4f5ccc038a81c1820b8928cd39e3d55986d system=nes
+2026-09-03T04:42:26.918Z | INFO | main | DIRECT_ROM_READY | file=Mega Man 2 (USA) (Capcom Town).nes path=<private-path>/Download
+2026-09-03T04:42:26.920Z | INFO | main | ENGINE_AUTO_SELECTED | system=nes engine=retroarch external_ready=false
+2026-09-03T04:42:26.997Z | INFO | DefaultDispatcher-worker-7 | RETROARCH_SAF_COMPAT_MIRROR | file=Mega Man 2 (USA) (Capcom Town).nes source_scheme=content mirror=Mega Man 2 (USA) (Capcom Town).nes
+2026-09-03T04:42:27.000Z | INFO | DefaultDispatcher-worker-7 | VALIDATION_OK | file=Mega Man 2 (USA) (Capcom Town).nes bytes=262160 romset= bios=
+2026-09-03T04:42:27.213Z | INFO | main | RETROARCH_NATIVE_LAUNCHED | package=com.retroarch core=mesen_libretro_android.so file=Mega Man 2 (USA) (Capcom Town).nes

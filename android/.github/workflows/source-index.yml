@@ -1,0 +1,36 @@
+name: Oz Source Index prototype
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - "tools/source_index/**"
+      - "app/src/main/java/cl/gakuto/kizuna/catalog/sourceindex/**"
+      - "app/src/test/java/cl/gakuto/kizuna/catalog/sourceindex/**"
+
+permissions:
+  contents: read
+
+jobs:
+  source-index-v1:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Builder tests
+        working-directory: tools/source_index
+        run: python -m unittest -v test_builder.py
+      - name: Build deterministic SNES prototype
+        run: >-
+          python tools/source_index/builder.py
+          --input tools/source_index/fixtures/minerva_snes.json
+          --output .artifacts/source-index-v1
+          --generated-at 2026-08-22T00:00:00Z
+      - name: Upload unsigned prototype
+        uses: actions/upload-artifact@v4
+        with:
+          name: oz-source-index-v1-snes-prototype
+          path: .artifacts/source-index-v1
+          if-no-files-found: error

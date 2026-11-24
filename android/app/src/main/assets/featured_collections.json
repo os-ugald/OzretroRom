@@ -1,0 +1,164 @@
+[
+  {
+    "id": "all-games",
+    "name": "Todos los juegos",
+    "description": "Biblioteca curada e índices descargados.",
+    "icon": "▦",
+    "accent": "#00E5FF",
+    "isSystem": true,
+    "kind": "AUTOMATIC"
+  },
+  {
+    "id": "downloaded-library",
+    "name": "Descargados",
+    "description": "Juegos guardados en tu biblioteca ROMs; se abren sin volver a descargar.",
+    "icon": "↓",
+    "accent": "#00E5FF",
+    "isSystem": true,
+    "kind": "AUTOMATIC"
+  },
+  {
+    "id": "favorites",
+    "name": "Favoritos",
+    "description": "Tus imprescindibles personales.",
+    "icon": "★",
+    "accent": "#FFECC7",
+    "isSystem": true,
+    "kind": "AUTOMATIC"
+  },
+  {
+    "id": "recently-played",
+    "name": "Recientes",
+    "description": "Los juegos que abriste últimamente, ordenados por actividad.",
+    "icon": "◷",
+    "accent": "#B78CFF",
+    "isSystem": true,
+    "kind": "AUTOMATIC"
+  },
+  {
+    "id": "my-collection",
+    "name": "Mi colección",
+    "description": "Lista personal persistente.",
+    "icon": "♥",
+    "accent": "#00E5FF",
+    "isSystem": true,
+    "kind": "MANUAL"
+  },
+  {
+    "id": "favoritos-de-oz",
+    "name": "Favoritos de Oz",
+    "description": "Historia, música, acción y nostalgia que definen tu perfil gamer.",
+    "icon": "★",
+    "accent": "#FFECC7",
+    "isSystem": true,
+    "kind": "CURATED"
+  },
+  {
+    "id": "arcade-esencial",
+    "name": "Arcade esencial",
+    "description": "Máquinas imprescindibles: acción, pelea, run and gun y clásicos de salón.",
+    "icon": "◉",
+    "accent": "#00E5FF",
+    "isSystem": true,
+    "kind": "CURATED"
+  },
+  {
+    "id": "peleas-noventeras",
+    "name": "Peleas noventeras",
+    "description": "Capcom, SNK, Midway y Namco en su era más recordada.",
+    "icon": "拳",
+    "accent": "#B78CFF",
+    "isSystem": true,
+    "kind": "CURATED"
+  },
+  {
+    "id": "beat-em-up-legendarios",
+    "name": "Beat ’em up legendarios",
+    "description": "Golpes, cooperativo y calles tomadas por pandillas, ninjas y monstruos.",
+    "icon": "⚡",
+    "accent": "#6A31B7",
+    "isSystem": true,
+    "kind": "CURATED"
+  },
+  {
+    "id": "snes-esenciales",
+    "name": "SNES esenciales",
+    "description": "La era de 16 bits en RPG, plataformas, acción y aventura.",
+    "icon": "16",
+    "accent": "#B78CFF",
+    "isSystem": true,
+    "kind": "CURATED"
+  },
+  {
+    "id": "era-playstation",
+    "name": "Era PlayStation",
+    "description": "RPG, survival horror, carreras, lucha y aventuras que marcaron el salto al 3D.",
+    "icon": "△",
+    "accent": "#00E5FF",
+    "isSystem": true,
+    "kind": "CURATED"
+  },
+  {
+    "id": "era-playstation-2",
+    "name": "Era PlayStation 2",
+    "description": "Aventura cinematográfica, acción, JRPG y velocidad en una generación enorme.",
+    "icon": "2",
+    "accent": "#6A31B7",
+    "isSystem": true,
+    "kind": "CURATED"
+  },
+  {
+    "id": "nintendo-64-nostalgia",
+    "name": "Nintendo 64 nostalgia",
+    "description": "Exploración, multijugador y mundos 3D inolvidables.",
+    "icon": "64",
+    "accent": "#FFECC7",
+    "isSystem": true,
+    "kind": "CURATED"
+  },
+  {
+    "id": "jrpg-y-aventura",
+    "name": "JRPG y aventura",
+    "description": "Historias largas, personajes memorables y bandas sonoras que permanecen.",
+    "icon": "✦",
+    "accent": "#B78CFF",
+    "isSystem": true,
+    "kind": "CURATED"
+  },
+  {
+    "id": "capcom-power",
+    "name": "Capcom Power",
+    "description": "Arcade, acción y sagas de una de las compañías que más definió tus gustos.",
+    "icon": "C",
+    "accent": "#00E5FF",
+    "isSystem": true,
+    "kind": "CURATED"
+  },
+  {
+    "id": "cooperativo-de-sillon",
+    "name": "Cooperativo de sillón",
+    "description": "Partidas directas para compartir con familia o amigos.",
+    "icon": "2P",
+    "accent": "#FFECC7",
+    "isSystem": true,
+    "kind": "CURATED"
+  },
+  {
+    "id": "para-josefa",
+    "name": "Para Josefa",
+    "description": "Color, descubrimiento y partidas amigables para su etapa Nintendo 3DS.",
+    "icon": "☺",
+    "accent": "#B78CFF",
+    "isSystem": true,
+    "kind": "CURATED"
+  },
+  {
+    "id": "joyas-para-descubrir",
+    "name": "Joyas para descubrir",
+    "description": "Títulos menos obvios con personalidad, desafío justo y mundos memorables.",
+    "icon": "◆",
+    "accent": "#00E5FF",
+    "isSystem": true,
+    "kind": "CURATED"
+  }
+]

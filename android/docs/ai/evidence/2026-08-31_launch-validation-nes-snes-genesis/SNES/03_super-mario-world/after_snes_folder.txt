@@ -1,0 +1,25 @@
+total 55224
+-rw-rw---- 1 u0_a279 media_rw  524288 2026-08-23 22:46 240p Test Suite (World) (v1.061) (NTSC) (Program) (Aftermarket) (Unl).sfc
+-rw-rw---- 1 u0_a279 media_rw 1048576 2026-08-26 01:41 ActRaiser (USA) (Beta).sfc
+-rw-rw---- 1 u0_a279 media_rw  685275 2026-08-08 00:53 ActRaiser (USA).zip
+-rw-rw---- 1 u0_a279 media_rw 1048576 2026-08-08 09:00 Contra III - The Alien Wars (USA) (Beta).sfc
+-rw-rw---- 1 u0_a279 media_rw 4194304 2026-08-24 00:48 Donkey Kong Country (USA).sfc
+-rw-rw---- 1 u0_a279 media_rw 1048576 2026-08-25 11:35 Final Fight (USA).sfc
+-rw-rw---- 1 u0_a279 media_rw 1310720 2026-08-25 11:36 Final Fight 2 (USA) (Virtual Console).sfc
+-rw-rw---- 1 u0_a279 media_rw 3145728 2026-08-25 11:35 Final Fight 3 (USA).sfc
+-rw-rw---- 1 u0_a279 media_rw 4194304 2026-08-17 23:49 Killer Instinct (USA).sfc
+-rw-rw---- 1 u0_a279 media_rw 4194304 2026-08-08 11:51 Kirby Super Star (USA).sfc
+-rw-rw---- 1 u0_a279 media_rw 2097152 2026-08-26 17:26 Mega Man 7 (USA).sfc
+-rw-rw---- 1 u0_a279 media_rw 2097152 2026-08-25 12:45 Mega Man II (World) (REV-B) (Aftermarket) (Pirate).sfc
+-rw-rw---- 1 u0_a279 media_rw 4194304 2026-08-25 12:45 Mega Man III (World) (REV-B) (NES Conversion) (Aftermarket) (Unl).sfc
+-rw-rw---- 1 u0_a279 media_rw 1572864 2026-08-08 16:44 Mega Man X2 (USA).sfc
+-rw-rw---- 1 u0_a279 media_rw 3145728 2026-08-24 00:53 Metroid (World) (2023-11-30) (Beta) (Aftermarket) (Pirate).sfc
+-rw-rw---- 1 u0_a279 media_rw 8388608 2026-08-15 01:11 Pokemon Stadium (USA) (Pirate).sfc
+-rw-rw---- 1 u0_a279 media_rw 1048576 2026-08-24 00:49 SOS (USA).sfc
+-rw-rw---- 1 u0_a279 media_rw 1048576 2026-08-08 11:36 Super Castlevania IV (USA) (Virtual Console).sfc
+-rw-rw---- 1 u0_a279 media_rw  524288 2026-08-24 00:50 Super Full Metal Planet (Europe) (En) (Proto).sfc
+-rw-rw---- 1 u0_a279 media_rw 2097152 2026-08-12 00:30 Super Mario - Yoshi Island (Japan) (Rev 1).sfc
+-rw-rw---- 1 u0_a279 media_rw  524288 2026-09-03 00:45 Super Mario World (USA).sfc
+-rw-rw---- 1 u0_a279 media_rw 2097152 2026-08-24 00:51 Super Mario World 2 - Yoshi's Island (USA).sfc
+-rw-rw---- 1 u0_a279 media_rw 3145728 2026-08-12 14:21 Super Metroid (Japan, USA) (En,Ja).sfc
+-rw-rw---- 1 u0_a279 media_rw 3145728 2026-08-28 15:05 Super Metroid (USA, Europe) (En,Ja) (Virtual Console, Classic Mini, Switch Online).sfc

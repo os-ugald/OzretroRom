@@ -1,0 +1,12 @@
+#!/bin/sh
+set -eu
+APP_HOME=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd -P)
+WRAPPER="$APP_HOME/gradle/wrapper/gradle-wrapper.jar"
+if [ ! -f "$WRAPPER" ]; then
+  echo "Downloading verified Gradle wrapper bootstrap..."
+  curl -fL --retry 3 -o "$WRAPPER.tmp" \
+    https://raw.githubusercontent.com/gradle/gradle/v8.11.1/gradle/wrapper/gradle-wrapper.jar
+  echo "2db75c40782f5e8ba1fc278a5574bab070adccb2d21ca5a6e5ed840888448046  $WRAPPER.tmp" | sha256sum -c -
+  mv "$WRAPPER.tmp" "$WRAPPER"
+fi
+exec java ${JAVA_OPTS:-} ${GRADLE_OPTS:-} -classpath "$WRAPPER" org.gradle.wrapper.GradleWrapperMain "$@"

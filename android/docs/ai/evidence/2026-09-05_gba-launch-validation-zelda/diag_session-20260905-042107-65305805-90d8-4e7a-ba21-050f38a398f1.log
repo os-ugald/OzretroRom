@@ -1,0 +1,19 @@
+Oz RetroRom diagnostic log
+app_version=0.6.0-beta.4 (60018)
+android=15 sdk=35
+device=Xiaomi 2406APNFAG
+abi=arm64-v8a
+session_id=65305805-90d8-4e7a-ba21-050f38a398f1
+started_utc=2026-09-05T04:21:07.387Z
+privacy=No ROM contents, credentials, cookies or complete source URLs are recorded.
+---
+2026-09-05T04:21:07.388Z | INFO | main | SESSION_CREATED
+2026-09-05T04:21:07.391Z | INFO | main | SESSION_ORIGIN | Oz
+2026-09-05T04:21:07.602Z | INFO | main | LOCAL_LIBRARY_LEGACY_FALLBACK_SKIPPED | projection_id=oz-source-index-gba-game-447230b5dd8c6229730563818b162305b3ff15bd3e14e73f7fb3109f4b1cbc9f source_index_game_id=447230b5dd8c6229730563818b162305b3ff15bd3e14e73f7fb3109f4b1cbc9f mechanism=STRONG_GAME_ID_REQUIRED
+2026-09-05T04:21:07.607Z | INFO | main | SESSION_BEGIN | game_id=oz-source-index-gba-game-447230b5dd8c6229730563818b162305b3ff15bd3e14e73f7fb3109f4b1cbc9f system=gba
+2026-09-05T04:21:07.615Z | INFO | main | DIRECT_ROM_READY | file=Legend of Zelda, The - A Link to the Past & Four Swords (USA).gba path=<private-path>/Download
+2026-09-05T04:21:07.617Z | INFO | main | ENGINE_AUTO_SELECTED | system=gba engine=retroarch external_ready=false
+2026-09-05T04:21:07.719Z | INFO | DefaultDispatcher-worker-3 | RETROARCH_SAF_COMPAT_MIRROR | file=Legend of Zelda, The - A Link to the Past & Four Swords (USA).gba source_scheme=content mirror=Legend of Zelda, The - A Link to the Past & Four Swords (USA).gba
+2026-09-05T04:21:07.724Z | INFO | DefaultDispatcher-worker-3 | VALIDATION_OK | file=Legend of Zelda, The - A Link to the Past & Four Swords (USA).gba bytes=8388608 romset= bios=
+2026-09-05T04:21:07.959Z | INFO | main | RETROARCH_NATIVE_LAUNCHED | package=com.retroarch core=mgba_libretro_android.so file=Legend of Zelda, The - A Link to the Past & Four Swords (USA).gba
+2026-09-05T04:22:08.895Z | INFO | main | SESSION_RETURN_TARGET | Oz

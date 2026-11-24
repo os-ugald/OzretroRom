@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='utf-8' standalone='yes' ?>
+<map>
+    <string name="authorized_source_filename_oz-source-index-gba-game-494c83ce431ce35754f29e58f012e2dd186ce3a316ed2d62d969f75c0a2dd4cb">Metroid Fusion (Europe) (En,Fr,De,Es,It).gba</string>
+    <string name="global_rom_tree">content://com.android.externalstorage.documents/tree/primary%3ADownload%2FRoms</string>
+    <string name="artwork_mode">boxart</string>
+    <boolean name="legacy_collections_migrated" value="true" />
+    <string name="game_tile_style">classic_cover</string>
+    <set name="retroarch_confirmed_cores">
+        <string>com.retroarch|genesis_plus_gx_libretro_android.so</string>
+        <string>com.retroarch|flycast_libretro_android.so</string>
+        <string>com.retroarch|mgba_libretro_android.so</string>
+        <string>com.retroarch|snes9x_libretro_android.so</string>
+        <string>com.retroarch|mesen_libretro_android.so</string>
+    </set>
+    <string name="retroarch_package">com.retroarch</string>
+    <boolean name="legacy_preferences_migrated" value="true" />
+    <string name="steamgriddb_api_key">4bb5cec179fd3b4f48e8a9aef5abc5d5</string>
+    <string name="authorized_source_oz-source-index-gba-game-494c83ce431ce35754f29e58f012e2dd186ce3a316ed2d62d969f75c0a2dd4cb">content://com.android.externalstorage.documents/document/primary%3ADownload%2FRoms%2Fgba%2FMetroid%20Fusion%20(Europe)%20(En%2CFr%2CDe%2CEs%2CIt).gba</string>
+</map>

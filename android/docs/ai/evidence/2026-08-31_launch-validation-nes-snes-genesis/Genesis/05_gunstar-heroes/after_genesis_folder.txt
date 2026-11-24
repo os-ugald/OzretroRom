@@ -1,0 +1,9 @@
+total 11448
+-rw-rw---- 1 u0_a279 media_rw  262144 2026-08-25 11:16 240p Test Suite (World) (v1.30) (Program) (Aftermarket) (Unl).md
+-rw-rw---- 1 u0_a279 media_rw 1496664 2026-08-07 23:48 Comix Zone (USA).7z
+-rw-rw---- 1 u0_a279 media_rw 2097152 2026-08-19 17:23 Crusader of Centy (USA).md
+-rw-rw---- 1 u0_a279 media_rw 1048576 2026-09-03 00:54 Gunstar Heroes (USA).md
+-rw-rw---- 1 u0_a279 media_rw 1048576 2026-09-03 00:52 Sonic The Hedgehog 2 (World) (Rev A) (Sonic Classic Collection).md
+-rw-rw---- 1 u0_a279 media_rw  524288 2026-08-25 12:41 Streets of Rage (World) (En,Ja) (Rev A) (Sega 3D Classics).md
+-rw-rw---- 1 u0_a279 media_rw 2097152 2026-08-25 12:41 Streets of Rage 2 (USA).md
+-rw-rw---- 1 u0_a279 media_rw 3145728 2026-08-25 11:17 Streets of Rage 3 (USA).md

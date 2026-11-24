@@ -1,0 +1,44 @@
+{
+  "contractVersion": "gba-production-candidate-v1",
+  "platform": "gba",
+  "pipeline": {
+    "builderVersion": "source-index-v1.0",
+    "schemaVersion": 1,
+    "normalizer": "snes_benchmark.canonical_metadata",
+    "normalizationPolicy": "GBA Proto/Prototype and bracketed T-En metadata; UNKNOWN remains UNKNOWN"
+  },
+  "collections": [
+    {
+      "collection": "Nintendo - Game Boy Advance",
+      "provider": "minerva",
+      "providerGroup": "No-Intro",
+      "role": "PRIMARY_CONTROLLED",
+      "expectedFileCount": 3688,
+      "infoHash": "e1ec1d83aac1633fade7589ef694b800bbb979a2"
+    },
+    {
+      "collection": "Nintendo - Game Boy Advance (Aftermarket)",
+      "provider": "minerva",
+      "providerGroup": "No-Intro",
+      "role": "AFTERMARKET",
+      "expectedFileCount": 236,
+      "infoHash": "6aae2f6950245b9947be3431f81e23d4b60a2b94"
+    },
+    {
+      "collection": "Nintendo - Game Boy Advance [T-En] Collection",
+      "provider": "minerva",
+      "providerGroup": "T-En Collection",
+      "role": "TRANSLATION",
+      "expectedFileCount": 97,
+      "infoHash": "88a33927fbb4ca7730bc8dfdc8a030a3bf9361a5"
+    }
+  ],
+  "expectedOutput": {
+    "gameCount": 2368,
+    "releaseCount": 3962,
+    "candidateCount": 4021,
+    "compressedBytes": 1313406,
+    "uncompressedBytes": 16725666,
+    "compressedSha256": "6ff70a3763fbbd6871c7e9a29135161c84deec4144d470ff5bb993d519d2af50"
+  }
+}

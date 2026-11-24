@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:id="@+id/action_global" android:title="Catálogo global" app:showAsAction="never" />
+    <item android:id="@+id/action_settings" android:title="Configuración" app:showAsAction="never" />
+    <item android:id="@+id/action_sync_iisu" android:title="Sincronizar con iiSU" app:showAsAction="never" />
+    <item android:id="@+id/action_new_collection" android:title="Nueva colección" app:showAsAction="never" />
+    <item android:id="@+id/action_export_json" android:title="Exportar JSON" app:showAsAction="never" />
+    <item android:id="@+id/action_import_json" android:title="Importar JSON" app:showAsAction="never" />
+    <item android:id="@+id/action_export_csv" android:title="Exportar CSV" app:showAsAction="never" />
+    <item android:id="@+id/action_about" android:title="Acerca de Oz RetroRom" app:showAsAction="never" />
+</menu>

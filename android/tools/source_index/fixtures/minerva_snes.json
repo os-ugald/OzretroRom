@@ -1,0 +1,34 @@
+{
+  "records": [
+    {
+      "platform": "snes",
+      "gameTitle": "240p Test Suite",
+      "canonicalTitleKey": "240p Test Suite",
+      "canonicalReleaseKey": "240p-test-suite-world-v1.061-aftermarket-program",
+      "aliases": ["240p Test Suite SNES"],
+      "region": "World",
+      "revision": "v1.061",
+      "releaseType": "aftermarket",
+      "headerState": "unknown",
+      "canonicalFileName": "240p Test Suite (World) (v1.061) (NTSC) (Program) (Aftermarket) (Unl).zip",
+      "expectedSize": 113992,
+      "crc32": "fb442ac9",
+      "md5": "2c706355fc1d892fb887e45d43f065b1",
+      "sha1": "ca2f3eb6b0fc21e7d71528cfaf64eff62d7496c6",
+      "sha256": "b91452606f5959b55309343676e60e49ffbd1edc0c9679c1772f274b98460d5a",
+      "hashScope": "DISTRIBUTED_ARTIFACT",
+      "artifactContentRelation": "WRAPPED",
+      "providerItemId": "2866663",
+      "collection": "No-Intro/Nintendo - Super Nintendo Entertainment System (Aftermarket)",
+      "infoHash": "811e19de482dc7769e1efdee9f04e3eef5f51ad5",
+      "fileIndex": 6,
+      "exactFullPath": "Minerva_Myrient/No-Intro/Nintendo - Super Nintendo Entertainment System (Aftermarket)/240p Test Suite (World) (v1.061) (NTSC) (Program) (Aftermarket) (Unl).zip",
+      "torrentArtifactStrategy": "MINERVA_ASSET_PATH",
+      "torrentArtifactPath": "Minerva_Myrient_v0.3/Minerva_Myrient - No-Intro - Nintendo - Super Nintendo Entertainment System (Aftermarket).torrent",
+      "trackerUrls": [],
+      "firstSeen": "2026-08-22T00:00:00Z",
+      "lastSeen": "2026-08-22T00:00:00Z",
+      "sourceFreshness": "verified"
+    }
+  ]
+}

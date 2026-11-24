@@ -1,0 +1,11 @@
+/sdcard/Download/Roms/Game Boy Advance:
+total 27144
+-rw-rw---- 1 u0_a279 media_rw  8388608 2026-08-11 16:33 Sonic Advance (USA) (En,Ja).gba
+-rw-rw---- 1 u0_a279 media_rw 16777216 2026-08-20 17:22 Summon Night - Swordcraft Story 2 (USA).gba
+-rw-rw---- 1 u0_a279 media_rw  2597514 2026-08-07 21:22 Super Mario Advance 3 - Yoshi's Island (USA).zip
+
+/sdcard/Download/Roms/gba:
+total 32804
+-rw-rw---- 1 u0_a279 media_rw 16777216 2026-07-26 21:38 Legend of Zelda, The - The Minish Cap (Europe) (En,Fr,De,Es,It).gba
+-rw-rw---- 1 u0_a279 media_rw  8388608 2026-07-27 00:23 Metroid Fusion (Europe) (En,Fr,De,Es,It).gba
+-rw-rw---- 1 u0_a279 media_rw  8388608 2026-07-27 00:22 WarioWare, Inc. - Minigame Mania (Europe) (En,Fr,De,Es,It).gba

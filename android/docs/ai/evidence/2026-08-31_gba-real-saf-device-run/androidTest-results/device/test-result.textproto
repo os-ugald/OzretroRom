@@ -1,0 +1,77 @@
+# proto-message: google.testing.platform.proto.api.core.TestSuiteResult
+# 2026-08-31T18:54:00.823759Z:
+test_suite_meta_data {
+  scheduled_test_case_count: 1
+  device {
+    id: "R4RWNBOZPFVSL765"
+    friendly_name: "primary"
+  }
+}
+test_status: PASSED
+test_result {
+  test_case {
+    test_class: "PersistentRomLibraryRealSafDeviceTest"
+    test_package: "cl.gakuto.kizuna.launch"
+    test_method: "externalStorageProviderCreatesAndPromotesPendingArtifactWithoutRoomPendingReference"
+    start_time {
+      seconds: 1788202435
+      nanos: 12000000
+    }
+    end_time {
+      seconds: 1788202439
+      nanos: 565000000
+    }
+    device {
+      id: "R4RWNBOZPFVSL765"
+      friendly_name: "primary"
+    }
+  }
+  test_status: PASSED
+  output_artifact {
+    label {
+      label: "logcat"
+      namespace: "android"
+    }
+    source_path {
+      path: "C:\\Users\\Osvaldo\\StudioProjects\\gakuto-kizuna-android\\app\\build\\outputs\\androidTest-results\\connected\\debug\\2406APNFAG - 15\\logcat-cl.gakuto.kizuna.launch.PersistentRomLibraryRealSafDeviceTest-externalStorageProviderCreatesAndPromotesPendingArtifactWithoutRoomPendingReference.txt"
+    }
+  }
+  output_artifact {
+    label {
+      label: "device-info"
+      namespace: "android"
+    }
+    source_path {
+      path: "C:\\Users\\Osvaldo\\StudioProjects\\gakuto-kizuna-android\\app\\build\\outputs\\androidTest-results\\connected\\debug\\2406APNFAG - 15\\device-info.pb"
+    }
+  }
+  output_artifact {
+    label {
+      label: "device-info.meminfo"
+      namespace: "android"
+    }
+    source_path {
+      path: "C:\\Users\\Osvaldo\\StudioProjects\\gakuto-kizuna-android\\app\\build\\outputs\\androidTest-results\\connected\\debug\\2406APNFAG - 15\\meminfo"
+    }
+  }
+  output_artifact {
+    label {
+      label: "device-info.cpuinfo"
+      namespace: "android"
+    }
+    source_path {
+      path: "C:\\Users\\Osvaldo\\StudioProjects\\gakuto-kizuna-android\\app\\build\\outputs\\androidTest-results\\connected\\debug\\2406APNFAG - 15\\cpuinfo"
+    }
+  }
+}
+output_artifact {
+  label {
+    label: "test-results.log"
+    namespace: "com.google.testing.platform.runtime.android.driver.AndroidInstrumentationDriver"
+  }
+  source_path {
+    path: "C:\\Users\\Osvaldo\\StudioProjects\\gakuto-kizuna-android\\app\\build\\outputs\\androidTest-results\\connected\\debug\\2406APNFAG - 15\\testlog\\test-results.log"
+  }
+  type: TEST_DATA
+  mime_type: "text/plain"
+}

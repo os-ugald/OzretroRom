@@ -1,0 +1,17 @@
+Oz RetroRom diagnostic log
+app_version=0.6.0-beta.4 (60018)
+android=15 sdk=35
+device=Xiaomi 2406APNFAG
+abi=arm64-v8a
+session_id=download-1a00ca0b-cc0c-4062-99ad-04e4c16955da
+started_utc=2026-09-03T04:50:08.114Z
+privacy=No ROM contents, credentials, cookies or complete source URLs are recorded.
+---
+2026-09-03T04:50:08.115Z | INFO | DefaultDispatcher-worker-3 | SESSION_CREATED
+2026-09-03T04:50:08.117Z | INFO | DefaultDispatcher-worker-3 | BACKGROUND_DOWNLOAD_BEGIN | game_id=oz-source-index-snes-game-0aa4d7f97294b264af078cd4d38f2129287e6c4b3980a09d272ac527dbc65220 system=snes task=320a4ccf-37bd-4833-92b3-509a30bb97c2
+2026-09-03T04:50:08.174Z | INFO | DefaultDispatcher-worker-3 | TORRENT_STARTED | infohash=93e0d2060d1b05f5b19d0a9e40011b51a76a933c
+2026-09-03T04:50:10.177Z | INFO | DefaultDispatcher-worker-3 | TORRENT_FILE_SELECTED | index=3765 path=Minerva_Myrient/No-Intro/Nintendo - Super Nintendo Entertainment System/Super Metroid (USA, Europe) (En,Ja) (Virtual Console, Classic Mini, Switch Online).zip bytes=1569912
+2026-09-03T04:50:10.187Z | INFO | DefaultDispatcher-worker-3 | TORRENT_PRIORITIES_APPLIED | target=3765 active=1 ignored=4641
+2026-09-03T04:50:14.938Z | INFO | DefaultDispatcher-worker-3 | ROM_ARCHIVE_EXTRACTED | system=snes archive=Super Metroid (USA, Europe) (En,Ja) (Virtual Console, Classic Mini, Switch Online).zip entry=Super Metroid (USA, Europe) (En,Ja) (Virtual Console, Classic Mini, Switch Online).sfc bytes=3145728
+2026-09-03T04:50:14.944Z | INFO | DefaultDispatcher-worker-3 | VALIDATION_OK | file=Super Metroid (USA, Europe) (En,Ja) (Virtual Console, Classic Mini, Switch Online).sfc bytes=3145728 romset= bios=
+2026-09-03T04:50:15.838Z | INFO | DefaultDispatcher-worker-3 | BACKGROUND_DOWNLOAD_SAVED | game_id=oz-source-index-snes-game-0aa4d7f97294b264af078cd4d38f2129287e6c4b3980a09d272ac527dbc65220 file=Super Metroid (USA, Europe) (En,Ja) (Virtual Console, Classic Mini, Switch Online) (Oz 2).sfc bytes=3145728

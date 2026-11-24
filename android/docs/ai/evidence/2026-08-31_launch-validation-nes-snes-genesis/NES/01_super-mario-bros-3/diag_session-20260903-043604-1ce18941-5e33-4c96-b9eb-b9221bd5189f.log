@@ -1,0 +1,24 @@
+Oz RetroRom diagnostic log
+app_version=0.6.0-beta.4 (60018)
+android=15 sdk=35
+device=Xiaomi 2406APNFAG
+abi=arm64-v8a
+session_id=1ce18941-5e33-4c96-b9eb-b9221bd5189f
+started_utc=2026-09-03T04:36:04.974Z
+privacy=No ROM contents, credentials, cookies or complete source URLs are recorded.
+---
+2026-09-03T04:36:04.975Z | INFO | main | SESSION_CREATED
+2026-09-03T04:36:04.979Z | INFO | main | SESSION_ORIGIN | Oz
+2026-09-03T04:36:05.189Z | INFO | main | LOCAL_LIBRARY_LEGACY_FALLBACK_SKIPPED | projection_id=oz-source-index-nes-game-9e7c22b974cc368430d660c4a2dfa08dc65ba036f89bd4eb0239e91f2e3ad830 source_index_game_id=9e7c22b974cc368430d660c4a2dfa08dc65ba036f89bd4eb0239e91f2e3ad830 mechanism=STRONG_GAME_ID_REQUIRED
+2026-09-03T04:36:05.196Z | INFO | main | SOURCE_INDEX_CANDIDATE_SELECTED | game=9e7c22b974cc368430d660c4a2dfa08dc65ba036f89bd4eb0239e91f2e3ad830 release=5102a2dc82461fcb32e5f364db9dccf0889c5cbbc873f74dd7894cbcb1b3e508 candidate=b0e0ce8effcaebbf149c75e37fe97812cd2781046be1c698cf87a8dea31013cb provider=minerva transport=torrent infohash=6864d0c06b48365d208c7c5f2b1570087f4712de file_index=5978 path=Minerva_Myrient/No-Intro/Nintendo - Nintendo Entertainment System (Headered)/Super Mario Bros. 3 (USA).zip
+2026-09-03T04:36:06.849Z | INFO | main | BACKGROUND_DOWNLOAD_SCHEDULED | game_id=oz-source-index-nes-game-9e7c22b974cc368430d660c4a2dfa08dc65ba036f89bd4eb0239e91f2e3ad830 task=2b4258b0-f33d-461e-a400-66ec7020b7d9 mode=USER_INITIATED_JOB
+2026-09-03T04:36:06.859Z | INFO | main | SESSION_PHASE | phase=DOWNLOADING source=Minerva file=Super Mario Bros. 3 (USA).zip total=226318
+2026-09-03T04:36:14.844Z | INFO | main | SESSION_BEGIN | game_id=oz-source-index-nes-game-9e7c22b974cc368430d660c4a2dfa08dc65ba036f89bd4eb0239e91f2e3ad830 system=nes
+2026-09-03T04:36:14.852Z | INFO | main | DIRECT_ROM_READY | file=Super Mario Bros. 3 (USA) (Oz 2).nes path=<private-path>/Download
+2026-09-03T04:36:14.853Z | INFO | main | ENGINE_AUTO_SELECTED | system=nes engine=retroarch external_ready=false
+2026-09-03T04:36:14.931Z | INFO | DefaultDispatcher-worker-3 | RETROARCH_SAF_COMPAT_MIRROR | file=Super Mario Bros. 3 (USA) (Oz 2).nes source_scheme=content mirror=Super Mario Bros. 3 (USA) (Oz 2).nes
+2026-09-03T04:36:14.935Z | INFO | DefaultDispatcher-worker-3 | VALIDATION_OK | file=Super Mario Bros. 3 (USA) (Oz 2).nes bytes=393232 romset= bios=
+2026-09-03T04:36:15.940Z | INFO | main | RETROARCH_CORE_SIDELOAD_STARTED | package=com.retroarch core=mesen_libretro_android.so
+2026-09-03T04:36:28.111Z | INFO | main | RETROARCH_CORE_SIDELOAD_CONFIRMED | package=com.retroarch core=mesen_libretro_android.so
+2026-09-03T04:36:28.159Z | INFO | main | RETROARCH_NATIVE_LAUNCHED | package=com.retroarch core=mesen_libretro_android.so file=Super Mario Bros. 3 (USA) (Oz 2).nes
+2026-09-03T04:37:40.949Z | INFO | main | SESSION_RETURN_TARGET | Oz

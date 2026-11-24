@@ -1,0 +1,5 @@
+total 848
+-rw-rw---- 1 u0_a279 media_rw  65552 2026-08-24 21:35 240p Test Suite (World) (v0.23) (BNROM) (Program) (Aftermarket) (Unl).nes
+-rw-rw---- 1 u0_a279 media_rw 131088 2026-08-25 12:46 Mega Man (USA) (Virtual Console).nes
+-rw-rw---- 1 u0_a279 media_rw 262160 2026-08-25 12:46 Mega Man 2 (USA).nes
+-rw-rw---- 1 u0_a279 media_rw 393232 2026-08-24 21:37 Super Mario Bros. 3 (USA).nes

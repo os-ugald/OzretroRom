@@ -1,0 +1,17 @@
+Oz RetroRom diagnostic log
+app_version=0.6.0-beta.4 (60018)
+android=15 sdk=35
+device=Xiaomi 2406APNFAG
+abi=arm64-v8a
+session_id=download-34f5f1f6-7245-4d3c-b098-f82211677bcc
+started_utc=2026-09-03T05:00:05.920Z
+privacy=No ROM contents, credentials, cookies or complete source URLs are recorded.
+---
+2026-09-03T05:00:05.921Z | INFO | DefaultDispatcher-worker-3 | SESSION_CREATED
+2026-09-03T05:00:05.923Z | INFO | DefaultDispatcher-worker-3 | BACKGROUND_DOWNLOAD_BEGIN | game_id=oz-source-index-genesis-game-958c8dfcf1b3bc53d33c6517680bfdcce5303f372d788cad0d579db45346c56e system=genesis task=a988b9ba-3090-4e46-ae7e-40426c1f07ab
+2026-09-03T05:00:05.992Z | INFO | DefaultDispatcher-worker-3 | TORRENT_STARTED | infohash=7bed1007999d817da4605282780a2715f08d470a
+2026-09-03T05:00:10.016Z | INFO | DefaultDispatcher-worker-3 | TORRENT_FILE_SELECTED | index=3301 path=Minerva_Myrient/No-Intro/Sega - Mega Drive - Genesis/Streets of Rage 2 (USA).zip bytes=1031009
+2026-09-03T05:00:10.024Z | INFO | DefaultDispatcher-worker-3 | TORRENT_PRIORITIES_APPLIED | target=3301 active=1 ignored=4232
+2026-09-03T05:00:12.748Z | INFO | DefaultDispatcher-worker-3 | ROM_ARCHIVE_EXTRACTED | system=genesis archive=Streets of Rage 2 (USA).zip entry=Streets of Rage 2 (USA).md bytes=2097152
+2026-09-03T05:00:12.759Z | INFO | DefaultDispatcher-worker-3 | VALIDATION_OK | file=Streets of Rage 2 (USA).md bytes=2097152 romset= bios=
+2026-09-03T05:00:13.259Z | INFO | DefaultDispatcher-worker-3 | BACKGROUND_DOWNLOAD_SAVED | game_id=oz-source-index-genesis-game-958c8dfcf1b3bc53d33c6517680bfdcce5303f372d788cad0d579db45346c56e file=Streets of Rage 2 (USA) (Oz 2).md bytes=2097152

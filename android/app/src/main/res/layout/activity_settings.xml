@@ -1,0 +1,534 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/oz_background"
+    android:clipToPadding="false">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingHorizontal="16dp"
+        android:paddingBottom="32dp">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/bg_header_rounded"
+            app:navigationIcon="@android:drawable/ic_media_previous"
+        app:popupTheme="@style/ThemeOverlay.OzRetroRom.PopupMenu"
+            app:title="Configuración"
+            app:titleTextColor="@color/arcade_cream" />
+
+
+        <TextView
+            style="@style/OzSectionTitle"
+            android:text="Modo de juego automático" />
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/romgiAutoSwitch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Resolver y descargar automáticamente con ROMgi" />
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/romgiWifiOnlySwitch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Descargas automáticas solo mediante Wi-Fi" />
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/romgiTorrentSwitch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Permitir transporte torrent selectivo" />
+
+        <TextView
+            style="@style/OzBodyText"
+            android:layout_marginTop="10dp"
+            android:text="Región preferida para resolver versiones" />
+
+        <Spinner
+            android:id="@+id/preferredRegionSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:background="@drawable/spinner_background"
+            android:paddingHorizontal="12dp" />
+
+        <TextView
+            android:id="@+id/romgiCatalogStatusText"
+            style="@style/OzBodyText"
+            android:layout_marginTop="10dp"
+            android:text="Catálogo ROMgi todavía no descargado" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/clearRomgiCatalogButton"
+            style="@style/Widget.Oz.Button.Secondary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Borrar catálogo ROMgi local" />
+
+        <TextView
+            style="@style/OzSectionTitle"
+            android:text="Cuenta de Internet Archive" />
+
+        <TextView
+            android:id="@+id/internetArchiveStatusText"
+            style="@style/OzBodyText"
+            android:text="Sin sesión iniciada" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/internetArchiveLoginButton"
+                style="@style/Widget.Oz.Button.Primary"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Iniciar sesión" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/internetArchiveLogoutButton"
+                style="@style/Widget.Oz.Button.Secondary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="Cerrar sesión" />
+        </LinearLayout>
+
+        <TextView
+            style="@style/OzBodyText"
+            android:layout_marginTop="6dp"
+            android:text="Conecta Internet Archive una sola vez. Oz abre Chrome para el acceso oficial y guarda únicamente las claves IA-S3 que tú importas, cifradas con Android Keystore. Después prioriza HTTPS y deja torrent como respaldo." />
+
+        <TextView
+            style="@style/OzSectionTitle"
+            android:text="Rendimiento del catálogo" />
+
+        <TextView
+            style="@style/OzBodyText"
+            android:text="Los sistemas grandes como PlayStation se cargan progresivamente. El modo Fluido evita bloquear la interfaz y mantiene disponibles todos los juegos al desplazarte o buscar." />
+
+        <Spinner
+            android:id="@+id/catalogPerformanceSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/spinner_background"
+            android:paddingHorizontal="12dp" />
+
+        <TextView
+            style="@style/OzSectionTitle"
+            android:text="iiSU · puente avanzado (compatibilidad)" />
+
+        <TextView
+            android:id="@+id/globalVirtualUriText"
+            style="@style/OzBodyText"
+            android:text="Sin carpeta global seleccionada" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/globalVirtualFolderButton"
+            style="@style/Widget.Oz.Button.Secondary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Elegir carpeta de puente global" />
+
+        <TextView
+            style="@style/OzBodyText"
+            android:layout_marginTop="12dp"
+            android:text="El Bridge usa una sola raíz global. Elige abajo el sistema solo para opciones específicas de ROMs, cores y emulación." />
+
+        <Spinner
+            android:id="@+id/systemSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/spinner_background"
+            android:paddingHorizontal="12dp" />
+
+        <LinearLayout
+            android:id="@+id/romLibrarySection"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+        <TextView
+            style="@style/OzSectionTitle"
+            android:text="Biblioteca ROMs persistente" />
+
+        <TextView
+            style="@style/OzBodyText"
+            android:text="Selecciona una vez una carpeta compartida de ROMs. Oz guardará allí cada descarga terminada y volverá a usarla al pulsar Jugar, sin descargarla otra vez. Puedes elegir la misma carpeta que navegas desde RetroArch." />
+
+        <TextView
+            android:id="@+id/globalRomUriText"
+            style="@style/OzBodyText"
+            android:text="Sin carpeta global de ROMs" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/globalRomFolderButton"
+            style="@style/Widget.Oz.Button.Secondary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Elegir carpeta ROMs de RetroArch" />
+
+        <TextView
+            android:id="@+id/systemRomUriText"
+            style="@style/OzBodyText"
+            android:layout_marginTop="8dp"
+            android:text="Usando carpeta global de ROMs" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/systemRomFolderButton"
+                style="@style/Widget.Oz.Button.Primary"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Carpeta específica" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/clearSystemRomButton"
+                style="@style/Widget.Oz.Button.Secondary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Usar global" />
+        </LinearLayout>
+
+        </LinearLayout>
+
+        <TextView
+            style="@style/OzSectionTitle"
+            android:text="Sincronización iiSU" />
+
+        <TextView
+            android:id="@+id/iisuAssetsUriText"
+            style="@style/OzBodyText"
+            android:text="Carpeta de assets opcional" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/iisuAssetsFolderButton"
+            style="@style/Widget.Oz.Button.Secondary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Elegir carpeta de assets de iiSU" />
+
+        <TextView
+            android:id="@+id/iisuCommandText"
+            style="@style/OzBodyText"
+            android:fontFamily="monospace"
+            android:textIsSelectable="true"
+            android:text="cl.gakuto.kizuna/cl.gakuto.kizuna.launch.SessionActivity -a cl.gakuto.kizuna.action.PLAY -e ROM &quot;%ROM%&quot; --activity-clear-top" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/copyIisuCommandButton"
+                style="@style/Widget.Oz.Button.Primary"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Copiar comando" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/exportIisuPackButton"
+                style="@style/Widget.Oz.Button.Secondary"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Exportar pack iiSU" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/artworkLibrarySection"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+        <TextView
+            style="@style/OzSectionTitle"
+            android:text="Boxart mostrado" />
+
+        <Spinner
+            android:id="@+id/artworkModeSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:background="@drawable/spinner_background"
+            android:paddingHorizontal="12dp" />
+
+        <TextView
+            android:id="@+id/localArtworkUriText"
+            style="@style/OzBodyText"
+            android:text="Sin carpeta local de imágenes" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/localArtworkFolderButton"
+            style="@style/Widget.Oz.Button.Secondary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Elegir carpeta local de boxart" />
+
+        <TextView
+            style="@style/OzBodyText"
+            android:text="El modo Automático busca primero una imagen personalizada, luego la carpeta local y finalmente Boxarts, Titles y Snaps de Libretro." />
+
+        </LinearLayout>
+
+        <TextView
+            style="@style/OzSectionTitle"
+            android:text="Arcade / FinalBurn Neo" />
+
+        <TextView
+            style="@style/OzBodyText"
+            android:text="Selecciona una carpeta propia con BIOS FBNeo. Oz RetroRom copiará a la sesión temporal solamente los BIOS reconocidos que encuentre; no incluye archivos BIOS." />
+
+        <TextView
+            android:id="@+id/fbneoBiosUriText"
+            style="@style/OzBodyText"
+            android:text="Sin carpeta de BIOS FBNeo" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/fbneoBiosFolderButton"
+            style="@style/Widget.Oz.Button.Secondary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Elegir carpeta de BIOS FBNeo" />
+
+        <TextView
+            style="@style/OzSectionTitle"
+            android:text="Motores y emuladores" />
+
+        <TextView
+            style="@style/OzBodyText"
+            android:text="Configura Automático, RetroArch, emulador externo o Preguntar al jugar para cada plataforma. Oz solo usa paquetes visibles e intents que Android confirma como exportados." />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/emulatorSettingsButton"
+            style="@style/Widget.Oz.Button.Secondary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Configurar por sistema" />
+
+        <TextView
+            style="@style/OzSectionTitle"
+            android:text="RetroArch y cores" />
+
+        <TextView
+            style="@style/OzBodyText"
+            android:text="Oz RetroRom puede abrir RetroArch directamente, sin iiSU. En versiones compartidas solo instalará cores incluidos en el catálogo SHA-256 firmado dentro de la APK. Los demás deben instalarse desde RetroArch. iiSU conserva su integración avanzada." />
+
+        <TextView
+            android:id="@+id/retroArchStatusText"
+            style="@style/OzBodyText"
+            android:layout_marginTop="8dp"
+            android:text="Comprobando RetroArch…" />
+
+        <Spinner
+            android:id="@+id/retroArchVariantSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/spinner_background"
+            android:paddingHorizontal="12dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/detectRetroArchButton"
+                style="@style/Widget.Oz.Button.Primary"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Detectar" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/installOrOpenRetroArchButton"
+                style="@style/Widget.Oz.Button.Secondary"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Instalar RetroArch" />
+        </LinearLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/retroArchStorageAccessButton"
+            style="@style/Widget.Oz.Button.Secondary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Permitir a RetroArch leer Descargas" />
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/retroAutoInstallCoresSwitch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Instalar automáticamente cores verificados al pulsar Jugar" />
+
+        <TextView
+            style="@style/OzBodyText"
+            android:layout_marginTop="8dp"
+            android:text="Carpeta de cores (opcional): selecciona una carpeta externa configurada también como directorio de cores en RetroArch. Sin ella, Oz usa una carpeta puente en Descargas y la actividad oficial de instalación de cores de RetroArch." />
+
+        <TextView
+            android:id="@+id/retroCoreFolderUriText"
+            style="@style/OzBodyText"
+            android:text="Usando instalación segura mediante RetroArch" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/retroCoreFolderButton"
+                style="@style/Widget.Oz.Button.Primary"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Elegir carpeta de cores" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/clearRetroCoreFolderButton"
+                style="@style/Widget.Oz.Button.Secondary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Automático" />
+        </LinearLayout>
+
+        <TextView
+            style="@style/OzBodyText"
+            android:layout_marginTop="12dp"
+            android:text="System/BIOS de RetroArch: Oz verifica aquí únicamente firmware con nombres confirmados antes de abrir un juego que lo requiera." />
+
+        <TextView
+            android:id="@+id/retroSystemFolderUriText"
+            style="@style/OzBodyText"
+            android:text="Sin carpeta System/BIOS seleccionada" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/retroSystemFolderButton"
+                style="@style/Widget.Oz.Button.Primary"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Elegir System/BIOS" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/clearRetroSystemFolderButton"
+                style="@style/Widget.Oz.Button.Secondary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Olvidar" />
+        </LinearLayout>
+
+        <TextView
+            style="@style/OzSectionTitle"
+            android:text="Overlays RetroArch oficiales" />
+
+        <TextView
+            style="@style/OzBodyText"
+            android:text="Oz puede descargar y actualizar el paquete oficial common-overlays desde Libretro Buildbot en una carpeta compartida. RetroArch debe apuntar una vez su directorio Input Overlays a esa misma carpeta; Oz no modifica retroarch.cfg ni asigna overlays por core sin una API oficial." />
+
+        <TextView
+            android:id="@+id/retroOverlayFolderUriText"
+            style="@style/OzBodyText"
+            android:layout_marginTop="8dp"
+            android:text="Sin carpeta compartida de overlays" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/retroOverlayFolderButton"
+                style="@style/Widget.Oz.Button.Primary"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Elegir carpeta" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/downloadRetroOverlaysButton"
+                style="@style/Widget.Oz.Button.Secondary"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Descargar / actualizar" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/retroOverlayStatusText"
+            style="@style/OzBodyText"
+            android:layout_marginTop="6dp"
+            android:text="Paquete oficial todavía no preparado por Oz." />
+
+        <TextView
+            android:id="@+id/retroCoreStatusText"
+            style="@style/OzBodyText"
+            android:layout_marginTop="8dp"
+            android:text="Selecciona un sistema arriba para revisar su core." />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/installSelectedCoreButton"
+            style="@style/Widget.Oz.Button.Secondary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Preparar core del sistema seleccionado" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:hint="Paquete de RetroArch (avanzado)">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/retroPackageInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:singleLine="true" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/deleteAfterPlaySwitch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="Borrar solo copias temporales de compatibilidad al cerrar el emulador" />
+
+
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/saveButton"
+            style="@style/Widget.Oz.Button.Primary"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginTop="24dp"
+            android:text="Guardar configuración" />
+    </LinearLayout>
+</ScrollView>

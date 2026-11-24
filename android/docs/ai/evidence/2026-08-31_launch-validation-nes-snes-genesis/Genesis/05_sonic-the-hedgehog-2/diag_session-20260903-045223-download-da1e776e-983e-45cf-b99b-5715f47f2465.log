@@ -1,0 +1,17 @@
+Oz RetroRom diagnostic log
+app_version=0.6.0-beta.4 (60018)
+android=15 sdk=35
+device=Xiaomi 2406APNFAG
+abi=arm64-v8a
+session_id=download-da1e776e-983e-45cf-b99b-5715f47f2465
+started_utc=2026-09-03T04:52:23.152Z
+privacy=No ROM contents, credentials, cookies or complete source URLs are recorded.
+---
+2026-09-03T04:52:23.153Z | INFO | DefaultDispatcher-worker-3 | SESSION_CREATED
+2026-09-03T04:52:23.156Z | INFO | DefaultDispatcher-worker-3 | BACKGROUND_DOWNLOAD_BEGIN | game_id=oz-source-index-genesis-game-d3189078f86cf5c8301095748fa5db064dcf2f918cbc62c56435379c6c1298f6 system=genesis task=2305a699-42f9-4acf-b72e-8318ae9897af
+2026-09-03T04:52:23.232Z | INFO | DefaultDispatcher-worker-3 | TORRENT_STARTED | infohash=7bed1007999d817da4605282780a2715f08d470a
+2026-09-03T04:52:27.248Z | INFO | DefaultDispatcher-worker-3 | TORRENT_FILE_SELECTED | index=3132 path=Minerva_Myrient/No-Intro/Sega - Mega Drive - Genesis/Sonic The Hedgehog 2 (World) (Rev A) (Sonic Classic Collection).zip bytes=749741
+2026-09-03T04:52:27.256Z | INFO | DefaultDispatcher-worker-3 | TORRENT_PRIORITIES_APPLIED | target=3132 active=1 ignored=4232
+2026-09-03T04:52:32.675Z | INFO | DefaultDispatcher-worker-3 | ROM_ARCHIVE_EXTRACTED | system=genesis archive=Sonic The Hedgehog 2 (World) (Rev A) (Sonic Classic Collection).zip entry=Sonic The Hedgehog 2 (World) (Rev A) (Sonic Classic Collection).md bytes=1048576
+2026-09-03T04:52:32.681Z | INFO | DefaultDispatcher-worker-3 | VALIDATION_OK | file=Sonic The Hedgehog 2 (World) (Rev A) (Sonic Classic Collection).md bytes=1048576 romset= bios=
+2026-09-03T04:52:33.140Z | INFO | DefaultDispatcher-worker-3 | BACKGROUND_DOWNLOAD_SAVED | game_id=oz-source-index-genesis-game-d3189078f86cf5c8301095748fa5db064dcf2f918cbc62c56435379c6c1298f6 file=Sonic The Hedgehog 2 (World) (Rev A) (Sonic Classic Collection).md bytes=1048576

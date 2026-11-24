@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_crt"
+    android:clipToOutline="true"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/gameArtwork"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:contentDescription="Boxart del juego"
+            android:scaleType="centerCrop"
+            android:src="@drawable/oz_app_icon_arcade"
+            app:shapeAppearanceOverlay="@style/ShapeAppearance.Oz.Large"
+            app:strokeColor="@color/electric_blue"
+            app:strokeWidth="2dp" />
+
+        <TextView
+            android:id="@+id/gameTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:textColor="@color/oz_text_primary"
+            android:textSize="23sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/gameMeta"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingBottom="12dp"
+            android:textColor="@color/oz_outline" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/playButton"
+            style="@style/Widget.Oz.Button.Primary"
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:layout_marginTop="4dp"
+            android:text="Jugar / abrir sesión" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/favoriteButton"
+            style="@style/Widget.Oz.Button.Secondary"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginTop="6dp"
+            android:text="Alternar favorito" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/collectionButton"
+            style="@style/Widget.Oz.Button.Secondary"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginTop="6dp"
+            android:text="Añadir a colecciones" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/artworkButton"
+            style="@style/Widget.Oz.Button.Secondary"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginTop="6dp"
+            android:text="Seleccionar boxart" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/sourceButton"
+            style="@style/Widget.Oz.Button.Secondary"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginTop="6dp"
+            android:text="Configurar fuente autorizada" />
+
+        <TextView
+            android:id="@+id/sourceText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="12dp"
+            android:textColor="@color/oz_outline"
+            android:textSize="13sp" />
+    </LinearLayout>
+</ScrollView>
