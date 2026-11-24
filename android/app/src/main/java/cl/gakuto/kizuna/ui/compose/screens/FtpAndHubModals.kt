@@ -26,6 +26,7 @@ import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -366,10 +367,18 @@ fun PcHubModal(
     val savedUrl by viewModel.pcHubUrl.collectAsState()
     val status by viewModel.pcHubStatus.collectAsState()
     val games by viewModel.pcHubGames.collectAsState()
+    val discoveredHubs by viewModel.discoveredLanHubs.collectAsState()
+    val isScanningLan by viewModel.isScanningLanHubs.collectAsState()
+    val sseConnected by viewModel.pcHubSseConnected.collectAsState()
     val ftpTargets by viewModel.ftpTargets.collectAsState()
     var urlInput by remember(savedUrl) { mutableStateOf(savedUrl.ifBlank { "http://192.168.100.173:17894" }) }
     var remoteFtpMsg by remember { mutableStateOf<String?>(null) }
     val scope = rememberCoroutineScope()
+
+    DisposableEffect(Unit) {
+        viewModel.startLanHubDiscovery()
+        onDispose { viewModel.stopLanHubDiscovery() }
+    }
 
     Dialog(
         onDismissRequest = onDismiss,
@@ -434,6 +443,48 @@ fun PcHubModal(
                         colors = ButtonDefaults.buttonColors(containerColor = OzColors.PanelRaised, contentColor = OzColors.TextPrimary),
                     ) {
                         Text("Guardar URL", style = OzTypography.meta)
+                    }
+                }
+
+                if (isScanningLan || discoveredHubs.isNotEmpty() || sseConnected) {
+                    Spacer(Modifier.height(8.dp))
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically,
+                    ) {
+                        Text(
+                            if (discoveredHubs.isNotEmpty()) "PC Hubs detectados en LAN (mDNS · 1 toque)"
+                            else "Buscando PC Hubs en tu red local (_ozvault._tcp)…",
+                            style = OzTypography.meta,
+                            color = OzColors.Cyan,
+                        )
+                        if (sseConnected) {
+                            Text("● SSE activo", style = OzTypography.meta, color = OzColors.Positive)
+                        }
+                    }
+                    if (discoveredHubs.isNotEmpty()) {
+                        Spacer(Modifier.height(6.dp))
+                        Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+                            discoveredHubs.take(3).forEach { hub ->
+                                Text(
+                                    "⚡ ${hub.serviceName} (${hub.host}:${hub.port})",
+                                    style = OzTypography.meta,
+                                    color = OzColors.Cyan,
+                                    maxLines = 1,
+                                    overflow = TextOverflow.Ellipsis,
+                                    modifier = Modifier
+                                        .clip(OzShapes.pill)
+                                        .background(OzColors.DeepSpace)
+                                        .border(1.dp, OzColors.Cyan.copy(alpha = 0.55f), OzShapes.pill)
+                                        .clickable {
+                                            urlInput = hub.baseUrl
+                                            viewModel.pairDiscoveredHub(hub)
+                                        }
+                                        .padding(horizontal = 10.dp, vertical = 6.dp),
+                                )
+                            }
+                        }
                     }
                 }
 

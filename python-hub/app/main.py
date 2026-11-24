@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import asyncio
 import base64
+import json
 import os
 import re
 import shutil
@@ -10,17 +11,18 @@ import subprocess
 import sys
 import time
 from contextlib import asynccontextmanager
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 from urllib.parse import quote
 
 import httpx
 from fastapi import FastAPI, HTTPException, Request, Response
-from fastapi.responses import FileResponse, HTMLResponse, JSONResponse
-from pydantic import BaseModel
+from fastapi.responses import FileResponse, HTMLResponse, JSONResponse, StreamingResponse
+from pydantic import BaseModel, Field
 
 from .catalog import CatalogIndex
-from .config import BASE_DIR, DEFAULT_DATA_DIR, is_frozen, resource_path
+from .config import BASE_DIR, DEFAULT_DATA_DIR, DEFAULT_PORT, is_frozen, resource_path
 from .covers import (
     CoverSyncManager,
     fetch_cover_for_entry,
@@ -32,7 +34,9 @@ from .covers import (
 from .db import HubDatabase
 from .descriptions import resolve_game_description
 from .engines import HomeEngine, LibraryEngine, SagasEngine
+from .events import EventBus
 from .ia_client import DirectDownloadManager, ia_auth_headers, list_ia_files, search_ia_extended_multi, search_ia_roms, test_ia_credentials
+from .mdns import MdnsAdvertiser
 from .minerva import MinervaOfflineIndex, search_minerva_remote
 from .patcher import apply_patch_to_rom_file, search_spanish_patches
 from .recommendations import test_ai_provider
@@ -184,10 +188,28 @@ class IaDownloadRequest(BaseModel):
     arcadeCore: str = ""
 
 
+class SyncChangeInput(BaseModel):
+    entityId: str
+    entityType: str = "game_state"
+    op: str = "upsert"
+    favorite: bool | None = None
+    playCount: int | None = None
+    lastPlayedAt: str | None = None
+    quickResume: dict[str, Any] | None = None
+    customMetadata: dict[str, Any] | None = None
+    updatedAt: str | None = None
+
+
+class SyncPushRequest(BaseModel):
+    deviceId: str = "android"
+    changes: list[SyncChangeInput] = Field(default_factory=list)
+
+
 def create_app(
     data_dir: Path | None = None,
     roms_dir_override: str | None = None,
     download_transport: httpx.AsyncBaseTransport | None = None,
+    enable_mdns: bool | None = None,
 ) -> FastAPI:
     resolved_data_dir = data_dir or DEFAULT_DATA_DIR
     default_covers_dir = resolved_data_dir / "covers"
@@ -208,14 +230,16 @@ def create_app(
         return resolve_covers_dir(db.get_settings())
 
     active_covers_dir = resolve_covers_dir(db.get_settings())
+    event_bus = EventBus()
     catalog = CatalogIndex(db, active_covers_dir)
-    cover_sync = CoverSyncManager(db, active_covers_dir)
-    transfers = TransferManager()
+    cover_sync = CoverSyncManager(db, active_covers_dir, event_bus=event_bus)
+    transfers = TransferManager(db=db, event_bus=event_bus)
     minerva_index = MinervaOfflineIndex()
-    direct_downloads = DirectDownloadManager(transport=download_transport)
+    direct_downloads = DirectDownloadManager(transport=download_transport, db=db, event_bus=event_bus)
     library_engine = LibraryEngine()
     sagas_engine = SagasEngine()
     home_engine = HomeEngine()
+    mdns_holder: dict[str, MdnsAdvertiser | None] = {"instance": None}
 
     if roms_dir_override:
         db.update_settings({"roms_dir": roms_dir_override})
@@ -233,11 +257,32 @@ def create_app(
             settings.get("console_paths"),
             arcade_lookup=minerva_index.get_arcade_romset_lookup(),
         )
+        should_mdns = (
+            enable_mdns
+            if enable_mdns is not None
+            else (
+                not os.environ.get("PYTEST_CURRENT_TEST")
+                and os.environ.get("OZ_DISABLE_MDNS") != "1"
+                and os.environ.get("OZ_BIND_HOST") != "127.0.0.1"
+            )
+        )
+        if should_mdns:
+            adv_port = int(os.environ.get("OZ_ADVERTISED_PORT") or DEFAULT_PORT)
+            adv = MdnsAdvertiser(port=adv_port, lan_ip=_detect_lan_ip())
+            adv.start()
+            mdns_holder["instance"] = adv
+            app.state.mdns = adv
+        else:
+            app.state.mdns = None
         yield
+        if mdns_holder["instance"] is not None:
+            mdns_holder["instance"].stop()
+            mdns_holder["instance"] = None
         db.close()
 
     app = FastAPI(title="Oz Game Vault", version="2.1.0", lifespan=lifespan)
     app.state.db = db
+    app.state.event_bus = event_bus
     app.state.catalog = catalog
     app.state.cover_sync = cover_sync
     app.state.transfers = transfers
@@ -290,6 +335,10 @@ def create_app(
             "mameEntries": minerva_index.mame_count(),
             "portableZipExists": zip_path.is_file(),
             "portableZipPath": str(zip_path),
+            "eventsUrl": "/api/v1/events",
+            "syncUrl": "/api/v1/sync",
+            "latestSyncRevision": db.get_latest_sync_revision(),
+            "mdns": mdns_holder["instance"].status() if mdns_holder["instance"] is not None else {"enabled": False, "running": False},
         }
 
     @app.post("/api/v1/system/inspect-path")
@@ -409,25 +458,33 @@ def create_app(
     @app.post("/api/v1/library/rescan")
     async def rescan_library() -> dict[str, Any]:
         settings = db.get_settings()
-        return catalog.rescan(
+        res = catalog.rescan(
             settings["roms_dir"],
             settings.get("console_paths"),
             arcade_lookup=minerva_index.get_arcade_romset_lookup(),
         )
+        event_bus.publish("library.updated", {"reason": "rescan", "count": len(catalog.all_records())})
+        return res
 
     @app.post("/api/v1/library/{entry_id}/favorite")
     async def toggle_favorite(entry_id: str) -> dict[str, Any]:
         if catalog.get_record(entry_id) is None:
             raise HTTPException(status_code=404, detail="ROM no encontrada")
         fav = db.toggle_favorite(entry_id)
-        return {"entryId": entry_id, "favorite": fav}
+        payload = {"entryId": entry_id, "favorite": fav}
+        event_bus.publish("library.updated", {"reason": "favorite", **payload})
+        event_bus.publish("sync.updated", {"latestRevision": db.get_latest_sync_revision(), "sourceDevice": "pc-hub", "entryId": entry_id})
+        return payload
 
     @app.post("/api/v1/library/{entry_id}/played")
     async def mark_rom_played(entry_id: str) -> dict[str, Any]:
         if catalog.get_record(entry_id) is None:
             raise HTTPException(status_code=404, detail="ROM no encontrada")
         res = db.mark_played(entry_id)
-        return {"entryId": entry_id, **res}
+        payload = {"entryId": entry_id, **res}
+        event_bus.publish("library.updated", {"reason": "played", **payload})
+        event_bus.publish("sync.updated", {"latestRevision": db.get_latest_sync_revision(), "sourceDevice": "pc-hub", "entryId": entry_id})
+        return payload
 
     @app.post("/api/v1/library/{entry_id}/verify")
     async def verify_rom(entry_id: str) -> dict[str, Any]:
@@ -507,12 +564,14 @@ def create_app(
         (cov_dir / f"{safe_id}.webp").write_bytes(webp_bytes)
         db.set_cover_meta(entry_id, "found", "custom")
         ver = int(time.time())
-        return {
+        result = {
             "entryId": entry_id,
             "status": "found",
             "source": "custom",
             "coverUrl": f"/api/v1/covers/{safe_id}.webp?v={ver}",
         }
+        event_bus.publish("library.updated", {"reason": "custom_cover", **result})
+        return result
 
     @app.get("/api/v1/recommendations")
     async def get_recommendations(
@@ -1040,6 +1099,16 @@ def create_app(
     @app.post("/api/v1/downloads/ia")
     async def start_ia_download(req: IaDownloadRequest) -> dict[str, Any]:
         settings = db.get_settings()
+
+        def _on_download_complete() -> None:
+            cur_settings = db.get_settings()
+            catalog.rescan(
+                cur_settings["roms_dir"],
+                cur_settings.get("console_paths"),
+                arcade_lookup=minerva_index.get_arcade_romset_lookup(),
+            )
+            event_bus.publish("library.updated", {"reason": "ia_download", "count": len(catalog.all_records())})
+
         return await direct_downloads.start_ia_download(
             identifier=req.identifier,
             filename=req.filename,
@@ -1047,8 +1116,100 @@ def create_app(
             title=req.title,
             settings=settings,
             arcade_core=req.arcadeCore,
-            on_complete=lambda: (lambda s: catalog.rescan(s["roms_dir"], s.get("console_paths")))(db.get_settings()),
+            on_complete=_on_download_complete,
         )
+
+    @app.get("/api/v1/events")
+    async def stream_events(
+        request: Request,
+        since_id: int | None = None,
+        once: bool = False,
+    ) -> StreamingResponse:
+        last_id = since_id
+        if last_id is None:
+            raw_header = (request.headers.get("last-event-id") or "").strip()
+            if raw_header:
+                try:
+                    last_id = int(raw_header)
+                except ValueError:
+                    last_id = None
+
+        async def event_stream():
+            hello_payload = {
+                "latestEventId": event_bus.latest_id,
+                "latestSyncRevision": db.get_latest_sync_revision(),
+                "serverTime": datetime.now(timezone.utc).isoformat(),
+            }
+            yield f"event: connected\ndata: {json.dumps(hello_payload, separators=(',', ':'))}\n\n"
+
+            if once:
+                replay_from = last_id if last_id is not None else max(0, event_bus.latest_id - 16)
+                for ev in event_bus.history_since(replay_from):
+                    yield event_bus.format_sse(ev)
+                return
+
+            sub_id, replay, queue = event_bus.open_subscription(last_event_id=last_id)
+            last_sent = last_id or 0
+            try:
+                for ev in replay:
+                    if ev.id > last_sent:
+                        last_sent = ev.id
+                        yield event_bus.format_sse(ev)
+                while True:
+                    if await request.is_disconnected():
+                        break
+                    try:
+                        ev = await asyncio.wait_for(queue.get(), timeout=15.0)
+                        if ev.id > last_sent:
+                            last_sent = ev.id
+                            yield event_bus.format_sse(ev)
+                    except asyncio.TimeoutError:
+                        yield ": keepalive\n\n"
+            finally:
+                event_bus.close_subscription(sub_id)
+
+        return StreamingResponse(
+            event_stream(),
+            media_type="text/event-stream",
+            headers={
+                "Cache-Control": "no-cache",
+                "Connection": "keep-alive",
+                "X-Accel-Buffering": "no",
+            },
+        )
+
+    @app.get("/api/v1/sync")
+    async def pull_sync_delta(since: int = 0, limit: int = 500) -> dict[str, Any]:
+        delta = db.get_sync_changes(since_revision=since, limit=limit)
+        active_dl = [j for j in direct_downloads.list_jobs() if j.get("state") in ("queued", "connecting", "downloading")]
+        active_tr = [j for j in transfers.list_jobs() if j.get("state") in ("queued", "connecting", "transferring")]
+        return {
+            "latestRevision": delta["latestRevision"],
+            "hasMore": delta["hasMore"],
+            "serverTime": datetime.now(timezone.utc).isoformat(),
+            "changes": delta["changes"],
+            "activeDownloads": active_dl,
+            "activeTransfers": active_tr,
+        }
+
+    @app.post("/api/v1/sync")
+    async def push_sync_delta(payload: SyncPushRequest) -> dict[str, Any]:
+        device_id = (payload.deviceId or "android").strip() or "android"
+        items = [c.model_dump(exclude_none=True) for c in payload.changes]
+        result = db.apply_sync_changes(items, source_device=device_id)
+        if result["applied"] > 0:
+            event_bus.publish(
+                "sync.updated",
+                {
+                    "latestRevision": result["latestRevision"],
+                    "sourceDevice": device_id,
+                    "applied": result["applied"],
+                },
+            )
+        return {
+            **result,
+            "serverTime": datetime.now(timezone.utc).isoformat(),
+        }
 
     @app.post("/api/v1/settings/test-ia")
     async def test_ia(req: IaTestRequest) -> dict[str, Any]:

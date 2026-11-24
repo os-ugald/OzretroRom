@@ -129,6 +129,10 @@ def main(argv: list[str] | None = None) -> int:
     DEFAULT_DATA_DIR.mkdir(parents=True, exist_ok=True)
     if not args.server_only:
         os.environ["OZ_DESKTOP_MODE"] = "1"
+    os.environ["OZ_ADVERTISED_PORT"] = str(port)
+    os.environ["OZ_BIND_HOST"] = host
+    if args.local_only or args.check_only:
+        os.environ["OZ_DISABLE_MDNS"] = "1"
 
     config = uvicorn.Config(
         app,

@@ -436,11 +436,19 @@ async def resolve_saga_artwork(
 class CoverSyncManager:
     """Runs bounded background cover fetching with live progress stats."""
 
-    def __init__(self, db: HubDatabase, covers_dir: Path) -> None:
+    def __init__(self, db: HubDatabase, covers_dir: Path, event_bus: Any = None) -> None:
         self.db = db
         self.covers_dir = covers_dir
+        self._event_bus = event_bus
         self._lock = threading.RLock()
         self._running = False
+        self._total = 0
+        self._processed = 0
+        self._found = 0
+        self._missed = 0
+        self._current_title = ""
+        self._newly_cached: list[dict[str, str]] = []
+        self._task: asyncio.Task[None] | None = None
 
     def set_covers_dir(self, covers_dir: Path) -> None:
         with self._lock:
@@ -529,7 +537,10 @@ class CoverSyncManager:
             self._running = True
 
         self._task = asyncio.create_task(self._worker(candidates, settings))
-        return self.cache_stats()
+        stats = self.cache_stats()
+        if self._event_bus is not None:
+            self._event_bus.publish("covers.progress", stats)
+        return stats
 
     async def _worker(self, candidates: list[RomRecord], settings: dict[str, Any]) -> None:
         sem = asyncio.Semaphore(4)
@@ -550,12 +561,16 @@ class CoverSyncManager:
                             })
                         else:
                             self._missed += 1
+                    if self._event_bus is not None:
+                        self._event_bus.publish("covers.progress", self.cache_stats())
 
             await asyncio.gather(*(one(r) for r in candidates))
 
         with self._lock:
             self._current_title = ""
             self._running = False
+        if self._event_bus is not None:
+            self._event_bus.publish("covers.complete", self.cache_stats())
 
     def clear_cache(self) -> int:
         removed = 0

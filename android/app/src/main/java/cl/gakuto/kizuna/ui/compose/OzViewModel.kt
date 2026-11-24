@@ -35,8 +35,11 @@ import cl.gakuto.kizuna.data.LibraryRepository
 import cl.gakuto.kizuna.ftp.FtpBackgroundManager
 import cl.gakuto.kizuna.ftp.FtpTargetConfig
 import cl.gakuto.kizuna.ftp.FtpTransferJob
+import cl.gakuto.kizuna.hub.DiscoveredLanHub
 import cl.gakuto.kizuna.hub.GameVaultHubClient
 import cl.gakuto.kizuna.hub.HubRemoteGame
+import cl.gakuto.kizuna.hub.HubSyncRepository
+import cl.gakuto.kizuna.hub.LanHubDiscovery
 import cl.gakuto.kizuna.integration.IisuExporter
 import cl.gakuto.kizuna.patcher.PatchSearchClient
 import cl.gakuto.kizuna.patcher.PatchedRomRecord
@@ -344,6 +347,15 @@ class OzViewModel(application: Application) : AndroidViewModel(application) {
     val ftpJobs: StateFlow<List<FtpTransferJob>> = FtpBackgroundManager.jobs
     private val _ftpTargets = MutableStateFlow(FtpTargetConfig.listFromJson(preferences.ftpTargetsJson))
     val ftpTargets: StateFlow<List<FtpTargetConfig>> = _ftpTargets
+
+    private val lanHubDiscovery = LanHubDiscovery(application)
+    val discoveredLanHubs: StateFlow<List<DiscoveredLanHub>> = lanHubDiscovery.discoveredHubs
+    val isScanningLanHubs: StateFlow<Boolean> = lanHubDiscovery.isScanning
+
+    private val hubSyncRepository = HubSyncRepository(oz.database, preferences)
+    private var pcHubSseJob: Job? = null
+    private val _pcHubSseConnected = MutableStateFlow(false)
+    val pcHubSseConnected: StateFlow<Boolean> = _pcHubSseConnected
 
     private val _pcHubUrl = MutableStateFlow(preferences.pcHubUrl)
     val pcHubUrl: StateFlow<String> = _pcHubUrl
@@ -796,6 +808,18 @@ class OzViewModel(application: Application) : AndroidViewModel(application) {
         _pcHubUrl.value = clean
     }
 
+    fun startLanHubDiscovery() {
+        lanHubDiscovery.startDiscovery()
+    }
+
+    fun stopLanHubDiscovery() {
+        lanHubDiscovery.stopDiscovery()
+    }
+
+    fun pairDiscoveredHub(hub: DiscoveredLanHub) {
+        testAndSyncPcHub(hub.baseUrl)
+    }
+
     fun testAndSyncPcHub(url: String = _pcHubUrl.value) {
         viewModelScope.launch {
             savePcHubUrl(url)
@@ -803,13 +827,46 @@ class OzViewModel(application: Application) : AndroidViewModel(application) {
             runCatching {
                 val health = GameVaultHubClient.testHealth(url)
                 val items = GameVaultHubClient.fetchLibrary(url)
-                health to items
-            }.onSuccess { (health, items) ->
+                val syncSummary = withContext(Dispatchers.IO) { hubSyncRepository.syncWithHub(url) }
+                Triple(health, items, syncSummary)
+            }.onSuccess { (health, items, syncSummary) ->
                 _pcHubGames.value = items
-                _pcHubStatus.value = "Conectado · ${health.romsCount} ROMs · ${health.cachedCovers} carátulas"
+                val syncSuffix = if (syncSummary.pushed > 0 || syncSummary.pulled > 0) {
+                    " · Sync rev ${syncSummary.latestRevision} (↑${syncSummary.pushed} ↓${syncSummary.pulled})"
+                } else {
+                    " · Sync rev ${syncSummary.latestRevision}"
+                }
+                _pcHubStatus.value = "Conectado · ${health.romsCount} ROMs · ${health.cachedCovers} carátulas$syncSuffix"
+                subscribeToPcHubEvents(url)
             }.onFailure { err ->
                 _pcHubStatus.value = "✗ ${err.message ?: "Sin respuesta del servidor"}"
             }
+        }
+    }
+
+    private fun subscribeToPcHubEvents(url: String) {
+        pcHubSseJob?.cancel()
+        pcHubSseJob = viewModelScope.launch {
+            _pcHubSseConnected.value = true
+            runCatching {
+                GameVaultHubClient.streamEvents(url).collect { ev ->
+                    when (ev.event) {
+                        "covers.complete" -> {
+                            _pcHubStatus.value = "Carátulas actualizadas en PC Hub · ${ev.data.take(80)}"
+                        }
+                        "transfer.state" -> {
+                            _pcHubStatus.value = "Transferencia FTP Hub actualizada"
+                        }
+                        "download.state" -> {
+                            _pcHubStatus.value = "Descarga PC Hub actualizada"
+                        }
+                        "sync.updated" -> {
+                            withContext(Dispatchers.IO) { runCatching { hubSyncRepository.syncWithHub(url) } }
+                        }
+                    }
+                }
+            }
+            _pcHubSseConnected.value = false
         }
     }
 
@@ -904,7 +961,15 @@ class OzViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun toggleFavorite(gameId: String) {
-        viewModelScope.launch { repository.toggle("favorites", gameId) }
+        viewModelScope.launch {
+            repository.toggle("favorites", gameId)
+            val isFav = withContext(Dispatchers.IO) {
+                oz.database.collectionDao().hasMembership("favorites", gameId)
+            }
+            withContext(Dispatchers.IO) {
+                hubSyncRepository.recordLocalFavorite(gameId, isFav)
+            }
+        }
     }
 
     fun toggleCollection(collectionId: String, gameId: String) {
@@ -1207,6 +1272,12 @@ class OzViewModel(application: Application) : AndroidViewModel(application) {
                 _selectedGame.value = repository.game(gameId)?.let { repository.artworkVariantFor(it) }
             }
         }
+    }
+
+    override fun onCleared() {
+        lanHubDiscovery.stopDiscovery()
+        pcHubSseJob?.cancel()
+        super.onCleared()
     }
 
     companion object {

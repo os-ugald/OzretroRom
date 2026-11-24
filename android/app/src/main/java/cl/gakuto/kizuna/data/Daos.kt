@@ -188,3 +188,36 @@ interface CatalogStateDao {
     @Query("UPDATE catalog_system_state SET status='STALE', indexedAt=NULL, error=NULL")
     suspend fun markAllStale(): Int
 }
+
+@Dao
+interface SyncMetadataDao {
+    @Query("SELECT * FROM game_sync_metadata WHERE gameId = :gameId LIMIT 1")
+    suspend fun byGameId(gameId: String): GameSyncMetadataEntity?
+
+    @Query("SELECT * FROM game_sync_metadata WHERE hubEntryId = :entryId LIMIT 1")
+    suspend fun byHubEntryId(entryId: String): GameSyncMetadataEntity?
+
+    @Query("SELECT * FROM game_sync_metadata WHERE dirty = 1 ORDER BY localUpdatedAt ASC")
+    suspend fun dirtyItems(): List<GameSyncMetadataEntity>
+
+    @Query("SELECT * FROM game_sync_metadata")
+    suspend fun all(): List<GameSyncMetadataEntity>
+
+    @Query("SELECT COUNT(*) FROM game_sync_metadata")
+    suspend fun count(): Int
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun upsert(item: GameSyncMetadataEntity)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun upsertAll(items: List<GameSyncMetadataEntity>)
+
+    @Query("UPDATE game_sync_metadata SET dirty = 0, hubRevision = :revision WHERE gameId IN (:gameIds)")
+    suspend fun markSynced(gameIds: List<String>, revision: Long)
+
+    @Query("SELECT * FROM sync_state WHERE hubId = :hubId LIMIT 1")
+    suspend fun getSyncState(hubId: String): SyncStateEntity?
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun upsertSyncState(state: SyncStateEntity)
+}

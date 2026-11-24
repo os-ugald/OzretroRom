@@ -1,0 +1,594 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 7,
+    "identityHash": "562604402a974160b85acb46e4ebae72",
+    "entities": [
+      {
+        "tableName": "games",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `title` TEXT NOT NULL, `normalizedTitle` TEXT NOT NULL, `platform` TEXT NOT NULL, `systemId` TEXT NOT NULL, `year` INTEGER, `region` TEXT NOT NULL, `thumbnailRepo` TEXT, `source` TEXT NOT NULL, `launchValidated` INTEGER NOT NULL, `coreId` TEXT, `virtualExtension` TEXT NOT NULL, `contentUri` TEXT, `canonicalTitle` TEXT NOT NULL DEFAULT '', `genre` TEXT NOT NULL DEFAULT 'Sin clasificar', `romSet` TEXT, `biosSetsCsv` TEXT NOT NULL DEFAULT '', `lastPlayedAt` INTEGER DEFAULT NULL, `addedAt` INTEGER NOT NULL DEFAULT 0, `romgiAvailable` INTEGER NOT NULL DEFAULT 0, `libraryOrigin` TEXT NOT NULL DEFAULT 'NONE', PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "title",
+            "columnName": "title",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "normalizedTitle",
+            "columnName": "normalizedTitle",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "platform",
+            "columnName": "platform",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "systemId",
+            "columnName": "systemId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "year",
+            "columnName": "year",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "region",
+            "columnName": "region",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "thumbnailRepo",
+            "columnName": "thumbnailRepo",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "source",
+            "columnName": "source",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "launchValidated",
+            "columnName": "launchValidated",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "coreId",
+            "columnName": "coreId",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "virtualExtension",
+            "columnName": "virtualExtension",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "contentUri",
+            "columnName": "contentUri",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "canonicalTitle",
+            "columnName": "canonicalTitle",
+            "affinity": "TEXT",
+            "notNull": true,
+            "defaultValue": "''"
+          },
+          {
+            "fieldPath": "genre",
+            "columnName": "genre",
+            "affinity": "TEXT",
+            "notNull": true,
+            "defaultValue": "'Sin clasificar'"
+          },
+          {
+            "fieldPath": "romSet",
+            "columnName": "romSet",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "biosSetsCsv",
+            "columnName": "biosSetsCsv",
+            "affinity": "TEXT",
+            "notNull": true,
+            "defaultValue": "''"
+          },
+          {
+            "fieldPath": "lastPlayedAt",
+            "columnName": "lastPlayedAt",
+            "affinity": "INTEGER",
+            "defaultValue": "NULL"
+          },
+          {
+            "fieldPath": "addedAt",
+            "columnName": "addedAt",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
+          },
+          {
+            "fieldPath": "romgiAvailable",
+            "columnName": "romgiAvailable",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
+          },
+          {
+            "fieldPath": "libraryOrigin",
+            "columnName": "libraryOrigin",
+            "affinity": "TEXT",
+            "notNull": true,
+            "defaultValue": "'NONE'"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_games_normalizedTitle",
+            "unique": false,
+            "columnNames": [
+              "normalizedTitle"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_games_normalizedTitle` ON `${TABLE_NAME}` (`normalizedTitle`)"
+          },
+          {
+            "name": "index_games_canonicalTitle",
+            "unique": false,
+            "columnNames": [
+              "canonicalTitle"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_games_canonicalTitle` ON `${TABLE_NAME}` (`canonicalTitle`)"
+          },
+          {
+            "name": "index_games_systemId",
+            "unique": false,
+            "columnNames": [
+              "systemId"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_games_systemId` ON `${TABLE_NAME}` (`systemId`)"
+          },
+          {
+            "name": "index_games_genre",
+            "unique": false,
+            "columnNames": [
+              "genre"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_games_genre` ON `${TABLE_NAME}` (`genre`)"
+          },
+          {
+            "name": "index_games_region",
+            "unique": false,
+            "columnNames": [
+              "region"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_games_region` ON `${TABLE_NAME}` (`region`)"
+          },
+          {
+            "name": "index_games_romSet",
+            "unique": false,
+            "columnNames": [
+              "romSet"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_games_romSet` ON `${TABLE_NAME}` (`romSet`)"
+          },
+          {
+            "name": "index_games_systemId_canonicalTitle_title",
+            "unique": false,
+            "columnNames": [
+              "systemId",
+              "canonicalTitle",
+              "title"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_games_systemId_canonicalTitle_title` ON `${TABLE_NAME}` (`systemId`, `canonicalTitle`, `title`)"
+          },
+          {
+            "name": "index_games_systemId_normalizedTitle",
+            "unique": false,
+            "columnNames": [
+              "systemId",
+              "normalizedTitle"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_games_systemId_normalizedTitle` ON `${TABLE_NAME}` (`systemId`, `normalizedTitle`)"
+          },
+          {
+            "name": "index_games_source_systemId",
+            "unique": false,
+            "columnNames": [
+              "source",
+              "systemId"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_games_source_systemId` ON `${TABLE_NAME}` (`source`, `systemId`)"
+          },
+          {
+            "name": "index_games_lastPlayedAt",
+            "unique": false,
+            "columnNames": [
+              "lastPlayedAt"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_games_lastPlayedAt` ON `${TABLE_NAME}` (`lastPlayedAt`)"
+          },
+          {
+            "name": "index_games_addedAt",
+            "unique": false,
+            "columnNames": [
+              "addedAt"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_games_addedAt` ON `${TABLE_NAME}` (`addedAt`)"
+          },
+          {
+            "name": "index_games_romgiAvailable",
+            "unique": false,
+            "columnNames": [
+              "romgiAvailable"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_games_romgiAvailable` ON `${TABLE_NAME}` (`romgiAvailable`)"
+          }
+        ]
+      },
+      {
+        "tableName": "collections",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `name` TEXT NOT NULL, `description` TEXT NOT NULL, `icon` TEXT NOT NULL, `accent` TEXT NOT NULL, `isSystem` INTEGER NOT NULL, `sortOrder` INTEGER NOT NULL, `kind` TEXT NOT NULL DEFAULT 'CURATED', PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "description",
+            "columnName": "description",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "icon",
+            "columnName": "icon",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "accent",
+            "columnName": "accent",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isSystem",
+            "columnName": "isSystem",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sortOrder",
+            "columnName": "sortOrder",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "kind",
+            "columnName": "kind",
+            "affinity": "TEXT",
+            "notNull": true,
+            "defaultValue": "'CURATED'"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        }
+      },
+      {
+        "tableName": "collection_memberships",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`collectionId` TEXT NOT NULL, `gameId` TEXT NOT NULL, PRIMARY KEY(`collectionId`, `gameId`))",
+        "fields": [
+          {
+            "fieldPath": "collectionId",
+            "columnName": "collectionId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "gameId",
+            "columnName": "gameId",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "collectionId",
+            "gameId"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_collection_memberships_gameId",
+            "unique": false,
+            "columnNames": [
+              "gameId"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_collection_memberships_gameId` ON `${TABLE_NAME}` (`gameId`)"
+          }
+        ]
+      },
+      {
+        "tableName": "catalog_system_state",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`systemId` TEXT NOT NULL, `status` TEXT NOT NULL, `indexedAt` INTEGER, `gameCount` INTEGER NOT NULL, `error` TEXT, PRIMARY KEY(`systemId`))",
+        "fields": [
+          {
+            "fieldPath": "systemId",
+            "columnName": "systemId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "status",
+            "columnName": "status",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "indexedAt",
+            "columnName": "indexedAt",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "gameCount",
+            "columnName": "gameCount",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "error",
+            "columnName": "error",
+            "affinity": "TEXT"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "systemId"
+          ]
+        }
+      },
+      {
+        "tableName": "game_sync_metadata",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`gameId` TEXT NOT NULL, `hubEntryId` TEXT, `favorite` INTEGER NOT NULL DEFAULT 0, `playCount` INTEGER NOT NULL DEFAULT 0, `lastPlayedAt` INTEGER, `quickResumeJson` TEXT, `customArtworkUrl` TEXT, `customArtworkUri` TEXT, `syncedArtworkLocalUri` TEXT, `syncedArtworkTitle` TEXT, `syncedArtworkRepo` TEXT, `syncedGameIconLocalUri` TEXT, `cachedDescription` TEXT, `patchedRomPath` TEXT, `patchedRomLabel` TEXT, `patchedRomFormat` TEXT, `localUpdatedAt` INTEGER NOT NULL DEFAULT 0, `hubRevision` INTEGER NOT NULL DEFAULT 0, `dirty` INTEGER NOT NULL DEFAULT 0, PRIMARY KEY(`gameId`))",
+        "fields": [
+          {
+            "fieldPath": "gameId",
+            "columnName": "gameId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "hubEntryId",
+            "columnName": "hubEntryId",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "favorite",
+            "columnName": "favorite",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
+          },
+          {
+            "fieldPath": "playCount",
+            "columnName": "playCount",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
+          },
+          {
+            "fieldPath": "lastPlayedAt",
+            "columnName": "lastPlayedAt",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "quickResumeJson",
+            "columnName": "quickResumeJson",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "customArtworkUrl",
+            "columnName": "customArtworkUrl",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "customArtworkUri",
+            "columnName": "customArtworkUri",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "syncedArtworkLocalUri",
+            "columnName": "syncedArtworkLocalUri",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "syncedArtworkTitle",
+            "columnName": "syncedArtworkTitle",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "syncedArtworkRepo",
+            "columnName": "syncedArtworkRepo",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "syncedGameIconLocalUri",
+            "columnName": "syncedGameIconLocalUri",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "cachedDescription",
+            "columnName": "cachedDescription",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "patchedRomPath",
+            "columnName": "patchedRomPath",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "patchedRomLabel",
+            "columnName": "patchedRomLabel",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "patchedRomFormat",
+            "columnName": "patchedRomFormat",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "localUpdatedAt",
+            "columnName": "localUpdatedAt",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
+          },
+          {
+            "fieldPath": "hubRevision",
+            "columnName": "hubRevision",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
+          },
+          {
+            "fieldPath": "dirty",
+            "columnName": "dirty",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "gameId"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_game_sync_metadata_hubEntryId",
+            "unique": false,
+            "columnNames": [
+              "hubEntryId"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_game_sync_metadata_hubEntryId` ON `${TABLE_NAME}` (`hubEntryId`)"
+          },
+          {
+            "name": "index_game_sync_metadata_dirty",
+            "unique": false,
+            "columnNames": [
+              "dirty"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_game_sync_metadata_dirty` ON `${TABLE_NAME}` (`dirty`)"
+          },
+          {
+            "name": "index_game_sync_metadata_localUpdatedAt",
+            "unique": false,
+            "columnNames": [
+              "localUpdatedAt"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_game_sync_metadata_localUpdatedAt` ON `${TABLE_NAME}` (`localUpdatedAt`)"
+          }
+        ]
+      },
+      {
+        "tableName": "sync_state",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`hubId` TEXT NOT NULL, `lastRevision` INTEGER NOT NULL DEFAULT 0, `lastSyncedAt` INTEGER NOT NULL DEFAULT 0, `lastEventId` TEXT, `deviceId` TEXT NOT NULL DEFAULT 'android', PRIMARY KEY(`hubId`))",
+        "fields": [
+          {
+            "fieldPath": "hubId",
+            "columnName": "hubId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "lastRevision",
+            "columnName": "lastRevision",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
+          },
+          {
+            "fieldPath": "lastSyncedAt",
+            "columnName": "lastSyncedAt",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
+          },
+          {
+            "fieldPath": "lastEventId",
+            "columnName": "lastEventId",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "deviceId",
+            "columnName": "deviceId",
+            "affinity": "TEXT",
+            "notNull": true,
+            "defaultValue": "'android'"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "hubId"
+          ]
+        }
+      }
+    ],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '562604402a974160b85acb46e4ebae72')"
+    ]
+  }
+}

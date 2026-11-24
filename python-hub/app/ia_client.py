@@ -3,7 +3,9 @@ from __future__ import annotations
 import asyncio
 import re
 import threading
+import time
 import uuid
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Callable
 from urllib.parse import quote
@@ -288,11 +290,37 @@ def _safe_local_filename(raw_name: str) -> str:
 class DirectDownloadManager:
     """Streams Internet Archive downloads directly into the local ROMs library."""
 
-    def __init__(self, transport: httpx.AsyncBaseTransport | None = None) -> None:
+    def __init__(
+        self,
+        transport: httpx.AsyncBaseTransport | None = None,
+        db: Any = None,
+        event_bus: Any = None,
+    ) -> None:
         self._lock = threading.RLock()
+        self._db = db
+        self._event_bus = event_bus
         self._jobs: dict[str, dict[str, Any]] = {}
         self._tasks: set[asyncio.Task[None]] = set()
         self._transport = transport
+        if self._db is not None:
+            self._db.mark_interrupted_download_jobs()
+            for row in self._db.list_download_jobs():
+                self._jobs[row["id"]] = row
+
+    def _persist_and_emit(
+        self,
+        job_id: str,
+        event_name: str,
+        *,
+        persist: bool = True,
+    ) -> dict[str, Any]:
+        with self._lock:
+            snapshot = dict(self._jobs[job_id])
+        if persist and self._db is not None:
+            self._db.upsert_download_job(snapshot)
+        if self._event_bus is not None:
+            self._event_bus.publish(event_name, snapshot)
+        return snapshot
 
     def list_jobs(self) -> list[dict[str, Any]]:
         with self._lock:
@@ -320,6 +348,7 @@ class DirectDownloadManager:
         dest_path = dest_dir / local_name
         part_path = dest_dir / f"{local_name}.ozpart"
         job_id = f"ia-{uuid.uuid4().hex[:10]}"
+        now = datetime.now(timezone.utc).isoformat()
 
         job = {
             "id": job_id,
@@ -327,6 +356,7 @@ class DirectDownloadManager:
             "title": title or local_name,
             "filename": local_name,
             "platform": normalize_console_key(effective_key),
+            "arcadeCore": arcade_core or "",
             "provider": "Internet Archive",
             "state": "queued",
             "bytes": 0,
@@ -334,16 +364,19 @@ class DirectDownloadManager:
             "destDir": str(dest_dir),
             "destPath": str(dest_path),
             "message": f"Preparando descarga en {dest_dir.name}/{local_name}…",
+            "createdAt": now,
+            "updatedAt": now,
         }
         with self._lock:
             self._jobs[job_id] = job
+        snapshot = self._persist_and_emit(job_id, "download.state", persist=True)
 
         task = asyncio.create_task(
             self._run_download(job_id, identifier, filename, part_path, dest_path, settings, on_complete)
         )
         self._tasks.add(task)
         task.add_done_callback(self._tasks.discard)
-        return dict(job)
+        return snapshot
 
     async def _run_download(
         self,
@@ -362,6 +395,8 @@ class DirectDownloadManager:
         with self._lock:
             self._jobs[job_id]["state"] = "connecting"
             self._jobs[job_id]["message"] = "Conectando con Internet Archive…"
+            self._jobs[job_id]["updatedAt"] = datetime.now(timezone.utc).isoformat()
+        self._persist_and_emit(job_id, "download.state", persist=True)
 
         client_kwargs: dict[str, Any] = {"timeout": 120.0, "follow_redirects": True}
         if self._transport is not None:
@@ -383,14 +418,22 @@ class DirectDownloadManager:
                         self._jobs[job_id]["state"] = "downloading"
                         self._jobs[job_id]["size"] = total
                         self._jobs[job_id]["message"] = f"Descargando {dest_path.name}…"
+                        self._jobs[job_id]["updatedAt"] = datetime.now(timezone.utc).isoformat()
+                    self._persist_and_emit(job_id, "download.state", persist=True)
 
                     downloaded = 0
+                    last_emit = 0.0
                     with part_path.open("wb") as fh:
                         async for chunk in resp.aiter_bytes(chunk_size=65536):
                             fh.write(chunk)
                             downloaded += len(chunk)
                             with self._lock:
                                 self._jobs[job_id]["bytes"] = downloaded
+                                self._jobs[job_id]["updatedAt"] = datetime.now(timezone.utc).isoformat()
+                            now_mono = time.monotonic()
+                            if now_mono - last_emit >= 0.25:
+                                last_emit = now_mono
+                                self._persist_and_emit(job_id, "download.progress", persist=False)
 
             if part_path.exists():
                 if dest_path.exists():
@@ -403,6 +446,8 @@ class DirectDownloadManager:
                 self._jobs[job_id]["bytes"] = final_size
                 self._jobs[job_id]["size"] = final_size
                 self._jobs[job_id]["message"] = f"Guardado en {dest_path}"
+                self._jobs[job_id]["updatedAt"] = datetime.now(timezone.utc).isoformat()
+            self._persist_and_emit(job_id, "download.state", persist=True)
 
             if on_complete:
                 on_complete()
@@ -415,3 +460,5 @@ class DirectDownloadManager:
             with self._lock:
                 self._jobs[job_id]["state"] = "failed"
                 self._jobs[job_id]["message"] = str(exc)
+                self._jobs[job_id]["updatedAt"] = datetime.now(timezone.utc).isoformat()
+            self._persist_and_emit(job_id, "download.state", persist=True)

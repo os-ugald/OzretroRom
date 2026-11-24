@@ -1092,3 +1092,193 @@ def test_discover_catalog_rotation_and_sagas_ai_audit(tmp_path: Path) -> None:
         assert audit["source"] == "local"
         assert isinstance(audit["summary"], str) and len(audit["summary"]) > 10
 
+
+def test_event_bus_threadsafe_sse_and_mdns_packets(tmp_path: Path) -> None:
+    import asyncio
+    from app.events import EventBus
+    from app.mdns import (
+        SERVICE_TYPE,
+        build_announcement_packet,
+        build_goodbye_packet,
+        encode_dns_name,
+        parse_dns_questions,
+    )
+
+    bus = EventBus()
+
+    async def _collect() -> list[str]:
+        seen: list[str] = []
+        sub_id, replay, queue = bus.open_subscription(last_event_id=0)
+        assert replay == []
+
+        def _bg_worker() -> None:
+            bus.publish("transfer.state", {"id": "tr1", "state": "transferring"})
+            bus.publish("covers.complete", {"found": 3})
+
+        t = threading.Thread(target=_bg_worker, daemon=True)
+        t.start()
+        for _ in range(2):
+            ev = await asyncio.wait_for(queue.get(), timeout=2.0)
+            seen.append(EventBus.format_sse(ev))
+        t.join(timeout=2.0)
+        bus.close_subscription(sub_id)
+        return seen
+
+    frames = asyncio.run(_collect())
+    assert len(frames) == 2
+    assert "event: transfer.state" in frames[0]
+    assert "event: covers.complete" in frames[1]
+    assert bus.subscriber_count == 0
+    assert bus.latest_id == 2
+
+    # mDNS packet builders & DNS question parser
+    pkt = build_announcement_packet(
+        instance_name="OzGameVault-Test",
+        hostname_local="testpc.local.",
+        ipv4="192.168.100.173",
+        port=17894,
+        txt={"version": "2", "app": "game-vault"},
+    )
+    goodbye = build_goodbye_packet(
+        instance_name="OzGameVault-Test",
+        hostname_local="testpc.local.",
+        ipv4="192.168.100.173",
+        port=17894,
+        txt={"version": "2"},
+    )
+    assert len(pkt) > 60
+    assert len(goodbye) > 60
+    assert SERVICE_TYPE.encode("ascii").split(b".")[0] in pkt
+
+    query_pkt = struct.pack("!HHHHHH", 0, 0, 1, 0, 0, 0) + encode_dns_name(SERVICE_TYPE) + struct.pack("!HH", 12, 1)
+    assert parse_dns_questions(query_pkt) == [SERVICE_TYPE.lower()]
+
+    # FastAPI SSE endpoint ?once=1 emits connected frame + buffered events deterministically
+    roms_dir = tmp_path / "roms"
+    (roms_dir / "snes").mkdir(parents=True, exist_ok=True)
+    (roms_dir / "snes" / "Chrono Trigger (USA).sfc").write_bytes(b"CT" * 16)
+    app = create_app(data_dir=tmp_path / "data", roms_dir_override=str(roms_dir), enable_mdns=False)
+    with TestClient(app) as client:
+        lib = client.get("/api/v1/library").json()
+        cid = lib[0]["entryId"]
+        assert client.post(f"/api/v1/library/{cid}/favorite").status_code == 200
+        sse_resp = client.get("/api/v1/events", params={"once": 1, "since_id": 0})
+        assert sse_resp.status_code == 200
+        assert sse_resp.headers["content-type"].startswith("text/event-stream")
+        assert "event: connected" in sse_resp.text
+        assert "event: library.updated" in sse_resp.text
+        assert "event: sync.updated" in sse_resp.text
+
+
+def test_persisted_queues_and_incremental_delta_sync(tmp_path: Path) -> None:
+    from app.ia_client import DirectDownloadManager
+    from app.transfers import TransferManager
+
+    data_dir = tmp_path / "data"
+    roms_dir = tmp_path / "roms"
+    (roms_dir / "snes").mkdir(parents=True, exist_ok=True)
+    (roms_dir / "snes" / "Super Metroid (USA).sfc").write_bytes(b"METROID" * 16)
+
+    # Simulate persisted in-flight jobs before restart
+    db1 = HubDatabase(data_dir / "oz_hub.db")
+    db1.upsert_download_job(
+        {
+            "id": "ia-prev1",
+            "identifier": "snes_set",
+            "filename": "Game.sfc",
+            "title": "Game",
+            "platform": "snes",
+            "state": "downloading",
+            "bytes": 128,
+            "size": 1024,
+            "destPath": str(roms_dir / "snes" / "Game.sfc"),
+            "message": "Descargando…",
+        }
+    )
+    db1.upsert_transfer_job(
+        {
+            "id": "tr-prev1",
+            "entryId": "e1",
+            "title": "Super Metroid",
+            "consoleKey": "snes",
+            "targetId": "ps4-emusuni",
+            "targetName": "PS4",
+            "remotePath": "/data/EmuSuNi/Roms/snes/Super Metroid.sfc",
+            "state": "transferring",
+            "bytes": 50,
+            "total": 200,
+            "message": "Enviando…",
+        }
+    )
+    db1.close()
+
+    # Reopen DB & managers -> active jobs become 'interrupted' and survive restart
+    db2 = HubDatabase(data_dir / "oz_hub.db")
+    dl_mgr = DirectDownloadManager(db=db2)
+    tr_mgr = TransferManager(db=db2)
+    dl_jobs = dl_mgr.list_jobs()
+    tr_jobs = tr_mgr.list_jobs()
+    assert len(dl_jobs) == 1 and dl_jobs[0]["id"] == "ia-prev1" and dl_jobs[0]["state"] == "interrupted"
+    assert len(tr_jobs) == 1 and tr_jobs[0]["id"] == "tr-prev1" and tr_jobs[0]["state"] == "interrupted"
+    db2.close()
+
+    # Verify /api/v1/sync push & pull delta semantics end-to-end
+    app = create_app(data_dir=data_dir, roms_dir_override=str(roms_dir), enable_mdns=False)
+    with TestClient(app) as client:
+        lib = client.get("/api/v1/library").json()
+        metroid_id = lib[0]["entryId"]
+
+        push1 = client.post(
+            "/api/v1/sync",
+            json={
+                "deviceId": "pixel-9",
+                "changes": [
+                    {
+                        "entityId": metroid_id,
+                        "favorite": True,
+                        "playCount": 5,
+                        "lastPlayedAt": "2026-11-24T12:00:00Z",
+                        "quickResume": {"slot": 2, "statePath": "/states/metroid.state2", "coreId": "snes9x"},
+                        "customMetadata": {"notes": "100% run"},
+                        "updatedAt": "2026-11-24T12:00:00Z",
+                    }
+                ],
+            },
+        )
+        assert push1.status_code == 200
+        p1 = push1.json()
+        assert p1["applied"] == 1
+        rev1 = p1["latestRevision"]
+        assert rev1 >= 1
+
+        # Older playCount regression from another device must not lower playCount (max wins)
+        push2 = client.post(
+            "/api/v1/sync",
+            json={
+                "deviceId": "tablet",
+                "changes": [
+                    {
+                        "entityId": metroid_id,
+                        "playCount": 2,
+                        "updatedAt": "2026-11-24T12:05:00Z",
+                    }
+                ],
+            },
+        )
+        assert push2.status_code == 200
+        rev2 = push2.json()["latestRevision"]
+        assert rev2 > rev1
+
+        delta_all = client.get("/api/v1/sync", params={"since": 0}).json()
+        assert delta_all["latestRevision"] == rev2
+        assert len(delta_all["changes"]) >= 2
+        latest_change = delta_all["changes"][-1]
+        assert latest_change["payload"]["playCount"] == 5
+        assert latest_change["payload"]["favorite"] is True
+        assert latest_change["payload"]["quickResume"]["slot"] == 2
+
+        delta_inc = client.get("/api/v1/sync", params={"since": rev1}).json()
+        assert len(delta_inc["changes"]) == 1
+        assert delta_inc["changes"][0]["revision"] == rev2
+
+

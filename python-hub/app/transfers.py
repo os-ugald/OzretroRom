@@ -2,7 +2,9 @@ from __future__ import annotations
 
 import ftplib
 import threading
+import time
 import uuid
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
@@ -141,9 +143,30 @@ def test_ftp_target(target: dict[str, Any]) -> dict[str, Any]:
 class TransferManager:
     """Background multi-console FTP upload queue."""
 
-    def __init__(self) -> None:
+    def __init__(self, db: Any = None, event_bus: Any = None) -> None:
         self._lock = threading.RLock()
+        self._db = db
+        self._event_bus = event_bus
         self._jobs: dict[str, dict[str, Any]] = {}
+        if self._db is not None:
+            self._db.mark_interrupted_transfer_jobs()
+            for row in self._db.list_transfer_jobs():
+                self._jobs[row["id"]] = row
+
+    def _persist_and_emit(
+        self,
+        job_id: str,
+        event_name: str,
+        *,
+        persist: bool = True,
+    ) -> dict[str, Any]:
+        with self._lock:
+            snapshot = dict(self._jobs[job_id])
+        if persist and self._db is not None:
+            self._db.upsert_transfer_job(snapshot)
+        if self._event_bus is not None:
+            self._event_bus.publish(event_name, snapshot)
+        return snapshot
 
     def list_jobs(self) -> list[dict[str, Any]]:
         with self._lock:
@@ -172,24 +195,31 @@ class TransferManager:
         remote_name = (remote_name_override or local_file.name).strip()
         display_title = title_override or rec.title
         total_size = local_file.stat().st_size
+        now = datetime.now(timezone.utc).isoformat()
         job = {
             "id": job_id,
             "entryId": rec.entry_id,
             "title": display_title,
-            "targetId": target.get("id"),
-            "targetName": target.get("name"),
+            "consoleKey": rec.console_key,
+            "targetId": target.get("id") or "",
+            "targetName": target.get("name") or "",
+            "remoteDir": remote_dir,
+            "remoteName": remote_name,
             "remotePath": f"{remote_dir}/{remote_name}",
             "state": "queued",
             "bytes": 0,
             "total": total_size,
             "message": f"Encolado hacia {target.get('name')} ({target.get('host')}:{target.get('port')})",
+            "createdAt": now,
+            "updatedAt": now,
         }
         with self._lock:
             self._jobs[job_id] = job
+        snapshot = self._persist_and_emit(job_id, "transfer.state", persist=True)
 
         t = threading.Thread(target=self._run_upload, args=(job_id, local_file, remote_dir, remote_name, target), daemon=True)
         t.start()
-        return dict(job)
+        return snapshot
 
     def _run_upload(self, job_id: str, local_file: Path, remote_dir: str, remote_name: str, target: dict[str, Any]) -> None:
         host = str(target.get("host") or "").strip()
@@ -200,6 +230,8 @@ class TransferManager:
         with self._lock:
             self._jobs[job_id]["state"] = "connecting"
             self._jobs[job_id]["message"] = f"Conectando a {host}:{port}…"
+            self._jobs[job_id]["updatedAt"] = datetime.now(timezone.utc).isoformat()
+        self._persist_and_emit(job_id, "transfer.state", persist=True)
 
         ftp = ftplib.FTP()
         try:
@@ -213,12 +245,23 @@ class TransferManager:
             dest_display = f"{actual_dir.rstrip('/')}/{remote_name}"
             with self._lock:
                 self._jobs[job_id]["state"] = "transferring"
+                self._jobs[job_id]["remoteDir"] = actual_dir
                 self._jobs[job_id]["remotePath"] = dest_display
                 self._jobs[job_id]["message"] = f"Enviando a {dest_display}"
+                self._jobs[job_id]["updatedAt"] = datetime.now(timezone.utc).isoformat()
+            self._persist_and_emit(job_id, "transfer.state", persist=True)
+
+            last_emit = 0.0
 
             def on_chunk(chunk: bytes) -> None:
+                nonlocal last_emit
+                now_mono = time.monotonic()
                 with self._lock:
                     self._jobs[job_id]["bytes"] += len(chunk)
+                    self._jobs[job_id]["updatedAt"] = datetime.now(timezone.utc).isoformat()
+                if now_mono - last_emit >= 0.25:
+                    last_emit = now_mono
+                    self._persist_and_emit(job_id, "transfer.progress", persist=False)
 
             with local_file.open("rb") as fh:
                 try:
@@ -235,6 +278,8 @@ class TransferManager:
                 self._jobs[job_id]["state"] = "complete"
                 self._jobs[job_id]["bytes"] = self._jobs[job_id]["total"]
                 self._jobs[job_id]["message"] = f"Completado en {dest_display}"
+                self._jobs[job_id]["updatedAt"] = datetime.now(timezone.utc).isoformat()
+            self._persist_and_emit(job_id, "transfer.state", persist=True)
         except Exception as exc:
             try:
                 ftp.close()
@@ -243,3 +288,5 @@ class TransferManager:
             with self._lock:
                 self._jobs[job_id]["state"] = "failed"
                 self._jobs[job_id]["message"] = str(exc)
+                self._jobs[job_id]["updatedAt"] = datetime.now(timezone.utc).isoformat()
+            self._persist_and_emit(job_id, "transfer.state", persist=True)

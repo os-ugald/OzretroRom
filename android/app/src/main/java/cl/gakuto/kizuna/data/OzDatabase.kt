@@ -8,14 +8,22 @@ import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 
 @Database(
-    entities = [GameEntity::class, CollectionEntity::class, CollectionMembershipEntity::class, CatalogSystemStateEntity::class],
-    version = 6,
+    entities = [
+        GameEntity::class,
+        CollectionEntity::class,
+        CollectionMembershipEntity::class,
+        CatalogSystemStateEntity::class,
+        GameSyncMetadataEntity::class,
+        SyncStateEntity::class,
+    ],
+    version = 7,
     exportSchema = true,
 )
 abstract class OzDatabase : RoomDatabase() {
     abstract fun gameDao(): GameDao
     abstract fun collectionDao(): CollectionDao
     abstract fun catalogStateDao(): CatalogStateDao
+    abstract fun syncMetadataDao(): SyncMetadataDao
 
     companion object {
         @Volatile private var instance: OzDatabase? = null
@@ -72,9 +80,53 @@ abstract class OzDatabase : RoomDatabase() {
             }
         }
 
+        val MIGRATION_6_7 = object : Migration(6, 7) {
+            override fun migrate(db: SupportSQLiteDatabase) {
+                db.execSQL(
+                    """
+                    CREATE TABLE IF NOT EXISTS game_sync_metadata (
+                        gameId TEXT NOT NULL PRIMARY KEY,
+                        hubEntryId TEXT,
+                        favorite INTEGER NOT NULL DEFAULT 0,
+                        playCount INTEGER NOT NULL DEFAULT 0,
+                        lastPlayedAt INTEGER,
+                        quickResumeJson TEXT,
+                        customArtworkUrl TEXT,
+                        customArtworkUri TEXT,
+                        syncedArtworkLocalUri TEXT,
+                        syncedArtworkTitle TEXT,
+                        syncedArtworkRepo TEXT,
+                        syncedGameIconLocalUri TEXT,
+                        cachedDescription TEXT,
+                        patchedRomPath TEXT,
+                        patchedRomLabel TEXT,
+                        patchedRomFormat TEXT,
+                        localUpdatedAt INTEGER NOT NULL DEFAULT 0,
+                        hubRevision INTEGER NOT NULL DEFAULT 0,
+                        dirty INTEGER NOT NULL DEFAULT 0
+                    )
+                    """.trimIndent(),
+                )
+                db.execSQL("CREATE INDEX IF NOT EXISTS index_game_sync_metadata_hubEntryId ON game_sync_metadata(hubEntryId)")
+                db.execSQL("CREATE INDEX IF NOT EXISTS index_game_sync_metadata_dirty ON game_sync_metadata(dirty)")
+                db.execSQL("CREATE INDEX IF NOT EXISTS index_game_sync_metadata_localUpdatedAt ON game_sync_metadata(localUpdatedAt)")
+                db.execSQL(
+                    """
+                    CREATE TABLE IF NOT EXISTS sync_state (
+                        hubId TEXT NOT NULL PRIMARY KEY,
+                        lastRevision INTEGER NOT NULL DEFAULT 0,
+                        lastSyncedAt INTEGER NOT NULL DEFAULT 0,
+                        lastEventId TEXT,
+                        deviceId TEXT NOT NULL DEFAULT 'android'
+                    )
+                    """.trimIndent(),
+                )
+            }
+        }
+
         fun get(context: Context): OzDatabase = instance ?: synchronized(this) {
             instance ?: Room.databaseBuilder(context.applicationContext, OzDatabase::class.java, "oz-retrorom.db")
-                .addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5, MIGRATION_5_6)
+                .addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5, MIGRATION_5_6, MIGRATION_6_7)
                 .setJournalMode(RoomDatabase.JournalMode.WRITE_AHEAD_LOGGING)
                 .build()
                 .also { instance = it }

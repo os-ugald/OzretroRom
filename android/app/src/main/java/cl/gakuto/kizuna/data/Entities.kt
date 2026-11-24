@@ -97,3 +97,42 @@ data class CatalogSystemStateEntity(
     val gameCount: Int,
     val error: String?,
 )
+
+@Entity(
+    tableName = "game_sync_metadata",
+    indices = [
+        Index("hubEntryId"),
+        Index("dirty"),
+        Index("localUpdatedAt"),
+    ],
+)
+data class GameSyncMetadataEntity(
+    @androidx.room.PrimaryKey val gameId: String,
+    val hubEntryId: String? = null,
+    @ColumnInfo(defaultValue = "0") val favorite: Boolean = false,
+    @ColumnInfo(defaultValue = "0") val playCount: Int = 0,
+    val lastPlayedAt: Long? = null,
+    val quickResumeJson: String? = null,
+    val customArtworkUrl: String? = null,
+    val customArtworkUri: String? = null,
+    val syncedArtworkLocalUri: String? = null,
+    val syncedArtworkTitle: String? = null,
+    val syncedArtworkRepo: String? = null,
+    val syncedGameIconLocalUri: String? = null,
+    val cachedDescription: String? = null,
+    val patchedRomPath: String? = null,
+    val patchedRomLabel: String? = null,
+    val patchedRomFormat: String? = null,
+    @ColumnInfo(defaultValue = "0") val localUpdatedAt: Long = 0L,
+    @ColumnInfo(defaultValue = "0") val hubRevision: Long = 0L,
+    @ColumnInfo(defaultValue = "0") val dirty: Boolean = false,
+)
+
+@Entity(tableName = "sync_state")
+data class SyncStateEntity(
+    @androidx.room.PrimaryKey val hubId: String,
+    @ColumnInfo(defaultValue = "0") val lastRevision: Long = 0L,
+    @ColumnInfo(defaultValue = "0") val lastSyncedAt: Long = 0L,
+    val lastEventId: String? = null,
+    @ColumnInfo(defaultValue = "'android'") val deviceId: String = "android",
+)

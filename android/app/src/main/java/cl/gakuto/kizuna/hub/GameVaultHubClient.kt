@@ -1,20 +1,30 @@
 package cl.gakuto.kizuna.hub
 
+import cl.gakuto.kizuna.catalog.CatalogSearchItem
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.currentCoroutineContext
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.isActive
 import kotlinx.coroutines.withContext
+import okhttp3.ConnectionPool
+import okhttp3.Dns
+import okhttp3.Interceptor
+import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import okhttp3.RequestBody.Companion.toRequestBody
 import org.json.JSONArray
 import org.json.JSONObject
-import java.io.BufferedInputStream
-import java.io.ByteArrayOutputStream
 import java.io.IOException
 import java.io.OutputStream
-import java.net.HttpURLConnection
-import java.net.InetSocketAddress
-import java.net.Socket
+import java.net.InetAddress
 import java.net.URI
-import java.net.URL
 import java.net.URLEncoder
-import javax.net.ssl.HttpsURLConnection
+import java.util.concurrent.TimeUnit
 
 data class HubHealthInfo(
     val romsCount: Int,
@@ -35,27 +45,141 @@ data class HubRemoteGame(
     val hasSpanishPatch: Boolean,
 )
 
+data class HubSseEvent(
+    val id: String?,
+    val event: String,
+    val data: String,
+)
+
+data class HubSyncChange(
+    val revision: Long,
+    val entityType: String,
+    val entityId: String,
+    val op: String,
+    val payloadJson: String,
+    val updatedAt: String,
+    val sourceDevice: String,
+)
+
+data class HubSyncDeltaResponse(
+    val latestRevision: Long,
+    val hasMore: Boolean,
+    val serverTime: String,
+    val changes: List<HubSyncChange>,
+)
+
+data class HubSyncOutboundChange(
+    val entityId: String,
+    val entityType: String = "game_state",
+    val op: String = "upsert",
+    val favorite: Boolean? = null,
+    val playCount: Int? = null,
+    val lastPlayedAt: String? = null,
+    val quickResumeJson: String? = null,
+    val customMetadataJson: String? = null,
+    val updatedAt: String? = null,
+)
+
+data class HubSyncPushResult(
+    val applied: Int,
+    val latestRevision: Long,
+    val serverTime: String,
+)
+
 /**
- * Optional client for Game Vault PC Hub on the user's private LAN.
- *
- * Plain HTTP is strictly gated to RFC-1918 private LAN addresses (192.168.*, 10.*, 172.16-31.*, localhost)
- * over raw sockets, leaving AndroidManifest usesCleartextTraffic="false" completely intact.
+ * LAN client for Game Vault PC Hub built on OkHttp with connection pooling, transparent gzip,
+ * SSE real-time events, and RFC-1918 / .local private subnet enforcement.
  */
 object GameVaultHubClient {
-    fun isAllowedLanHost(rawHost: String): Boolean {
-        val host = rawHost.trim().lowercase()
-        if (host == "localhost" || host == "127.0.0.1") return true
-        val parts = host.split('.')
-        if (parts.size != 4) return false
-        val octets = parts.map { it.toIntOrNull() ?: return false }
-        if (octets.any { it !in 0..255 }) return false
-        return when (octets[0]) {
+    private const val SYNTHETIC_LAN_SUFFIX = ".lan.ozvault.local"
+    private val JSON_MEDIA_TYPE = "application/json; charset=utf-8".toMediaType()
+    private val LOCAL_HOST_REGEX = Regex("^[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?(?:\\.[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?)*\\.local\\.?$")
+
+    private data class PreparedUrl(
+        val requestUrl: String,
+        val hostHeader: String?,
+    )
+
+    internal fun parseRfc1918Octets(rawHost: String): IntArray? {
+        val parts = rawHost.trim().lowercase().split('.')
+        if (parts.size != 4) return null
+        val octets = IntArray(4)
+        for (i in 0..3) {
+            val v = parts[i].toIntOrNull() ?: return null
+            if (v !in 0..255) return null
+            octets[i] = v
+        }
+        val valid = when (octets[0]) {
             10 -> true
             192 -> octets[1] == 168
             172 -> octets[1] in 16..31
             else -> false
         }
+        return if (valid) octets else null
     }
+
+    internal fun decodeSyntheticLanHost(hostname: String): String? {
+        val clean = hostname.trim().lowercase().trimEnd('.')
+        if (!clean.endsWith(SYNTHETIC_LAN_SUFFIX)) return null
+        val label = clean.removeSuffix(SYNTHETIC_LAN_SUFFIX)
+        if (label.isBlank() || '.' in label) return null
+        val candidateIp = label.replace('-', '.')
+        return if (parseRfc1918Octets(candidateIp) != null) candidateIp else null
+    }
+
+    fun isAllowedLanHost(rawHost: String): Boolean {
+        val host = rawHost.trim().lowercase().trimEnd('.')
+        if (host.isBlank()) return false
+        if (host == "localhost" || host == "127.0.0.1") return true
+        if (parseRfc1918Octets(host) != null) return true
+        decodeSyntheticLanHost(host)?.let { return true }
+        return LOCAL_HOST_REGEX.matches("$host.")
+    }
+
+    private val lanDns = object : Dns {
+        override fun lookup(hostname: String): List<InetAddress> {
+            val decodedIp = decodeSyntheticLanHost(hostname)
+            if (decodedIp != null) {
+                val octets = parseRfc1918Octets(decodedIp)
+                    ?: throw IOException("Host LAN RFC-1918 inválido: $hostname")
+                val bytes = byteArrayOf(
+                    octets[0].toByte(),
+                    octets[1].toByte(),
+                    octets[2].toByte(),
+                    octets[3].toByte(),
+                )
+                return listOf(InetAddress.getByAddress(hostname, bytes))
+            }
+            return Dns.SYSTEM.lookup(hostname)
+        }
+    }
+
+    private val lanGuardInterceptor = Interceptor { chain ->
+        val req = chain.request()
+        if (req.url.scheme.equals("http", ignoreCase = true)) {
+            val logicalHost = decodeSyntheticLanHost(req.url.host) ?: req.url.host
+            if (!isAllowedLanHost(logicalHost)) {
+                throw IOException("Tráfico HTTP bloqueado fuera de red privada LAN: $logicalHost")
+            }
+        }
+        chain.proceed(req)
+    }
+
+    private val sharedPool = ConnectionPool(5, 5, TimeUnit.MINUTES)
+
+    internal val httpClient: OkHttpClient = OkHttpClient.Builder()
+        .connectionPool(sharedPool)
+        .dns(lanDns)
+        .addNetworkInterceptor(lanGuardInterceptor)
+        .connectTimeout(8, TimeUnit.SECONDS)
+        .readTimeout(45, TimeUnit.SECONDS)
+        .writeTimeout(30, TimeUnit.SECONDS)
+        .retryOnConnectionFailure(true)
+        .build()
+
+    internal val sseClient: OkHttpClient = httpClient.newBuilder()
+        .readTimeout(0, TimeUnit.MILLISECONDS)
+        .build()
 
     private fun normalizeBaseUrl(rawUrl: String): URI {
         val clean = rawUrl.trim().trimEnd('/')
@@ -66,12 +190,53 @@ object GameVaultHubClient {
         val host = uri.host.orEmpty()
         if (scheme == "http") {
             require(isAllowedLanHost(host)) {
-                "Por seguridad, HTTP solo se permite en IPs privadas de tu red local (192.168.x.x / 10.x.x.x / 172.16-31.x.x)."
+                "Por seguridad, HTTP solo se permite en IPs privadas de tu red local (192.168.x.x / 10.x.x.x / 172.16-31.x.x) o .local."
             }
         } else {
             require(scheme == "https") { "Usa una URL http:// LAN o https://." }
         }
         return uri
+    }
+
+    private fun prepareRequestUrl(baseUri: URI, path: String): PreparedUrl {
+        val scheme = baseUri.scheme.lowercase()
+        val rawHost = baseUri.host ?: throw IOException("Host inválido")
+        val prefix = baseUri.rawPath?.trimEnd('/').orEmpty()
+        val suffix = if (path.startsWith("/")) path else "/$path"
+        val port = baseUri.port
+        val portSuffix = if (port > 0) ":$port" else ""
+
+        // Rewrite RFC-1918 IPv4 literals to *.lan.ozvault.local so OkHttp cleartext passes
+        // Android NetworkSecurityPolicy while <base-config cleartextTrafficPermitted="false"> holds.
+        val octets = if (scheme == "http") parseRfc1918Octets(rawHost) else null
+        return if (octets != null) {
+            val syntheticHost = "${octets[0]}-${octets[1]}-${octets[2]}-${octets[3]}$SYNTHETIC_LAN_SUFFIX"
+            PreparedUrl(
+                requestUrl = "$scheme://$syntheticHost$portSuffix$prefix$suffix",
+                hostHeader = "$rawHost$portSuffix",
+            )
+        } else {
+            PreparedUrl(
+                requestUrl = "$scheme://$rawHost$portSuffix$prefix$suffix",
+                hostHeader = null,
+            )
+        }
+    }
+
+    private fun buildRequest(baseUrl: String, path: String, method: String, jsonBody: String? = null): Request {
+        val baseUri = normalizeBaseUrl(baseUrl)
+        val prepared = prepareRequestUrl(baseUri, path)
+        val builder = Request.Builder()
+            .url(prepared.requestUrl)
+            .header("User-Agent", "GameVaultAndroid/0.6.0")
+        if (prepared.hostHeader != null) {
+            builder.header("Host", prepared.hostHeader)
+        }
+        when (method.uppercase()) {
+            "GET" -> builder.get()
+            else -> builder.method(method.uppercase(), (jsonBody ?: "").toRequestBody(JSON_MEDIA_TYPE))
+        }
+        return builder.build()
     }
 
     suspend fun testHealth(baseUrl: String): HubHealthInfo = withContext(Dispatchers.IO) {
@@ -116,7 +281,7 @@ object GameVaultHubClient {
         baseUrl: String,
         query: String,
         platform: String = "",
-    ): List<cl.gakuto.kizuna.catalog.CatalogSearchItem> = withContext(Dispatchers.IO) {
+    ): List<CatalogSearchItem> = withContext(Dispatchers.IO) {
         val base = normalizeBaseUrl(baseUrl).toString().trimEnd('/')
         val qEnc = URLEncoder.encode(query.trim(), "UTF-8").replace("+", "%20")
         val pEnc = URLEncoder.encode(platform.trim().lowercase(), "UTF-8").replace("+", "%20")
@@ -128,14 +293,14 @@ object GameVaultHubClient {
     internal fun parseCatalogSearchJson(
         body: String,
         base: String,
-    ): List<cl.gakuto.kizuna.catalog.CatalogSearchItem> {
+    ): List<CatalogSearchItem> {
         val trimmed = body.trim()
         val rows = when {
-            trimmed.startsWith("[") -> org.json.JSONArray(trimmed)
+            trimmed.startsWith("[") -> JSONArray(trimmed)
             trimmed.startsWith("{") -> JSONObject(trimmed).optJSONArray("results")
             else -> null
         } ?: return emptyList()
-        val out = ArrayList<cl.gakuto.kizuna.catalog.CatalogSearchItem>(rows.length())
+        val out = ArrayList<CatalogSearchItem>(rows.length())
         for (i in 0 until rows.length()) {
             val o = rows.optJSONObject(i) ?: continue
             val rawArchive = o.optString("archiveUrl").ifBlank { o.optString("archive_url") }
@@ -145,7 +310,7 @@ object GameVaultHubClient {
             val plat = o.optString("platform").ifBlank { o.optString("consoleKey") }.ifBlank { o.optString("console") }.lowercase()
             val title = o.optString("title")
             val sizeBytes = o.optLong("size", -1L).let { if (it >= 0L) it else o.optLong("size_bytes", 0L) }
-            out += cl.gakuto.kizuna.catalog.CatalogSearchItem(
+            out += CatalogSearchItem(
                 id = o.optString("id"),
                 title = title,
                 edition = o.optString("edition"),
@@ -190,37 +355,154 @@ object GameVaultHubClient {
         requestText(baseUrl, "/api/v1/sagas/$encoded/ai-audit", "POST", payloadJson)
     }
 
+    suspend fun fetchSyncDelta(baseUrl: String, sinceRevision: Long = 0L): HubSyncDeltaResponse = withContext(Dispatchers.IO) {
+        val body = requestText(baseUrl, "/api/v1/sync?since=${sinceRevision.coerceAtLeast(0L)}", "GET")
+        parseSyncDeltaJson(body)
+    }
+
+    suspend fun pushSyncDelta(
+        baseUrl: String,
+        deviceId: String,
+        changes: List<HubSyncOutboundChange>,
+    ): HubSyncPushResult = withContext(Dispatchers.IO) {
+        val arr = JSONArray()
+        for (ch in changes) {
+            val o = JSONObject()
+                .put("entityId", ch.entityId)
+                .put("entityType", ch.entityType)
+                .put("op", ch.op)
+            if (ch.favorite != null) o.put("favorite", ch.favorite)
+            if (ch.playCount != null) o.put("playCount", ch.playCount)
+            if (!ch.lastPlayedAt.isNullOrBlank()) o.put("lastPlayedAt", ch.lastPlayedAt)
+            if (!ch.quickResumeJson.isNullOrBlank()) {
+                runCatching { JSONObject(ch.quickResumeJson) }.getOrNull()?.let { o.put("quickResume", it) }
+            }
+            if (!ch.customMetadataJson.isNullOrBlank()) {
+                runCatching { JSONObject(ch.customMetadataJson) }.getOrNull()?.let { o.put("customMetadata", it) }
+            }
+            if (!ch.updatedAt.isNullOrBlank()) o.put("updatedAt", ch.updatedAt)
+            arr.put(o)
+        }
+        val payload = JSONObject()
+            .put("deviceId", deviceId.ifBlank { "android" })
+            .put("changes", arr)
+            .toString()
+        val body = requestText(baseUrl, "/api/v1/sync", "POST", payload)
+        val obj = JSONObject(body)
+        HubSyncPushResult(
+            applied = obj.optInt("applied", 0),
+            latestRevision = obj.optLong("latestRevision", 0L),
+            serverTime = obj.optString("serverTime", ""),
+        )
+    }
+
+    internal fun parseSyncDeltaJson(body: String): HubSyncDeltaResponse {
+        val obj = JSONObject(body)
+        val arr = obj.optJSONArray("changes") ?: JSONArray()
+        val list = ArrayList<HubSyncChange>(arr.length())
+        for (i in 0 until arr.length()) {
+            val c = arr.optJSONObject(i) ?: continue
+            val payloadObj = c.optJSONObject("payload")
+            list += HubSyncChange(
+                revision = c.optLong("revision", 0L),
+                entityType = c.optString("entityType", "game_state"),
+                entityId = c.optString("entityId"),
+                op = c.optString("op", "upsert"),
+                payloadJson = payloadObj?.toString() ?: c.optString("payload", "{}"),
+                updatedAt = c.optString("updatedAt", ""),
+                sourceDevice = c.optString("sourceDevice", "pc-hub"),
+            )
+        }
+        return HubSyncDeltaResponse(
+            latestRevision = obj.optLong("latestRevision", 0L),
+            hasMore = obj.optBoolean("hasMore", false),
+            serverTime = obj.optString("serverTime", ""),
+            changes = list,
+        )
+    }
+
+    internal fun parseSseFrame(lines: List<String>): HubSseEvent? {
+        if (lines.isEmpty()) return null
+        var id: String? = null
+        var eventName = "message"
+        val dataLines = mutableListOf<String>()
+        for (line in lines) {
+            if (line.isEmpty() || line.startsWith(":")) continue
+            val colon = line.indexOf(':')
+            val field = if (colon >= 0) line.substring(0, colon) else line
+            val rawVal = if (colon >= 0) line.substring(colon + 1) else ""
+            val value = if (rawVal.startsWith(" ")) rawVal.substring(1) else rawVal
+            when (field) {
+                "id" -> id = value
+                "event" -> if (value.isNotBlank()) eventName = value
+                "data" -> dataLines += value
+            }
+        }
+        if (dataLines.isEmpty() && id == null && eventName == "message") return null
+        return HubSseEvent(id = id, event = eventName, data = dataLines.joinToString("\n"))
+    }
+
+    fun streamEvents(
+        baseUrl: String,
+        lastEventId: String? = null,
+        once: Boolean = false,
+    ): Flow<HubSseEvent> = flow {
+        val baseUri = normalizeBaseUrl(baseUrl)
+        val suffix = if (once) "/api/v1/events?once=1" else "/api/v1/events"
+        val prepared = prepareRequestUrl(baseUri, suffix)
+        val reqBuilder = Request.Builder()
+            .url(prepared.requestUrl)
+            .header("User-Agent", "GameVaultAndroid/0.6.0")
+            .header("Accept", "text/event-stream")
+            .header("Cache-Control", "no-cache")
+            .header("Accept-Encoding", "identity")
+            .get()
+        if (prepared.hostHeader != null) {
+            reqBuilder.header("Host", prepared.hostHeader)
+        }
+        if (!lastEventId.isNullOrBlank()) {
+            reqBuilder.header("Last-Event-ID", lastEventId.trim())
+        }
+        val call = sseClient.newCall(reqBuilder.build())
+        val ctxJob = currentCoroutineContext()[Job]
+        val cancelHandle = ctxJob?.invokeOnCompletion { call.cancel() }
+        try {
+            call.execute().use { resp ->
+                if (!resp.isSuccessful) throw IOException("SSE Hub respondió HTTP ${resp.code}")
+                val source = resp.body?.source() ?: return@use
+                val frameLines = mutableListOf<String>()
+                while (currentCoroutineContext().isActive) {
+                    val line = source.readUtf8Line() ?: break
+                    if (line.isEmpty()) {
+                        parseSseFrame(frameLines)?.let { emit(it) }
+                        frameLines.clear()
+                    } else {
+                        frameLines += line
+                    }
+                }
+                if (frameLines.isNotEmpty()) {
+                    parseSseFrame(frameLines)?.let { emit(it) }
+                }
+            }
+        } catch (ce: CancellationException) {
+            throw ce
+        } finally {
+            cancelHandle?.dispose()
+            call.cancel()
+        }
+    }.flowOn(Dispatchers.IO)
+
     private fun requestText(
         baseUrl: String,
         path: String,
         method: String,
         jsonBody: String? = null,
     ): String {
-        val baos = ByteArrayOutputStream()
-        if (method == "GET") {
-            streamToOutput(baseUrl, path, baos) { _, _ -> }
-        } else {
-            val baseUri = normalizeBaseUrl(baseUrl)
-            if (baseUri.scheme.equals("https", true)) {
-                val conn = (URL("${baseUri.toString().trimEnd('/')}$path").openConnection() as HttpsURLConnection).apply {
-                    requestMethod = method
-                    connectTimeout = 8_000
-                    readTimeout = 15_000
-                    doOutput = jsonBody != null
-                    setRequestProperty("Content-Type", "application/json")
-                }
-                try {
-                    if (jsonBody != null) conn.outputStream.use { it.write(jsonBody.toByteArray(Charsets.UTF_8)) }
-                    if (conn.responseCode !in 200..299) throw IOException("HTTP ${conn.responseCode}")
-                    conn.inputStream.copyTo(baos)
-                } finally {
-                    conn.disconnect()
-                }
-            } else {
-                rawLanHttpRequest(baseUri, path, method, jsonBody, baos) { _, _ -> }
-            }
+        val request = buildRequest(baseUrl, path, method, jsonBody)
+        httpClient.newCall(request).execute().use { resp ->
+            if (!resp.isSuccessful) throw IOException("Servidor Hub respondió HTTP ${resp.code}")
+            return resp.body?.string().orEmpty()
         }
-        return baos.toString("UTF-8")
     }
 
     private fun streamToOutput(
@@ -229,139 +511,24 @@ object GameVaultHubClient {
         output: OutputStream,
         onProgress: (Long, Long) -> Unit,
     ): String {
-        val baseUri = normalizeBaseUrl(baseUrl)
-        if (baseUri.scheme.equals("https", true)) {
-            val fullUrl = "${baseUri.toString().trimEnd('/')}$path"
-            val conn = (URL(fullUrl).openConnection() as HttpURLConnection).apply {
-                connectTimeout = 10_000
-                readTimeout = 45_000
-                instanceFollowRedirects = true
-            }
-            return try {
-                if (conn.responseCode !in 200..299) throw IOException("Hub respondió HTTP ${conn.responseCode}")
-                val total = conn.contentLengthLong
-                val buf = ByteArray(32 * 1024)
-                var copied = 0L
-                conn.inputStream.use { input ->
-                    while (true) {
-                        val n = input.read(buf)
-                        if (n < 0) break
-                        output.write(buf, 0, n)
-                        copied += n
-                        onProgress(copied, total)
-                    }
-                }
-                filenameFromDisposition(conn.getHeaderField("Content-Disposition")) ?: path.substringAfterLast('/')
-            } finally {
-                conn.disconnect()
-            }
-        }
-        return rawLanHttpRequest(baseUri, path, "GET", null, output, onProgress)
-    }
-
-    private fun rawLanHttpRequest(
-        baseUri: URI,
-        path: String,
-        method: String,
-        jsonBody: String?,
-        output: OutputStream,
-        onProgress: (Long, Long) -> Unit,
-    ): String {
-        val host = baseUri.host ?: throw IOException("Host inválido")
-        val port = if (baseUri.port > 0) baseUri.port else 80
-        val prefix = baseUri.path?.trimEnd('/').orEmpty()
-        val reqPath = "$prefix$path"
-        val sock = Socket()
-        sock.connect(InetSocketAddress(host, port), 8_000)
-        sock.soTimeout = 45_000
-        return sock.use {
-            val out = it.getOutputStream()
-            val bodyBytes = jsonBody?.toByteArray(Charsets.UTF_8) ?: ByteArray(0)
-            val req = buildString {
-                append("$method $reqPath HTTP/1.1\r\n")
-                append("Host: $host:$port\r\n")
-                append("User-Agent: GameVaultAndroid/0.6.0\r\n")
-                append("Connection: close\r\n")
-                if (bodyBytes.isNotEmpty()) {
-                    append("Content-Type: application/json\r\n")
-                    append("Content-Length: ${bodyBytes.size}\r\n")
-                }
-                append("\r\n")
-            }.toByteArray(Charsets.US_ASCII)
-            out.write(req)
-            if (bodyBytes.isNotEmpty()) out.write(bodyBytes)
-            out.flush()
-
-            val bis = BufferedInputStream(it.getInputStream(), 32 * 1024)
-            val headerBytes = ByteArrayOutputStream()
-            var state = 0
-            while (true) {
-                val b = bis.read()
-                if (b < 0) break
-                headerBytes.write(b)
-                state = when {
-                    b == '\r'.code && (state == 0 || state == 2) -> state + 1
-                    b == '\n'.code && (state == 1 || state == 3) -> state + 1
-                    b == '\r'.code -> 1
-                    else -> 0
-                }
-                if (state == 4) break
-            }
-            val headerLines = headerBytes.toString("ISO_8859_1").split("\r\n").filter { line -> line.isNotBlank() }
-            val statusLine = headerLines.firstOrNull() ?: throw IOException("Sin respuesta HTTP del servidor LAN")
-            val code = statusLine.split(' ').getOrNull(1)?.toIntOrNull() ?: 0
-            if (code !in 200..299) throw IOException("Servidor Hub LAN respondió HTTP $code")
-
-            val headers = headerLines.drop(1).associate { line ->
-                val idx = line.indexOf(':')
-                if (idx > 0) line.substring(0, idx).trim().lowercase() to line.substring(idx + 1).trim()
-                else line.lowercase() to ""
-            }
-            val contentLen = headers["content-length"]?.toLongOrNull() ?: -1L
-            val chunked = headers["transfer-encoding"]?.contains("chunked", ignoreCase = true) == true
-
-            if (chunked) {
-                var totalCopied = 0L
+        val request = buildRequest(baseUrl, path, "GET", null)
+        httpClient.newCall(request).execute().use { resp ->
+            if (!resp.isSuccessful) throw IOException("Servidor Hub LAN respondió HTTP ${resp.code}")
+            val body = resp.body ?: throw IOException("Respuesta vacía del servidor Hub")
+            val total = body.contentLength()
+            val buf = ByteArray(32 * 1024)
+            var copied = 0L
+            body.byteStream().use { input ->
                 while (true) {
-                    val sizeLine = readAsciiLine(bis) ?: break
-                    val chunkSize = sizeLine.substringBefore(';').trim().toIntOrNull(16) ?: 0
-                    if (chunkSize <= 0) break
-                    var remaining = chunkSize
-                    val buf = ByteArray(16 * 1024)
-                    while (remaining > 0) {
-                        val n = bis.read(buf, 0, minOf(buf.size, remaining))
-                        if (n <= 0) break
-                        output.write(buf, 0, n)
-                        remaining -= n
-                        totalCopied += n
-                        onProgress(totalCopied, -1L)
-                    }
-                    readAsciiLine(bis) // CRLF after chunk
-                }
-            } else {
-                val buf = ByteArray(32 * 1024)
-                var totalCopied = 0L
-                while (true) {
-                    val n = bis.read(buf)
+                    val n = input.read(buf)
                     if (n < 0) break
                     output.write(buf, 0, n)
-                    totalCopied += n
-                    onProgress(totalCopied, contentLen)
+                    copied += n
+                    onProgress(copied, total)
                 }
             }
-            filenameFromDisposition(headers["content-disposition"]) ?: path.substringAfterLast('/')
+            return filenameFromDisposition(resp.header("Content-Disposition")) ?: path.substringAfterLast('/')
         }
-    }
-
-    private fun readAsciiLine(bis: BufferedInputStream): String? {
-        val sb = StringBuilder()
-        while (true) {
-            val b = bis.read()
-            if (b < 0) return if (sb.isEmpty()) null else sb.toString()
-            if (b == '\n'.code) break
-            if (b != '\r'.code) sb.append(b.toChar())
-        }
-        return sb.toString()
     }
 
     private fun filenameFromDisposition(header: String?): String? {
