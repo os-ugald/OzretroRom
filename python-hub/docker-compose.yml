@@ -1,0 +1,16 @@
+services:
+  oz-retrorom-hub:
+    build: .
+    container_name: oz-retrorom-hub
+    restart: unless-stopped
+    ports:
+      - "17894:17894"
+    environment:
+      OZ_ROMS_DIR: /roms
+      OZ_DATA_DIR: /app/data
+      OZ_JAVA_COMPANION_URL: ${OZ_JAVA_COMPANION_URL:-http://host.docker.internal:17893}
+    volumes:
+      - ${OZ_ROMS_DIR:-F:/Games/RetroArch/roms}:/roms:ro
+      - ./data:/app/data
+    extra_hosts:
+      - "host.docker.internal:host-gateway"

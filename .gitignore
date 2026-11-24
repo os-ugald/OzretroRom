@@ -1,0 +1,26 @@
+# Python caches & virtual environments
+**/__pycache__/
+*.py[cod]
+*$py.class
+**/.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+python-hub/.venv/
+
+# Packaging, local builds & portable binaries (kept locally on disk)
+python-hub/dist/
+python-hub/build/
+python-hub/data/
+python-hub/logs/
+
+# UI audit dependencies & generated screenshots/reports
+ui-audit/node_modules/
+ui-audit/reports/
+
+# Local runtime state, credentials & backups
+logs/
+backup/
+data/.oz-ps4/
+*.p12
+*.manifest

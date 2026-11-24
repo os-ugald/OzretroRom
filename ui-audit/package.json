@@ -1,0 +1,19 @@
+﻿{
+    "name":  "ui-audit",
+    "version":  "1.0.0",
+    "description":  "",
+    "main":  "index.js",
+    "scripts":  {
+                    "test":  "echo \"Error: no test specified\" \u0026\u0026 exit 1"
+                },
+    "keywords":  [
+
+                 ],
+    "author":  "",
+    "license":  "ISC",
+    "devDependencies":  {
+                            "axe-core":  "^4.14.1",
+                            "playwright-core":  "^1.65.1"
+                        },
+    "type":  "module"
+}
