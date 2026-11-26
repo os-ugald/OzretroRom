@@ -43,18 +43,21 @@ export async function performMinervaSearch(e) {
       const rep = g.items[0];
       const meta = consoleMeta(g.consoleKey);
       const card = document.createElement('article');
-      card.className = 'hylian-card rom-card';
+      card.className = 'oz-search-row';
       card.dataset.coverKey = g.key;
       card.tabIndex = 0;
       card.innerHTML = `
-        <div class="cover-frame cover-frame-34">
+        <div class="cover-frame oz-search-thumb">
           ${buildCoverSvg(g.title, g.consoleKey)}
-          <span class="avail-dot hub" title="Disponible en MiNERVA"></span>
         </div>
-        <div class="hylian-card-meta">
+        <div style="min-width:0;display:flex;flex-direction:column;gap:4px;">
           <h3 class="card-title">${escapeHtml(g.title)}</h3>
-          <span class="hylian-card-sub mono">${escapeHtml(meta.label)} · ${g.items.length} ed. · ${formatBytes(rep.size)}</span>
+          <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+            <span class="oz-tag">${escapeHtml(meta.label)}</span>
+            <span class="mono" style="font-size:11.5px;color:var(--text-secondary);">${g.items.length} ed. · ${formatBytes(rep.size)}</span>
+          </div>
         </div>
+        <button class="icon-hud-btn search-add-plus" type="button" aria-label="Añadir o inspeccionar">+</button>
       `;
       card.addEventListener('mouseenter', () => {
         if (g.coverUrl) setAmbientBackdrop(g.coverUrl, meta.color);

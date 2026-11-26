@@ -31,6 +31,30 @@ const {
 } = settingsView;
 
 let activeConsoleTab = 'home';
+const VALID_THEMES = ['cyber-dark', 'cyber-light', 'hylian-dark', 'hylian-light'];
+
+export function applyTheme(themeId) {
+  const chosen = VALID_THEMES.includes(themeId) ? themeId : 'cyber-dark';
+  document.documentElement.dataset.theme = chosen;
+  try { localStorage.setItem('oz_theme_id', chosen); } catch (e) {}
+  const metaColor = chosen === 'cyber-light' ? '#F3F6FC' : chosen === 'hylian-dark' ? '#0A0F0D' : chosen === 'hylian-light' ? '#F2F7F4' : '#070816';
+  const tc = document.querySelector('meta[name="theme-color"]');
+  if (tc) tc.setAttribute('content', metaColor);
+  $$('.theme-preset-card[data-theme-choice]').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.themeChoice === chosen);
+  });
+}
+
+function toggleLightDarkTheme() {
+  const cur = document.documentElement.dataset.theme || 'cyber-dark';
+  const nextMap = {
+    'cyber-dark': 'cyber-light',
+    'cyber-light': 'cyber-dark',
+    'hylian-dark': 'hylian-light',
+    'hylian-light': 'hylian-dark',
+  };
+  applyTheme(nextMap[cur] || 'cyber-light');
+}
 
 export function getActiveConsoleTab() {
   return activeConsoleTab;
@@ -39,7 +63,7 @@ export function getActiveConsoleTab() {
 export function setExploreTab(tabName) {
   const next = tabName === 'consoles' ? 'consoles' : 'sagas';
   state.exploreTab = next;
-  $$('.explore-seg-btn').forEach(btn => {
+  $$('[data-explore-tab]').forEach(btn => {
     const active = btn.dataset.exploreTab === next;
     btn.classList.toggle('active', active);
     btn.setAttribute('aria-selected', String(active));
@@ -55,39 +79,21 @@ export function setExploreTab(tabName) {
 }
 
 export function openExploreConsoleLibrary(consoleKey = '') {
-  switchView('explore');
-  setExploreTab('consoles');
   if (typeof consoleKey === 'string') {
     state.consoleFilter = consoleKey;
   }
-  const overview = $('#explore-consoles-overview');
-  const libSub = $('#view-library');
-  const catSub = $('#view-catalog');
-  if (overview) overview.hidden = true;
-  if (catSub) catSub.hidden = true;
-  if (libSub) libSub.hidden = false;
+  switchView('library');
   updateSidebarCounts();
   applyLibraryFilters();
 }
 
 export function openExploreMinervaCatalog() {
-  switchView('explore');
-  setExploreTab('consoles');
-  const overview = $('#explore-consoles-overview');
-  const libSub = $('#view-library');
-  const catSub = $('#view-catalog');
-  if (overview) overview.hidden = true;
-  if (libSub) libSub.hidden = true;
-  if (catSub) catSub.hidden = false;
+  switchView('search');
 }
 
 export function resetExploreConsolesOverview() {
-  const overview = $('#explore-consoles-overview');
-  const libSub = $('#view-library');
-  const catSub = $('#view-catalog');
-  if (overview) overview.hidden = false;
-  if (libSub) libSub.hidden = true;
-  if (catSub) catSub.hidden = true;
+  switchView('collections');
+  setExploreTab('consoles');
 }
 
 export function switchView(viewName) {
@@ -95,15 +101,15 @@ export function switchView(viewName) {
   if (viewName === 'home') {
     state.view = 'home';
     consoleTab = 'home';
-  } else if (viewName === 'explore' || viewName === 'sagas') {
-    state.view = 'explore';
-    consoleTab = 'explore';
   } else if (viewName === 'library') {
-    state.view = 'explore';
-    consoleTab = 'explore';
-  } else if (viewName === 'catalog') {
-    state.view = 'explore';
-    consoleTab = 'explore';
+    state.view = 'library';
+    consoleTab = 'library';
+  } else if (viewName === 'collections' || viewName === 'explore' || viewName === 'sagas') {
+    state.view = 'collections';
+    consoleTab = 'collections';
+  } else if (viewName === 'search' || viewName === 'catalog') {
+    state.view = 'search';
+    consoleTab = 'search';
   } else if (viewName === 'downloads') {
     toggleActivitySheet(true);
     return;
@@ -117,40 +123,23 @@ export function switchView(viewName) {
 
   activeConsoleTab = consoleTab;
   $$('.view-section').forEach(el => el.classList.toggle('active', el.id === 'view-' + consoleTab));
-  $$('.console-nav-btn[data-view]').forEach(btn => {
+  $$('[data-view]').forEach(btn => {
     const active = btn.dataset.view === consoleTab;
     btn.classList.toggle('active', active);
     if (active) btn.setAttribute('aria-current', 'page');
     else btn.removeAttribute('aria-current');
   });
 
-  if (viewName === 'home') {
+  if (consoleTab === 'home') {
     renderHome();
-  } else if (viewName === 'sagas' || (viewName === 'explore' && state.exploreTab !== 'consoles')) {
-    setExploreTab('sagas');
-  } else if (viewName === 'explore') {
-    setExploreTab('consoles');
-  } else if (viewName === 'library') {
-    setExploreTab('consoles');
-    const overview = $('#explore-consoles-overview');
-    const libSub = $('#view-library');
-    const catSub = $('#view-catalog');
-    if (overview) overview.hidden = true;
-    if (catSub) catSub.hidden = true;
-    if (libSub) libSub.hidden = false;
+  } else if (consoleTab === 'library') {
     updateSidebarCounts();
     applyLibraryFilters();
-  } else if (viewName === 'catalog') {
-    setExploreTab('consoles');
-    const overview = $('#explore-consoles-overview');
-    const libSub = $('#view-library');
-    const catSub = $('#view-catalog');
-    if (overview) overview.hidden = true;
-    if (libSub) libSub.hidden = true;
-    if (catSub) catSub.hidden = false;
+  } else if (consoleTab === 'collections') {
+    setExploreTab(viewName === 'explore' && state.exploreTab === 'consoles' ? 'consoles' : 'sagas');
   } else if (viewName === 'bridge') {
     switchSettingsTab('bridge');
-  } else if (viewName === 'settings') {
+  } else if (consoleTab === 'settings') {
     refreshCoverStats();
     loadSystemInfo();
   }
@@ -158,7 +147,11 @@ export function switchView(viewName) {
 
 export function setStateFilter(filterKey) {
   state.stateFilter = filterKey;
-  openExploreConsoleLibrary(state.consoleFilter || '');
+  $$('#library-segmented-tabs [data-lib-state]').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.libState === filterKey);
+  });
+  updateSidebarCounts();
+  applyLibraryFilters();
 }
 
 let omniboxTimer = null;
@@ -303,13 +296,47 @@ export function handleBackNavigation() {
 }
 
 // Event wiring
-$$('.console-nav-btn[data-view]').forEach(btn => btn.addEventListener('click', () => switchView(btn.dataset.view)));
-$$('.explore-seg-btn[data-explore-tab]').forEach(btn => btn.addEventListener('click', () => setExploreTab(btn.dataset.exploreTab)));
-$('#explore-open-library-btn')?.addEventListener('click', () => openExploreConsoleLibrary(''));
-$('#explore-open-catalog-btn')?.addEventListener('click', () => openExploreMinervaCatalog());
-$('#library-back-consoles-btn')?.addEventListener('click', resetExploreConsolesOverview);
-$('#catalog-back-consoles-btn')?.addEventListener('click', resetExploreConsolesOverview);
-$('#toggle-grouped-btn')?.addEventListener('click', () => { state.libraryGrouped = !state.libraryGrouped; loadLibrary(); });
+$$('[data-view]').forEach(btn => btn.addEventListener('click', () => switchView(btn.dataset.view)));
+$$('[data-explore-tab]').forEach(btn => btn.addEventListener('click', () => setExploreTab(btn.dataset.exploreTab)));
+$$('#library-segmented-tabs [data-lib-state]').forEach(btn => btn.addEventListener('click', () => setStateFilter(btn.dataset.libState)));
+$('#library-inline-search')?.addEventListener('input', ev => { state.searchQuery = ev.target.value; applyLibraryFilters(); });
+$('#theme-toggle-btn')?.addEventListener('click', toggleLightDarkTheme);
+$$('.theme-preset-card[data-theme-choice]').forEach(btn => btn.addEventListener('click', () => applyTheme(btn.dataset.themeChoice)));
+$('#home-collections-all-btn')?.addEventListener('click', () => switchView('collections'));
+$('#home-hero-more-btn')?.addEventListener('click', ev => { if (state.heroItem) homeView.openGameContextMenu(ev, state.heroItem); });
+$('#dock-oz-quick-btn')?.addEventListener('click', () => {
+  if (state.heroItem) openLibraryDrawer(state.heroItem);
+  else openMoodPicker(state.moodMode, 0);
+});
+$('#library-overflow-btn')?.addEventListener('click', ev => {
+  ev.stopPropagation();
+  const menu = $('#library-overflow-menu');
+  if (!menu) return;
+  menu.hidden = !menu.hidden;
+  if (!menu.hidden) {
+    const r = ev.currentTarget.getBoundingClientRect();
+    menu.style.left = `${Math.max(12, Math.min(window.innerWidth - 236, r.right - 220))}px`;
+    menu.style.top = `${r.bottom + 6}px`;
+  }
+});
+$('#library-open-settings-btn')?.addEventListener('click', () => { if ($('#library-overflow-menu')) $('#library-overflow-menu').hidden = true; switchView('settings'); });
+$('#collections-overflow-btn')?.addEventListener('click', ev => {
+  ev.stopPropagation();
+  const menu = $('#collections-overflow-menu');
+  if (!menu) return;
+  menu.hidden = !menu.hidden;
+  if (!menu.hidden) {
+    const r = ev.currentTarget.getBoundingClientRect();
+    menu.style.left = `${Math.max(12, Math.min(window.innerWidth - 236, r.right - 220))}px`;
+    menu.style.top = `${r.bottom + 6}px`;
+  }
+});
+$('#search-import-rom-btn')?.addEventListener('click', () => {
+  switchView('settings');
+  switchSettingsTab('paths');
+});
+$('#search-ai-refresh-btn')?.addEventListener('click', () => loadRecommendations(false, true));
+$('#toggle-grouped-btn')?.addEventListener('click', () => { if ($('#library-overflow-menu')) $('#library-overflow-menu').hidden = true; state.libraryGrouped = !state.libraryGrouped; loadLibrary(); });
 
 $('#brand-home-link')?.addEventListener('click', ev => {
   ev.preventDefault();
@@ -453,6 +480,10 @@ document.addEventListener('click', ev => {
   }
   const menu = $('#game-context-menu');
   if (menu && !menu.hidden && !menu.contains(ev.target)) closeGameContextMenu();
+  const libMenu = $('#library-overflow-menu');
+  if (libMenu && !libMenu.hidden && !libMenu.contains(ev.target) && ev.target.id !== 'library-overflow-btn') libMenu.hidden = true;
+  const colMenu = $('#collections-overflow-menu');
+  if (colMenu && !colMenu.hidden && !colMenu.contains(ev.target) && ev.target.id !== 'collections-overflow-btn') colMenu.hidden = true;
 });
 
 $('#library-load-more-btn')?.addEventListener('click', () => { state.visibleCount += PAGE_SIZE; renderLibrary(); });
@@ -642,6 +673,7 @@ Object.assign(actions, {
   dismissHylianSplash,
 });
 
+try { applyTheme(localStorage.getItem('oz_theme_id') || 'cyber-dark'); } catch (e) { applyTheme('cyber-dark'); }
 initHylianSplash();
 initActivitySheet();
 initGamepadAndKeyboard();

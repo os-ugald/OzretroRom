@@ -55,6 +55,20 @@ export function renderActivitySheet() {
   if (sseDot) {
     sseDot.classList.toggle('online', Boolean(state.sseConnected));
   }
+  const hDot = $('#health-dot');
+  const mDot = $('#mhealth-dot');
+  if (hDot) hDot.classList.toggle('online', Boolean(state.sseConnected));
+  if (mDot) mDot.classList.toggle('online', Boolean(state.sseConnected));
+
+  // STRICT PROHIBITION: 0px / hidden when there are no active downloads, covers or transfers
+  if (activeCount === 0) {
+    sheet.hidden = true;
+    sheetExpanded = false;
+    sheet.classList.remove('expanded');
+    if (listEl) listEl.innerHTML = '';
+    return;
+  }
+  sheet.hidden = false;
 
   let headline = state.sseConnected ? 'SSE en vivo · Sin actividad en cola' : 'Actividad en espera · SSE';
   if (activeDownloads.length) {

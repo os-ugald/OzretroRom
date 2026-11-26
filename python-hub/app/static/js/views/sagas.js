@@ -34,7 +34,7 @@ export async function loadSagas() {
     syncSagasFromLibrary();
     const totalOwned = state.sagas.filter(s => s.ownedCount > 0 || s.isCustom).length;
   if ($('#nav-sagas-count')) $('#nav-sagas-count').textContent = totalOwned;
-  if (state.view === 'sagas' || (state.view === 'explore' && state.exploreTab === 'sagas')) {
+  if (state.view === 'sagas' || state.view === 'collections' || (state.view === 'explore' && state.exploreTab === 'sagas')) {
     if (state.activeSagaId) openSagaDetail(state.activeSagaId);
     else renderSagasGallery();
   }

@@ -94,7 +94,7 @@ def _launch_desktop_window(ui_url: str, data_dir: Path) -> None:
             width=1360,
             height=860,
             min_size=(900, 620),
-            background_color="#0A0F0D",
+            background_color="#070816",
         )
         if icon_path is not None:
             webview.start(icon=str(icon_path))

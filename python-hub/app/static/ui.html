@@ -1,15 +1,12 @@
 <!doctype html>
-<html lang="es">
+<html lang="es" data-theme="cyber-dark">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#0A0F0D">
-  <title>Oz Game Vault — Hylian Console</title>
+  <meta name="theme-color" content="#070816">
+  <title>Oz Game Vault — RetroRom HUD</title>
   <link rel="icon" type="image/x-icon" href="/static/assets/favicon.ico">
   <link rel="icon" type="image/png" href="/static/assets/logo.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/static/styles.css" />
 </head>
 <body>
@@ -23,558 +20,455 @@
   <div id="drawer-backdrop" class="backdrop" aria-hidden="true"></div>
 
   <div class="console-shell" id="app-shell">
-    <!-- TOP OMNIBOX BAR -->
-    <header class="console-topbar">
-      <a href="#home" class="brand-link" id="brand-home-link" title="Oz Game Vault · Renovar escaparate">
+    <!-- WINDOWS DESKTOP TOP CONSOLE BAR (>= 960px) -->
+    <header id="desktop-topbar" class="desktop-topbar">
+      <a href="#home" class="brand-link" id="brand-home-link" title="OZ GAME VAULT · RETRO EDITION">
         <div class="brand-logo" aria-hidden="true">
           <img class="brand-logo-img" src="/static/assets/logo.png" alt="Oz Game Vault">
         </div>
         <div class="brand-text">
-          <span class="brand-name">OZ GAME VAULT</span>
-          <span class="brand-sub">RETRO EDITION · HYLIAN</span>
+          <span class="brand-name">R E T R O R O M</span>
+          <span class="brand-sub">PLAY. PRESERVE. REMEMBER.</span>
+          <span class="sr-only">OZ GAME VAULT · RETRO EDITION</span>
         </div>
       </a>
 
-      <div class="omnibox-wrap" role="search">
-        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
-        <input id="global-search" class="omnibox-input" type="search" autocomplete="off" placeholder="Buscar en local, PC Hub y MiNERVA…" aria-label="Barra Omnibox: busca en biblioteca local, PC Hub y catálogo MiNERVA">
-        <button id="search-clear-btn" class="clear-search-btn" type="button" aria-label="Limpiar búsqueda" hidden>&times;</button>
-        <span class="kbd-chip" aria-hidden="true">Y · Ctrl+K</span>
+      <nav class="desktop-nav-tabs" aria-label="Navegación principal">
+        <button id="dnav-home" class="desktop-nav-tab active" type="button" data-view="home" aria-current="page">Inicio</button>
+        <button id="dnav-library" class="desktop-nav-tab" type="button" data-view="library">Biblioteca</button>
+        <button id="dnav-collections" class="desktop-nav-tab" type="button" data-view="collections">Colecciones</button>
+        <button id="dnav-search" class="desktop-nav-tab" type="button" data-view="search">Buscar</button>
+      </nav>
 
-        <div id="omnibox-panel" class="omnibox-panel" hidden role="region" aria-label="Resultados instantáneos Omnibox">
-          <div class="omnibox-col">
-            <div class="omnibox-col-head"><span>En tu bóveda (Local / Hub)</span><span id="omnibox-local-count" class="mono">0</span></div>
-            <div id="omnibox-local-list" class="omnibox-list"></div>
-          </div>
-          <div class="omnibox-col">
-            <div class="omnibox-col-head"><span>Catálogo MiNERVA + MAME</span><span id="omnibox-minerva-count" class="mono">0</span></div>
-            <div id="omnibox-minerva-list" class="omnibox-list"></div>
+      <div class="topbar-right">
+        <div class="omnibox-wrap" role="search">
+          <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+          <input id="global-search" class="omnibox-input" type="search" autocomplete="off" placeholder="Buscar título o sistema…" aria-label="Búsqueda rápida Omnibox">
+          <button id="search-clear-btn" class="clear-search-btn" type="button" aria-label="Limpiar búsqueda" hidden>&times;</button>
+          <div id="omnibox-panel" class="omnibox-panel" hidden role="region" aria-label="Resultados Omnibox">
+            <div class="omnibox-col">
+              <div class="omnibox-col-head"><span>En tu bóveda</span><span id="omnibox-local-count" class="mono">0</span></div>
+              <div id="omnibox-local-list" class="omnibox-list"></div>
+            </div>
+            <div class="omnibox-col">
+              <div class="omnibox-col-head"><span>MiNERVA + MAME</span><span id="omnibox-minerva-count" class="mono">0</span></div>
+              <div id="omnibox-minerva-list" class="omnibox-list"></div>
+            </div>
           </div>
         </div>
-      </div>
-
-      <div class="topbar-status">
-        <span id="health-status-chip" class="status-chip" role="status">
-          <span id="health-dot" class="status-dot"></span>
+        <span id="health-status-chip" class="icon-hud-btn" title="Estado SSE del Hub">
+          <span id="health-dot" class="sse-dot-badge online"></span>
           <span id="health-text">ONLINE</span>
-          <span class="mono" style="opacity:.75;" id="health-covers">0</span>
         </span>
-        <span id="host-label" class="sr-only">127.0.0.1:17894</span>
+        <button id="theme-toggle-btn" class="icon-hud-btn" type="button" title="Cambiar Dark / Light" aria-label="Cambiar Dark o Light">☾ / ☀</button>
+        <button id="dnav-settings" class="icon-hud-btn" type="button" data-view="settings" title="Ajustes" aria-label="Ajustes">⚙ Ajustes</button>
+      </div>
+      <span id="host-label" class="sr-only">127.0.0.1:17894</span>
+      <span id="health-covers" class="sr-only">0 covers</span>
+    </header>
+
+    <!-- MOBILE HEADER (< 960px) -->
+    <header id="mobile-header" class="mobile-header">
+      <a href="#home" class="brand-link" id="mbrand-home-link">
+        <div class="brand-logo" aria-hidden="true">
+          <img class="brand-logo-img" src="/static/assets/logo.png" alt="Oz">
+        </div>
+        <div class="brand-text">
+          <span class="brand-name">R E T R O R O M</span>
+          <span class="brand-sub">PLAY. PRESERVE. REMEMBER.</span>
+        </div>
+      </a>
+      <div class="mobile-right-module">
+        <span class="avatar-circle" title="PC Hub">OZ</span>
+        <span id="mhealth-dot" class="sse-dot-badge online"></span>
+        <button id="mnav-settings" class="icon-hud-btn" type="button" data-view="settings" aria-label="Ajustes">⚙</button>
       </div>
     </header>
 
     <main class="console-main" id="main-content">
-      <!-- DESTINATION 1: JUGAR (PORTADA INMERSIVA) -->
-      <section id="view-home" class="view-section active" aria-label="Jugar: portada inmersiva">
+      <!-- CORE VIEW 1: INICIO (01 HOME) -->
+      <section id="view-home" class="view-section active" aria-label="Inicio">
         <div id="home-hero-card" class="home-hero">
           <div class="home-hero-bg" aria-hidden="true"><img id="home-hero-bg-img" alt="" hidden></div>
-          <div class="home-hero-art cover-frame-34" id="home-hero-art"></div>
           <div class="home-hero-content">
-            <span id="home-hero-eyebrow" class="home-eyebrow">CONTINUAR AHORA</span>
-            <h1 id="home-hero-title" class="home-hero-title">Cargando tu colección…</h1>
+            <div style="display:flex;gap:8px;align-items:center;">
+              <span id="home-hero-eyebrow" class="oz-tag">CONTINUAR JUGANDO</span>
+              <span id="home-hero-sys-tag" class="oz-tag secondary" hidden>SNES</span>
+            </div>
+            <h1 id="home-hero-title" class="home-hero-title">Cargando tu bóveda…</h1>
             <div id="home-hero-meta" class="home-hero-meta"></div>
-            <p id="home-hero-desc" class="home-hero-desc" hidden></p>
-            <div class="home-hero-actions" id="home-hero-actions">
-              <button id="home-hero-open-btn" class="btn btn-gold hero-primary-cta" type="button" hidden>▶ Continuar Ahora</button>
-              <button id="home-hero-play-btn" class="btn btn-emerald" type="button" hidden>Registrar partida</button>
-              <button id="home-what-to-play-btn" class="btn btn-secondary" type="button">¿Qué juego hoy?</button>
-              <button id="home-hero-gotw-btn" class="btn btn-ghost" type="button" hidden>Juego de la semana</button>
-              <button id="home-hero-unpin-btn" class="btn btn-ghost btn-sm" type="button" hidden>Soltar principal</button>
+            <div class="home-hero-actions">
+              <button id="home-hero-open-btn" class="btn btn-primary hero-primary-cta" type="button" hidden>▶ CONTINUAR</button>
+              <button id="home-hero-more-btn" class="btn btn-secondary" type="button">•••</button>
             </div>
           </div>
         </div>
 
-        <div id="home-sections-stack" class="home-sections-stack">
-          <section id="home-recent-section" class="home-shelf" data-home-section="recent" aria-label="Jugados recientemente">
-            <div class="shelf-head">
-              <div class="shelf-title-wrap">
-                <h2 class="shelf-title">Jugados recientemente</h2>
-                <span id="home-recent-count" class="shelf-sub">0</span>
-              </div>
-              <div class="shelf-controls">
-                <button class="shelf-arrow-btn" type="button" data-scroll-target="home-recent-grid" data-dir="-1" aria-label="Desplazar Recientes a la izquierda">&lsaquo;</button>
-                <button class="shelf-arrow-btn" type="button" data-scroll-target="home-recent-grid" data-dir="1" aria-label="Desplazar Recientes a la derecha">&rsaquo;</button>
-              </div>
-            </div>
-            <div id="home-recent-grid" class="home-shelf-grid"></div>
-            <div id="home-recent-empty" class="home-shelf-empty" hidden>
-              <span>Abre cualquier título de tu bóveda para iniciar tu historial de partidas rápidas.</span>
-              <button id="home-pick-sample-btn" class="btn btn-secondary btn-sm" type="button">Explorar consolas</button>
-            </div>
-          </section>
+        <section class="home-shelf" aria-label="Colecciones rápidas">
+          <div class="hud-sec-head">
+            <h2 class="hud-sec-title">Colecciones</h2>
+            <button id="home-collections-all-btn" class="btn btn-ghost btn-sm" type="button">Ver todo ›</button>
+          </div>
+          <div id="home-consoles-quick-row" class="lib-console-bar"></div>
+        </section>
 
-          <section id="home-favorites-section" class="home-shelf" data-home-section="favorites" aria-label="Favoritos">
-            <div class="shelf-head">
-              <div class="shelf-title-wrap">
-                <h2 class="shelf-title">Favoritos</h2>
-                <span id="home-favs-count" class="shelf-sub">0</span>
-              </div>
-              <div class="shelf-controls">
-                <button class="shelf-arrow-btn" type="button" data-scroll-target="home-favorites-grid" data-dir="-1" aria-label="Desplazar Favoritos a la izquierda">&lsaquo;</button>
-                <button class="shelf-arrow-btn" type="button" data-scroll-target="home-favorites-grid" data-dir="1" aria-label="Desplazar Favoritos a la derecha">&rsaquo;</button>
-              </div>
-            </div>
-            <div id="home-favorites-grid" class="home-shelf-grid"></div>
-            <div id="home-favorites-empty" class="home-shelf-empty" hidden>
-              <span>Marca tus títulos preferidos con ★ para acceder en un toque.</span>
-              <button id="home-favs-goto-lib-btn" class="btn btn-secondary btn-sm" type="button">Explorar biblioteca</button>
-            </div>
-          </section>
+        <section id="home-recent-section" class="home-shelf" aria-label="Jugados recientemente">
+          <div class="hud-sec-head">
+            <h2 class="hud-sec-title">Jugados recientemente</h2>
+            <span id="home-recent-count" class="oz-tag">0</span>
+          </div>
+          <div id="home-recent-grid" class="home-shelf-grid"></div>
+          <div id="home-recent-empty" class="empty-card" hidden>
+            <p>Abre cualquier título de tu bóveda para activar Quick Resume e historial reciente.</p>
+          </div>
+        </section>
 
-          <section id="home-featured-section" class="home-shelf" data-home-section="featured" aria-label="Recomendados y destacados">
-            <div class="shelf-head">
-              <div class="shelf-title-wrap">
-                <h2 class="shelf-title">Recomendados en tu bóveda</h2>
-                <span id="home-recs-sub" class="shelf-sub">Selección curada</span>
-              </div>
-              <div class="shelf-controls">
-                <button class="shelf-arrow-btn" type="button" data-scroll-target="home-featured-grid" data-dir="-1" aria-label="Desplazar Destacados a la izquierda">&lsaquo;</button>
-                <button class="shelf-arrow-btn" type="button" data-scroll-target="home-featured-grid" data-dir="1" aria-label="Desplazar Destacados a la derecha">&rsaquo;</button>
-                <button id="home-recs-ai-btn" class="btn btn-ghost btn-sm" type="button">Pedir ideas</button>
-              </div>
-            </div>
-            <div id="home-featured-grid" class="featured-shelf-grid"></div>
-          </section>
-        </div>
+        <section id="home-featured-section" class="home-shelf" aria-label="Recomendados y favoritos">
+          <div class="hud-sec-head">
+            <h2 class="hud-sec-title">Recomendados para ti</h2>
+            <button id="home-recs-ai-btn" class="btn btn-ghost btn-sm" type="button">Actualizar ideas</button>
+          </div>
+          <div id="home-featured-grid" class="featured-shelf-grid"></div>
+        </section>
       </section>
 
-      <!-- DESTINATION 2: EXPLORAR (SAGAS | CONSOLAS + DRILL-DOWN) -->
-      <section id="view-explore" class="view-section" aria-label="Explorar Sagas y Consolas">
-        <div class="explore-header-bar">
-          <div class="explore-segmented" role="tablist" aria-label="Modo de exploración">
-            <button id="explore-tab-sagas" class="explore-seg-btn active" type="button" role="tab" aria-selected="true" data-explore-tab="sagas">Sagas</button>
-            <button id="explore-tab-consoles" class="explore-seg-btn" type="button" role="tab" aria-selected="false" data-explore-tab="consoles">Consolas</button>
-          </div>
-          <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
-            <button id="explore-open-library-btn" class="btn btn-secondary btn-sm" type="button">Toda mi biblioteca</button>
-            <button id="explore-open-catalog-btn" class="btn btn-emerald btn-sm" type="button">Catálogo MiNERVA</button>
+      <!-- CORE VIEW 2: BIBLIOTECA (OZ LIBRARY) -->
+      <section id="view-library" class="view-section" aria-label="OZ Library">
+        <div class="hud-sec-head">
+          <h2 class="hud-sec-title">OZ LIBRARY</h2>
+          <div style="display:flex;gap:8px;align-items:center;">
+            <button id="view-mode-grid" class="icon-hud-btn active" type="button" aria-pressed="true" title="Vista en grilla">⊞</button>
+            <button id="view-mode-table" class="icon-hud-btn" type="button" aria-pressed="false" title="Vista en lista">☰</button>
+            <button id="library-overflow-btn" class="icon-hud-btn" type="button" title="Acciones de mantenimiento">⋮</button>
           </div>
         </div>
 
-        <!-- EXPLORE PANE A: SAGAS -->
-        <div id="explore-sagas-pane" class="explore-pane">
-          <div class="toolbar-row">
-            <div class="toolbar-left" style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
-              <span id="sagas-count-label" class="results-counter">Cargando sagas…</span>
-              <div style="display:inline-flex;gap:6px;flex-wrap:wrap;" role="group" aria-label="Filtro de colección">
-                <button id="sagas-scope-owned" class="btn btn-secondary btn-sm" type="button" aria-pressed="true">En mi bóveda</button>
-                <button id="sagas-scope-all" class="btn btn-ghost btn-sm" type="button" aria-pressed="false">Catálogo completo</button>
-              </div>
-            </div>
-            <div class="toolbar-right">
-              <label for="sagas-search" class="sr-only">Filtrar sagas</label>
-              <input id="sagas-search" class="text-input" type="search" placeholder="Filtrar saga (ej. Zelda, Metroid)…" style="width:220px;">
-              <button id="sagas-gallery-fill-btn" class="btn btn-secondary btn-sm" type="button">Sincronizar arte</button>
-              <button id="new-saga-btn" class="btn btn-emerald btn-sm" type="button">+ Nueva saga</button>
-            </div>
-          </div>
+        <div id="library-overflow-menu" class="context-menu" hidden>
+          <button id="sync-covers-btn" class="context-menu-item" type="button">Sincronizar carátulas</button>
+          <button id="toggle-grouped-btn" class="context-menu-item" type="button">Agrupar duplicados: Sí</button>
+          <button id="library-open-settings-btn" class="context-menu-item" type="button">Abrir Ajustes</button>
+        </div>
 
-          <div id="sagas-cover-sync-banner" class="surface-panel" hidden role="status" aria-live="polite">
-            <div class="job-head">
-              <span id="sagas-cover-sync-title" class="job-title">Sincronizando banners y carátulas…</span>
-              <span id="sagas-cover-sync-counts" class="mono" style="font-size:12px;color:var(--accent);">0 / 0</span>
-            </div>
-            <div class="progress-track"><div id="sagas-cover-sync-fill" class="progress-fill" style="width:0%;"></div></div>
-            <span id="sagas-cover-sync-current" class="mono" style="font-size:11.5px;color:var(--text-secondary);">Conectando con Libretro…</span>
-          </div>
+        <div id="library-segmented-tabs" class="lib-segmented-bar" role="tablist" aria-label="Secciones de biblioteca">
+          <button class="oz-hud-chip active" type="button" data-lib-state="all">Todos</button>
+          <button class="oz-hud-chip" type="button" data-lib-state="favorites">Favoritos</button>
+          <button class="oz-hud-chip" type="button" data-lib-state="recent">Recientes</button>
+          <button class="oz-hud-chip" type="button" data-lib-state="verified">Verificados</button>
+          <button class="oz-hud-chip" type="button" data-lib-state="untagged">Sin metadatos</button>
+        </div>
 
+        <div id="library-console-pills" class="lib-console-bar" role="group" aria-label="Consolas"></div>
+
+        <div class="lib-controls-row">
+          <select id="sort-select" class="control-select" aria-label="Ordenar">
+            <option value="title-asc">Nombre (A–Z)</option>
+            <option value="title-desc">Nombre (Z–A)</option>
+            <option value="recent-first">Jugados recientemente</option>
+            <option value="size-desc">Tamaño (mayor)</option>
+            <option value="platform-asc">Consola</option>
+            <option value="favorites-first">Favoritas primero</option>
+          </select>
+          <input id="library-inline-search" class="text-input" type="search" placeholder="Buscar en biblioteca…" style="flex:1 1 220px;">
+          <button id="reset-filters-btn" class="btn btn-ghost btn-sm" type="button" hidden>Limpiar filtros</button>
+        </div>
+
+        <div class="lib-info-strip">
+          <span id="results-counter">0 JUEGOS</span>
+          <span id="storage-total-label">0.0 GB LOCAL</span>
+        </div>
+
+        <div id="library-skeleton" class="rom-grid" aria-hidden="true"></div>
+        <div id="library-grid" class="rom-grid" hidden></div>
+        <div id="library-table-wrap" class="table-wrap" hidden>
+          <table class="tech-table">
+            <thead><tr><th>Título</th><th>Consola</th><th>Región</th><th>Formato</th><th>Tamaño</th><th>Estado</th><th>Acciones</th></tr></thead>
+            <tbody id="library-table-body"></tbody>
+          </table>
+        </div>
+        <div id="library-empty" class="empty-card" hidden>
+          <h3 id="library-empty-title">Sin coincidencias</h3>
+          <p id="library-empty-desc">No encontramos ROMs que coincidan con el filtro actual.</p>
+          <button id="empty-reset-btn" class="btn btn-primary btn-sm" type="button">Restablecer filtros</button>
+        </div>
+        <div id="library-load-more" hidden><button id="library-load-more-btn" class="btn btn-secondary" type="button">Cargar más</button></div>
+      </section>
+
+      <!-- COLECCIONES & SAGAS -->
+      <section id="view-collections" class="view-section" aria-label="Colecciones y Sagas">
+        <div class="hud-sec-head">
+          <h2 class="hud-sec-title">Colecciones y Sagas</h2>
+          <div style="display:flex;gap:8px;align-items:center;">
+            <button id="explore-tab-sagas" class="oz-hud-chip active" type="button" data-explore-tab="sagas">Sagas</button>
+            <button id="explore-tab-consoles" class="oz-hud-chip" type="button" data-explore-tab="consoles">Consolas</button>
+            <button id="collections-overflow-btn" class="icon-hud-btn" type="button" title="Mantenimiento">⋮</button>
+          </div>
+        </div>
+        <div id="collections-overflow-menu" class="context-menu" hidden>
+          <button id="sagas-gallery-fill-btn" class="context-menu-item" type="button">Sincronizar arte de sagas</button>
+          <button id="new-saga-btn" class="context-menu-item" type="button">+ Nueva saga</button>
+        </div>
+
+        <div id="explore-sagas-pane">
+          <div class="lib-controls-row" style="margin-bottom:12px;">
+            <span id="sagas-count-label" class="oz-tag">Cargando sagas…</span>
+            <button id="sagas-scope-owned" class="oz-hud-chip active" type="button">En mi bóveda</button>
+            <button id="sagas-scope-all" class="oz-hud-chip" type="button">Todas</button>
+            <input id="sagas-search" class="text-input" type="search" placeholder="Filtrar saga…" style="flex:1 1 200px;">
+          </div>
           <div id="sagas-gallery" class="sagas-grid"></div>
-
-          <div id="saga-detail" hidden style="display:flex;flex-direction:column;gap:14px;">
-            <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;">
+          <div id="saga-detail" hidden>
+            <div class="lib-controls-row" style="margin-bottom:12px;">
               <button id="saga-back-btn" class="btn btn-secondary btn-sm" type="button">← Todas las sagas</button>
-              <div style="display:flex;gap:8px;flex-wrap:wrap;">
-                <button id="saga-fill-covers-btn" class="btn btn-emerald btn-sm" type="button">Sincronizar arte</button>
-                <button id="saga-filter-all-btn" class="btn btn-secondary btn-sm" type="button" aria-pressed="true">Cronología completa</button>
-                <button id="saga-filter-owned-btn" class="btn btn-ghost btn-sm" type="button" aria-pressed="false">Solo mis juegos</button>
-                <button id="saga-delete-custom-btn" class="btn btn-danger btn-sm" type="button" hidden>Eliminar saga</button>
-              </div>
+              <button id="saga-fill-covers-btn" class="btn btn-primary btn-sm" type="button">Sincronizar arte</button>
+              <button id="saga-delete-custom-btn" class="btn btn-danger btn-sm" type="button" hidden>Eliminar</button>
             </div>
-            <div id="saga-detail-banner" class="saga-detail-banner"></div>
-            <div id="saga-history-container" class="saga-history-box" hidden></div>
-            <div id="saga-timeline" class="saga-timeline-list"></div>
+            <div id="saga-detail-banner" class="surface-panel"></div>
+            <div id="saga-timeline" class="search-results-rows"></div>
           </div>
         </div>
 
-        <!-- EXPLORE PANE B: CONSOLAS + BIBLIOTECA / MINERVA -->
-        <div id="explore-consoles-pane" class="explore-pane" hidden>
-          <div id="explore-consoles-overview">
-            <div class="shelf-head" style="margin-bottom:10px;">
-              <div class="shelf-title-wrap">
-                <h2 class="shelf-title">Consolas en tu bóveda</h2>
-                <span id="home-consoles-sub" class="shelf-sub">0 sistemas</span>
-              </div>
-            </div>
-            <div id="home-consoles-grid" class="console-tile-grid"></div>
-          </div>
-
-          <!-- LIBRARY SUB-VIEW INSIDE EXPLORAR -->
-          <div id="view-library" class="subview-pane" hidden aria-label="Biblioteca por consola">
-            <div id="library-console-pills" class="lib-console-bar" role="group" aria-label="Filtrar biblioteca por consola"></div>
-            <div class="toolbar-row">
-              <div class="toolbar-left">
-                <button id="library-back-consoles-btn" class="btn btn-ghost btn-sm" type="button">← Consolas</button>
-                <span id="results-counter" class="results-counter">Cargando colección…</span>
-                <span id="library-maint-pill" class="maint-pill" hidden></span>
-                <div id="active-filter-pills" class="active-pills"></div>
-              </div>
-              <div class="toolbar-right">
-                <div class="segmented" role="group" aria-label="Modo de vista">
-                  <button id="view-mode-grid" class="seg-btn active" type="button" aria-pressed="true">Grid</button>
-                  <button id="view-mode-table" class="seg-btn" type="button" aria-pressed="false">Tabla</button>
-                </div>
-                <button id="toggle-grouped-btn" class="btn btn-ghost btn-sm" type="button">Agrupar duplicados: Sí</button>
-                <button id="sync-covers-btn" class="btn btn-secondary btn-sm" type="button">Sincronizar carátulas</button>
-                <select id="sort-select" class="control-select" aria-label="Ordenar biblioteca">
-                  <option value="title-asc">Nombre (A–Z)</option>
-                  <option value="title-desc">Nombre (Z–A)</option>
-                  <option value="recent-first">Jugados recientemente</option>
-                  <option value="size-desc">Tamaño (mayor)</option>
-                  <option value="size-asc">Tamaño (menor)</option>
-                  <option value="platform-asc">Consola</option>
-                  <option value="favorites-first">Favoritas primero</option>
-                </select>
-                <button id="reset-filters-btn" class="btn btn-ghost btn-sm" type="button" hidden>Limpiar</button>
-              </div>
-            </div>
-
-            <div id="cover-sync-banner" class="surface-panel" hidden>
-              <div class="job-head">
-                <span id="cover-sync-title" class="job-title">Sincronizando carátulas…</span>
-                <span id="cover-sync-counts" class="mono" style="font-size:12px;">0 / 0</span>
-              </div>
-              <div class="progress-track"><div id="cover-sync-fill" class="progress-fill" style="width:0%"></div></div>
-              <div id="cover-sync-current" class="mono" style="font-size:11.5px;color:var(--text-muted);">Preparando…</div>
-            </div>
-
-            <div id="library-skeleton" class="rom-grid" aria-hidden="true">
-              <div class="skeleton-card"><div class="skeleton-art"></div></div>
-              <div class="skeleton-card"><div class="skeleton-art"></div></div>
-              <div class="skeleton-card"><div class="skeleton-art"></div></div>
-              <div class="skeleton-card"><div class="skeleton-art"></div></div>
-            </div>
-            <div id="library-grid" class="rom-grid" hidden></div>
-            <div id="library-table-wrap" class="table-wrap" tabindex="0" hidden>
-              <table class="tech-table">
-                <thead><tr><th>Título</th><th>Consola</th><th>Región</th><th>Formato</th><th>Tamaño</th><th>Estado</th><th>Acciones</th></tr></thead>
-                <tbody id="library-table-body"></tbody>
-              </table>
-            </div>
-            <div id="library-empty" class="empty-card" hidden>
-              <h3 id="library-empty-title">Sin coincidencias</h3>
-              <p id="library-empty-desc">No encontramos ROMs que coincidan con el filtro actual.</p>
-              <button id="empty-reset-btn" class="btn btn-emerald btn-sm" type="button">Restablecer filtros</button>
-            </div>
-            <div id="library-load-more" class="load-more-row" hidden>
-              <button id="library-load-more-btn" class="btn btn-secondary" type="button">Cargar más</button>
-            </div>
-          </div>
-
-          <!-- MINERVA CATALOG SUB-VIEW INSIDE EXPLORAR -->
-          <div id="view-catalog" class="subview-pane" hidden aria-label="Explorar catálogo MiNERVA">
-            <div class="surface-panel">
-              <div class="panel-head">
-                <div style="display:flex;align-items:center;gap:10px;">
-                  <button id="catalog-back-consoles-btn" class="btn btn-ghost btn-sm" type="button">← Consolas</button>
-                  <h2>Catálogo MiNERVA + MAME</h2>
-                </div>
-                <span class="mono" style="font-size:12px;color:var(--text-muted);" id="minerva-status-text">47k+ ediciones · FBNeo + MAME IA</span>
-              </div>
-              <form id="minerva-search-form" class="minerva-form">
-                <label for="minerva-query" class="sr-only">Título en catálogo MiNERVA</label>
-                <input id="minerva-query" class="text-input" type="search" placeholder="Busca un título (ej. Zelda, Chrono Trigger, Metal Slug)…">
-                <label for="minerva-platform" class="sr-only">Plataforma MiNERVA</label>
-                <select id="minerva-platform" class="control-select" aria-label="Plataforma MiNERVA">
-                  <option value="">Todas las plataformas</option>
-                  <option value="snes">Super Nintendo (SNES)</option>
-                  <option value="nes">Nintendo NES</option>
-                  <option value="genesis">Mega Drive / Genesis</option>
-                  <option value="gba">Game Boy Advance</option>
-                  <option value="arcade">Arcade (FBNeo + MAME)</option>
-                  <option value="mame">Arcade — MAME IA</option>
-                  <option value="ps1">PlayStation (PS1)</option>
-                  <option value="n64">Nintendo 64</option>
-                  <option value="nds">Nintendo DS</option>
-                  <option value="psp">PSP</option>
-                  <option value="dc">Dreamcast</option>
-                  <option value="gc">GameCube</option>
-                  <option value="wii">Wii</option>
-                  <option value="switch">Nintendo Switch</option>
-                </select>
-                <button id="minerva-submit-btn" class="btn btn-emerald" type="submit">Buscar</button>
-              </form>
-              <div class="chip-row" aria-label="Búsquedas rápidas">
-                <button class="suggestion-chip" type="button" data-q="Zelda">Zelda</button>
-                <button class="suggestion-chip" type="button" data-q="Metroid">Metroid</button>
-                <button class="suggestion-chip" type="button" data-q="Chrono Cross">Chrono Cross</button>
-                <button class="suggestion-chip" type="button" data-q="Metal Slug" data-platform="arcade">Metal Slug</button>
-              </div>
-            </div>
-            <div id="minerva-skeleton" class="rom-grid" hidden><div class="skeleton-card"><div class="skeleton-art"></div></div><div class="skeleton-card"><div class="skeleton-art"></div></div></div>
-            <div id="minerva-grid" class="rom-grid" hidden></div>
-            <div id="minerva-empty" class="empty-card">
-              <h3>Explora ediciones verificadas</h3>
-              <p>Consulta el índice comprimido de MiNERVA para comparar regiones y descargar en segundo plano.</p>
-            </div>
-          </div>
+        <div id="explore-consoles-pane" hidden>
+          <div id="home-consoles-grid" class="console-tile-grid"></div>
         </div>
       </section>
 
-      <!-- DESTINATION 3: AJUSTES (UNIFICADO) -->
-      <section id="view-settings" class="view-section" aria-label="Ajustes unificados">
+      <!-- CORE VIEW 3: BUSCAR Y AÑADIR (SEARCH & ADD GAME) -->
+      <section id="view-search" class="view-section" aria-label="Search and Add Game">
+        <div class="hud-sec-head">
+          <h2 class="hud-sec-title">SEARCH &amp; ADD GAME</h2>
+          <span class="oz-tag secondary" id="minerva-status-text">MiNERVA + MAME + LOCAL</span>
+        </div>
+
+        <form id="minerva-search-form" class="lib-controls-row">
+          <input id="minerva-query" class="text-input" type="search" placeholder="Buscar juegos, sistemas o géneros…" style="flex:1 1 260px;">
+          <select id="minerva-platform" class="control-select" aria-label="Plataforma">
+            <option value="">Todas las consolas</option>
+            <option value="snes">SNES</option>
+            <option value="nes">NES</option>
+            <option value="genesis">Genesis</option>
+            <option value="gba">GBA</option>
+            <option value="arcade">Arcade</option>
+            <option value="ps1">PS1</option>
+            <option value="n64">N64</option>
+            <option value="nds">NDS</option>
+            <option value="psp">PSP</option>
+            <option value="dc">Dreamcast</option>
+            <option value="ps2">PS2</option>
+          </select>
+          <button id="minerva-submit-btn" class="btn btn-primary" type="submit">BUSCAR</button>
+        </form>
+
+        <div class="search-hero-grid">
+          <div class="surface-panel">
+            <span class="oz-tag">SUGERENCIAS</span>
+            <div class="lib-controls-row">
+              <button class="oz-hud-chip suggestion-chip" type="button" data-q="Chrono Cross">Chrono Cross</button>
+              <button class="oz-hud-chip suggestion-chip" type="button" data-q="Final Fantasy VII">Final Fantasy VII</button>
+              <button class="oz-hud-chip suggestion-chip" type="button" data-q="Metal Slug" data-platform="arcade">Metal Slug 3</button>
+              <button class="oz-hud-chip suggestion-chip" type="button" data-q="Zelda">Zelda</button>
+            </div>
+          </div>
+          <div class="spotlight-add-card">
+            <div>
+              <span class="oz-tag secondary">AÑADIR JUEGO</span>
+              <h3 style="margin:8px 0 4px;font-family:var(--font-display);text-transform:uppercase;">Importa tu carpeta o ROM local</h3>
+              <p style="margin:0;font-size:13px;color:var(--text-secondary);">Oz clasifica por sistema y descarga portadas automáticamente.</p>
+            </div>
+            <button id="search-import-rom-btn" class="btn btn-primary" type="button">IMPORT ROM</button>
+          </div>
+        </div>
+
+        <div id="minerva-skeleton" class="search-results-rows" hidden></div>
+        <div id="minerva-grid" class="search-results-rows" hidden></div>
+        <div id="minerva-empty" class="empty-card">
+          <h3>Busca en tu biblioteca y catálogo MiNERVA</h3>
+          <p>Escribe un título o selecciona una sugerencia para ver ediciones compatibles.</p>
+        </div>
+
+        <div class="ai-recommends-box">
+          <div class="hud-sec-head">
+            <h3 class="hud-sec-title" style="font-size:14px;">OZ AI RECOMMENDS</h3>
+            <button id="search-ai-refresh-btn" class="btn btn-ghost btn-sm" type="button">REFRESH ↻</button>
+          </div>
+          <div id="search-ai-grid" class="ai-grid-4"></div>
+        </div>
+      </section>
+
+      <!-- SETTINGS -->
+      <section id="view-settings" class="view-section" aria-label="Ajustes">
+        <div class="hud-sec-head">
+          <h2 class="hud-sec-title">SETTINGS / PERSONALIZATION</h2>
+        </div>
         <div class="settings-shell">
           <nav class="settings-rail" aria-label="Categorías de ajustes">
-            <button id="stab-paths" class="settings-tab-btn active" type="button" data-settings-tab="paths" aria-current="true">
-              <span class="settings-tab-meta"><span class="settings-tab-title">Rutas y Consolas</span><span class="settings-tab-sub">Carpetas locales</span></span>
-              <span class="count-pill" id="stab-paths-count">0</span>
-            </button>
-            <button id="stab-bridge" class="settings-tab-btn" type="button" data-settings-tab="bridge">
-              <span class="settings-tab-meta"><span class="settings-tab-title">Consolas FTP / Tinfoil</span><span class="settings-tab-sub">PS4 · PS3 · Switch</span></span>
-              <span class="count-pill" id="nav-targets-count">3</span>
-            </button>
-            <button id="stab-covers" class="settings-tab-btn" type="button" data-settings-tab="covers">
-              <span class="settings-tab-meta"><span class="settings-tab-title">Carátulas WebP</span><span class="settings-tab-sub">SteamGridDB y caché</span></span>
-              <span id="covers-cache-badge" class="count-pill">0</span>
-            </button>
-            <button id="stab-ia" class="settings-tab-btn" type="button" data-settings-tab="ia">
-              <span class="settings-tab-meta"><span class="settings-tab-title">Internet Archive</span><span class="settings-tab-sub">Claves S3</span></span>
-            </button>
-            <button id="stab-ai" class="settings-tab-btn" type="button" data-settings-tab="ai">
-              <span class="settings-tab-meta"><span class="settings-tab-title">IA y Motor Retro</span><span class="settings-tab-sub">Gemini / Local</span></span>
-            </button>
-            <button id="stab-share" class="settings-tab-btn" type="button" data-settings-tab="share">
-              <span class="settings-tab-meta"><span class="settings-tab-title">Red LAN y Portable</span><span class="settings-tab-sub">mDNS · Tailscale</span></span>
-            </button>
+            <button id="stab-appearance" class="settings-tab-btn active" type="button" data-settings-tab="appearance"><span><span class="settings-tab-title">Apariencia</span><span class="settings-tab-sub">Cyber Vault · Hylian</span></span></button>
+            <button id="stab-paths" class="settings-tab-btn" type="button" data-settings-tab="paths"><span><span class="settings-tab-title">Rutas</span><span class="settings-tab-sub">Carpetas ROMs</span></span><span id="stab-paths-count" class="oz-tag">0</span></button>
+            <button id="stab-bridge" class="settings-tab-btn" type="button" data-settings-tab="bridge"><span><span class="settings-tab-title">FTP / Tinfoil</span><span class="settings-tab-sub">Consolas</span></span><span id="nav-targets-count" class="oz-tag">3</span></button>
+            <button id="stab-covers" class="settings-tab-btn" type="button" data-settings-tab="covers"><span><span class="settings-tab-title">Carátulas WebP</span><span class="settings-tab-sub">Libretro / SGDB</span></span><span id="covers-cache-badge" class="oz-tag">0</span></button>
+            <button id="stab-ia" class="settings-tab-btn" type="button" data-settings-tab="ia"><span><span class="settings-tab-title">Internet Archive</span><span class="settings-tab-sub">S3</span></span></button>
+            <button id="stab-ai" class="settings-tab-btn" type="button" data-settings-tab="ai"><span><span class="settings-tab-title">IA y Motor</span><span class="settings-tab-sub">Gemini / Local</span></span></button>
+            <button id="stab-share" class="settings-tab-btn" type="button" data-settings-tab="share"><span><span class="settings-tab-title">Red LAN</span><span class="settings-tab-sub">mDNS</span></span></button>
           </nav>
 
           <div class="settings-pane">
-            <!-- PATHS -->
-            <div class="settings-card settings-panel" id="spanel-paths">
-              <div class="settings-card-head">
-                <div><h2>Rutas de Biblioteca y Consolas</h2><p class="settings-card-desc">Define la carpeta raíz de tus ROMs y rutas personalizadas por sistema.</p></div>
-                <button id="rescan-lib-btn" class="btn btn-secondary btn-sm" type="button">Re-escanear</button>
-              </div>
-              <div class="setting-row">
-                <div class="setting-info"><label class="setting-label" for="setting-roms-dir">Carpeta raíz de ROMs</label></div>
-                <div class="setting-control"><div class="field-inline"><input id="setting-roms-dir" class="text-input mono" type="text"><button id="browse-roms-dir-btn" class="btn btn-secondary btn-sm" type="button">Explorar…</button></div></div>
-              </div>
-              <div class="setting-row">
-                <div class="setting-info"><label class="setting-label" for="setting-java-url">URL Companion MiNERVA</label></div>
-                <div class="setting-control"><input id="setting-java-url" class="text-input mono" type="text"></div>
-              </div>
-              <div style="border-top:1px solid var(--border-subtle);padding-top:14px;display:flex;flex-direction:column;gap:10px;">
-                <div class="setting-label">Carpetas por consola</div>
-                <div id="console-paths-list" class="override-list"></div>
-                <div class="add-rule-row">
-                  <select id="add-console-path-select" class="control-select" aria-label="Consola"></select>
-                  <input id="add-console-path-val" class="text-input mono" type="text" placeholder="Ej. arcade" style="flex:1 1 180px;">
-                  <button id="add-console-path-btn" class="btn btn-secondary btn-sm" type="button">+ Añadir</button>
-                </div>
-              </div>
-              <div class="settings-actions-bar">
-                <span class="setting-hint">Actualiza descargas futuras y re-escanea la bóveda.</span>
-                <button id="save-paths-btn" class="btn btn-emerald" type="button">Guardar rutas</button>
+            <div class="settings-card settings-panel" id="spanel-appearance">
+              <h3>Sistema de Temas Dual</h3>
+              <div class="theme-presets-grid">
+                <button class="theme-preset-card active" type="button" data-theme-choice="cyber-dark"><strong>Cyber Vault Dark</strong><small>Default · #070816 / Cyan + Violeta</small></button>
+                <button class="theme-preset-card" type="button" data-theme-choice="cyber-light"><strong>Cyber Vault Light</strong><small>#F3F6FC / Azul + Violeta</small></button>
+                <button class="theme-preset-card" type="button" data-theme-choice="hylian-dark"><strong>Hylian Dark</strong><small>#0A0F0D / Esmeralda + Dorado</small></button>
+                <button class="theme-preset-card" type="button" data-theme-choice="hylian-light"><strong>Hylian Light</strong><small>#F2F7F4 / Esmeralda + Dorado</small></button>
               </div>
             </div>
 
-            <!-- BRIDGE FTP & TINFOIL -->
+            <div class="settings-card settings-panel" id="spanel-paths" hidden>
+              <div class="hud-sec-head"><h3>Rutas de Biblioteca</h3><button id="rescan-lib-btn" class="btn btn-secondary btn-sm" type="button">Re-escanear</button></div>
+              <div class="setting-row"><label for="setting-roms-dir">Carpeta raíz ROMs</label><div class="field-inline"><input id="setting-roms-dir" class="text-input mono" type="text"><button id="browse-roms-dir-btn" class="btn btn-secondary btn-sm" type="button">Explorar…</button></div></div>
+              <div class="setting-row"><label for="setting-java-url">URL Companion</label><input id="setting-java-url" class="text-input mono" type="text"></div>
+              <div id="console-paths-list"></div>
+              <div class="field-inline"><select id="add-console-path-select" class="control-select"></select><input id="add-console-path-val" class="text-input mono" type="text" placeholder="snes"><button id="add-console-path-btn" class="btn btn-secondary btn-sm" type="button">+ Añadir</button></div>
+              <div><button id="save-paths-btn" class="btn btn-primary" type="button">Guardar rutas</button></div>
+            </div>
+
             <div class="settings-card settings-panel" id="spanel-bridge" hidden>
-              <div class="settings-card-head">
-                <div><h2>Consolas FTP y Tinfoil</h2><p class="settings-card-desc" id="bridge-summary-label">3 perfiles configurados</p></div>
-                <button id="add-target-btn" class="btn btn-emerald btn-sm" type="button">+ Añadir consola</button>
-              </div>
-              <div id="bridge-selector-grid" class="bridge-selector-grid" role="group"></div>
-              <div id="targets-list" style="display:flex;flex-direction:column;gap:12px;"></div>
-              <div style="border-top:1px solid var(--border-subtle);padding-top:12px;display:flex;flex-direction:column;gap:8px;">
-                <span class="setting-label">Switch Tinfoil HTTP (<code id="tinfoil-local-folder" class="mono">roms/switch</code>)</span>
-                <pre id="tinfoil-url-block" class="code-block" tabindex="0">http://127.0.0.1:17894/tinfoil/index.json</pre>
-                <div style="display:flex;gap:8px;flex-wrap:wrap;"><button id="copy-tinfoil-btn" class="btn btn-secondary btn-sm" type="button">Copiar URL Tinfoil</button></div>
-              </div>
+              <div class="hud-sec-head"><h3>Consolas FTP / Tinfoil</h3><button id="add-target-btn" class="btn btn-primary btn-sm" type="button">+ Añadir consola</button></div>
+              <p id="bridge-summary-label" class="mono"></p>
+              <div id="bridge-selector-grid"></div>
+              <div id="targets-list"></div>
+              <span id="tinfoil-local-folder" class="mono">roms/switch</span>
+              <pre id="tinfoil-url-block" class="mono"></pre>
+              <button id="copy-tinfoil-btn" class="btn btn-secondary btn-sm" type="button">Copiar URL Tinfoil</button>
             </div>
 
-            <!-- COVERS -->
             <div class="settings-card settings-panel" id="spanel-covers" hidden>
-              <div class="settings-card-head">
-                <div><h2>Carátulas Ligeras WebP</h2><p class="settings-card-desc">Optimizadas en caché local con fallback Libretro / SteamGridDB.</p></div>
-                <span id="covers-cache-stats-text" class="mono" style="font-size:12px;color:var(--text-muted);">0 carátulas</span>
-              </div>
-              <div class="setting-row">
-                <div class="setting-info"><label class="setting-label" for="setting-covers-dir">Carpeta de carátulas</label></div>
-                <div class="setting-control"><div class="field-inline"><input id="setting-covers-dir" class="text-input mono" type="text"><button id="browse-covers-dir-btn" class="btn btn-secondary btn-sm" type="button">Explorar…</button><button id="reset-covers-dir-btn" class="btn btn-ghost btn-sm" type="button">Portable</button></div></div>
-              </div>
-              <div class="setting-row">
-                <div class="setting-info"><label class="setting-label" for="setting-sgdb-key">SteamGridDB API Key</label></div>
-                <div class="setting-control">
-                  <div class="field-inline"><input id="setting-sgdb-key" class="text-input mono" type="password" autocomplete="off"><button id="toggle-sgdb-vis" class="btn btn-ghost btn-sm" type="button">Mostrar</button></div>
-                  <div style="display:flex;gap:8px;align-items:center;"><button id="test-sgdb-btn" class="btn btn-secondary btn-sm" type="button">Probar API Key</button><span id="sgdb-test-status" class="mono" style="font-size:11.5px;"></span></div>
-                </div>
-              </div>
-              <div class="setting-row">
-                <div class="setting-info"><label class="setting-label" for="setting-libretro-fallback">Fallback Libretro</label></div>
-                <div class="setting-control"><label class="checkbox-row"><input id="setting-libretro-fallback" type="checkbox" checked><span>Activar portadas Libretro</span></label></div>
-              </div>
-              <div class="setting-row">
-                <div class="setting-info"><label class="setting-label" for="setting-cover-width">Ancho y Calidad WebP</label></div>
-                <div class="setting-control"><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;"><input id="setting-cover-width" class="text-input mono" type="number" min="160" max="480" value="260"><input id="setting-cover-quality" class="text-input mono" type="number" min="40" max="95" value="76"></div></div>
-              </div>
-              <div class="settings-actions-bar">
-                <div style="display:flex;gap:8px;"><button id="settings-sync-covers-btn" class="btn btn-secondary btn-sm" type="button">Sincronizar 24</button><button id="clear-covers-btn" class="btn btn-danger btn-sm" type="button">Limpiar caché</button></div>
-                <button id="save-cover-settings-btn" class="btn btn-emerald" type="button">Guardar carátulas</button>
-              </div>
+              <h3>Carátulas WebP</h3>
+              <span id="covers-cache-stats-text" class="mono">0 carátulas</span>
+              <div class="setting-row"><label for="setting-covers-dir">Carpeta carátulas</label><div class="field-inline"><input id="setting-covers-dir" class="text-input mono" type="text"><button id="browse-covers-dir-btn" class="btn btn-secondary btn-sm" type="button">Explorar…</button><button id="reset-covers-dir-btn" class="btn btn-ghost btn-sm" type="button">Portable</button></div></div>
+              <div class="setting-row"><label for="setting-sgdb-key">SteamGridDB Key</label><div class="field-inline"><input id="setting-sgdb-key" class="text-input mono" type="password"><button id="toggle-sgdb-vis" class="btn btn-ghost btn-sm" type="button">Mostrar</button><button id="test-sgdb-btn" class="btn btn-secondary btn-sm" type="button">Probar</button><span id="sgdb-test-status" class="mono"></span></div></div>
+              <label><input id="setting-libretro-fallback" type="checkbox" checked> Fallback Libretro</label>
+              <div class="field-inline"><input id="setting-cover-width" class="text-input mono" type="number" value="260"><input id="setting-cover-quality" class="text-input mono" type="number" value="76"></div>
+              <div class="field-inline"><button id="settings-sync-covers-btn" class="btn btn-secondary btn-sm" type="button">Sincronizar 24</button><button id="clear-covers-btn" class="btn btn-danger btn-sm" type="button">Limpiar caché</button><button id="save-cover-settings-btn" class="btn btn-primary" type="button">Guardar</button></div>
             </div>
 
-            <!-- INTERNET ARCHIVE -->
             <div class="settings-card settings-panel" id="spanel-ia" hidden>
-              <div class="settings-card-head"><div><h2>Internet Archive (S3)</h2><p class="settings-card-desc">Opcional para colecciones restringidas en Archive.org.</p></div></div>
-              <div class="setting-row"><div class="setting-info"><label class="setting-label" for="setting-ia-access">Access Key</label></div><div class="setting-control"><input id="setting-ia-access" class="text-input mono" type="text"></div></div>
-              <div class="setting-row"><div class="setting-info"><label class="setting-label" for="setting-ia-secret">Secret Key</label></div><div class="setting-control"><div class="field-inline"><input id="setting-ia-secret" class="text-input mono" type="password"><button id="toggle-ia-vis" class="btn btn-ghost btn-sm" type="button">Mostrar</button></div></div></div>
-              <div class="setting-row"><div class="setting-info"><label class="setting-label" for="setting-ia-cookie">Cookie sesión</label></div><div class="setting-control"><input id="setting-ia-cookie" class="text-input mono" type="password"></div></div>
-              <div class="settings-actions-bar"><div style="display:flex;gap:8px;align-items:center;"><button id="test-ia-btn" class="btn btn-secondary" type="button">Probar</button><span id="ia-test-status" class="mono"></span></div><button id="save-ia-settings-btn" class="btn btn-emerald" type="button">Guardar IA</button></div>
+              <h3>Internet Archive (S3)</h3>
+              <input id="setting-ia-access" class="text-input mono" type="text" placeholder="Access Key">
+              <div class="field-inline"><input id="setting-ia-secret" class="text-input mono" type="password" placeholder="Secret Key"><button id="toggle-ia-vis" class="btn btn-ghost btn-sm" type="button">Mostrar</button></div>
+              <input id="setting-ia-cookie" class="text-input mono" type="password" placeholder="Cookie sesión">
+              <div class="field-inline"><button id="test-ia-btn" class="btn btn-secondary" type="button">Probar</button><span id="ia-test-status" class="mono"></span><button id="save-ia-settings-btn" class="btn btn-primary" type="button">Guardar</button></div>
             </div>
 
-            <!-- AI -->
             <div class="settings-card settings-panel" id="spanel-ai" hidden>
-              <div class="settings-card-head"><div><h2>Motor Retro e IA</h2><p class="settings-card-desc">Usa el motor local sin límites o conecta Gemini / OpenAI.</p></div><span id="ai-mode-badge" class="mini-badge" hidden></span></div>
-              <div class="setting-row"><div class="setting-info"><label class="setting-label" for="setting-ai-provider">Proveedor</label></div><div class="setting-control"><select id="setting-ai-provider" class="control-select"><option value="local">Motor Retro Local</option><option value="gemini">Google Gemini</option><option value="openai">OpenAI / Ollama</option></select></div></div>
-              <div class="setting-row"><div class="setting-info"><label class="setting-label" for="setting-ai-key">API Key</label></div><div class="setting-control"><div class="field-inline"><input id="setting-ai-key" class="text-input mono" type="password"><button id="toggle-ai-vis" class="btn btn-ghost btn-sm" type="button">Mostrar</button></div></div></div>
-              <div class="setting-row"><div class="setting-info"><label class="setting-label" for="setting-ai-model">Modelo</label></div><div class="setting-control"><input id="setting-ai-model" class="text-input mono" type="text" value="gemini-2.5-flash"></div></div>
-              <div class="setting-row"><div class="setting-info"><label class="setting-label" for="setting-ai-base-url">URL Base</label></div><div class="setting-control"><input id="setting-ai-base-url" class="text-input mono" type="text"></div></div>
-              <div class="setting-row"><div class="setting-info"><span class="setting-label">Portada</span></div><div class="setting-control"><div style="display:flex;gap:8px;flex-wrap:wrap;"><button id="settings-unpin-hero-btn" class="btn btn-secondary btn-sm" type="button">Soltar principal</button><button id="settings-reopen-wizard-btn" class="btn btn-ghost btn-sm" type="button">Asistente inicial</button></div></div></div>
-              <div class="settings-actions-bar"><div style="display:flex;gap:8px;align-items:center;"><button id="test-ai-btn" class="btn btn-secondary" type="button">Probar conexión</button><span id="ai-test-status" class="mono"></span></div><button id="save-ai-settings-btn" class="btn btn-emerald" type="button">Guardar IA</button></div>
+              <h3>Motor Retro e IA</h3>
+              <select id="setting-ai-provider" class="control-select"><option value="local">Motor Local</option><option value="gemini">Google Gemini</option><option value="openai">OpenAI / Ollama</option></select>
+              <div class="field-inline"><input id="setting-ai-key" class="text-input mono" type="password" placeholder="API Key"><button id="toggle-ai-vis" class="btn btn-ghost btn-sm" type="button">Mostrar</button></div>
+              <input id="setting-ai-model" class="text-input mono" type="text" value="gemini-2.5-flash">
+              <input id="setting-ai-base-url" class="text-input mono" type="text" placeholder="URL Base">
+              <div class="field-inline"><button id="test-ai-btn" class="btn btn-secondary" type="button">Probar</button><span id="ai-test-status" class="mono"></span><button id="save-ai-settings-btn" class="btn btn-primary" type="button">Guardar</button></div>
+              <div class="field-inline"><button id="settings-unpin-hero-btn" class="btn btn-ghost btn-sm" type="button">Soltar principal</button><button id="settings-reopen-wizard-btn" class="btn btn-ghost btn-sm" type="button">Asistente inicial</button></div>
             </div>
 
-            <!-- SHARE & LAN -->
             <div class="settings-card settings-panel" id="spanel-share" hidden>
-              <div class="settings-card-head"><div><h2>Red LAN (mDNS) y App Portable</h2><p class="settings-card-desc">Android detecta el PC Hub automáticamente vía <code>_ozvault._tcp.local.</code></p></div><span id="share-mode-badge" class="mini-badge">Servidor Hub</span></div>
-              <div class="setting-row"><div class="setting-info"><label class="setting-label" for="share-local-url">URL local</label></div><div class="setting-control"><div class="field-inline"><input id="share-local-url" class="text-input mono" type="text" readonly><button id="copy-local-url-btn" class="btn btn-secondary btn-sm" type="button">Copiar</button></div></div></div>
-              <div class="setting-row"><div class="setting-info"><label class="setting-label" for="share-lan-url">URL LAN</label></div><div class="setting-control"><div class="field-inline"><input id="share-lan-url" class="text-input mono" type="text" readonly><button id="copy-lan-url-btn" class="btn btn-secondary btn-sm" type="button">Copiar</button></div></div></div>
-              <div class="setting-row"><div class="setting-info"><label class="setting-label" for="share-portable-path">Paquete Portable Win64</label></div><div class="setting-control"><input id="share-portable-path" class="text-input mono" type="text" readonly></div></div>
-              <div class="settings-actions-bar"><button id="open-wizard-btn" class="btn btn-secondary" type="button">Reabrir asistente inicial</button></div>
+              <h3>Red LAN (mDNS)</h3>
+              <div class="field-inline"><input id="share-local-url" class="text-input mono" type="text" readonly><button id="copy-local-url-btn" class="btn btn-secondary btn-sm" type="button">Copiar</button></div>
+              <div class="field-inline"><input id="share-lan-url" class="text-input mono" type="text" readonly><button id="copy-lan-url-btn" class="btn btn-secondary btn-sm" type="button">Copiar</button></div>
+              <input id="share-portable-path" class="text-input mono" type="text" readonly>
             </div>
           </div>
         </div>
       </section>
     </main>
 
-    <!-- PERSISTENT COLLAPSIBLE ACTIVITY SHEET OVER BOTTOM BAR -->
-    <section id="activity-sheet" class="activity-sheet" aria-label="Hoja flotante de actividad en tiempo real">
+    <!-- ACTIVITY SHEET: 0px / HIDDEN WHEN IDLE -->
+    <section id="activity-sheet" class="activity-sheet" aria-label="Actividad en segundo plano" hidden>
       <button id="activity-sheet-toggle" class="activity-sheet-bar" type="button" aria-expanded="false" aria-controls="activity-sheet-body">
-        <span class="activity-bar-left">
-          <span id="activity-sse-dot" class="activity-sse-dot" aria-hidden="true"></span>
-          <span id="activity-sheet-summary" class="activity-sheet-summary">SSE en vivo · Sin actividad en cola</span>
-        </span>
-        <span class="activity-bar-right">
-          <span id="activity-sheet-pill" class="activity-pill">SSE</span>
-          <span class="activity-chevron" aria-hidden="true">&#9650;</span>
-        </span>
+        <span><span id="activity-sse-dot" class="sse-dot-badge"></span> <span id="activity-sheet-summary"></span></span>
+        <span id="activity-sheet-pill" class="oz-tag">LIVE</span>
       </button>
       <div id="activity-sheet-body" class="activity-sheet-body" hidden>
-        <div class="activity-sheet-head">
-          <strong>Actividad en vivo (SSE) · Descargas · Parches [ES] · Carátulas · FTP</strong>
-          <div style="display:flex;gap:8px;">
-            <button id="refresh-downloads-btn" class="btn btn-ghost btn-sm" type="button">Actualizar</button>
-            <button id="activity-sheet-close" class="btn btn-ghost btn-sm" type="button">Cerrar</button>
-          </div>
+        <div class="hud-sec-head" style="margin-bottom:8px;">
+          <strong>Transferencias activas</strong>
+          <button id="activity-sheet-close" class="btn btn-ghost btn-sm" type="button">Cerrar</button>
         </div>
-        <div id="activity-sheet-list" class="activity-sheet-list"></div>
+        <div id="activity-sheet-list"></div>
       </div>
     </section>
 
-    <!-- BOTTOM 3-DESTINATION CONSOLE NAV -->
-    <nav id="console-nav" class="console-nav" aria-label="Navegación principal de consola">
-      <button id="nav-home" class="console-nav-btn active" type="button" data-view="home" aria-current="page">
-        <span class="kbd-hint" aria-hidden="true">L1</span>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polygon points="6 4 20 12 6 20 6 4"/></svg>
-        <span>Jugar</span>
-      </button>
-      <button id="nav-explore" class="console-nav-btn" type="button" data-view="explore">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
-        <span>Explorar</span>
-      </button>
-      <button id="nav-settings" class="console-nav-btn" type="button" data-view="settings">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9c.26.6.77 1 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z"/></svg>
-        <span>Ajustes</span>
-        <span class="kbd-hint" aria-hidden="true">R1</span>
-      </button>
+    <!-- MOBILE SCULPTED CENTER DOCK (< 960px ONLY) -->
+    <nav id="mobile-center-dock" class="mobile-center-dock" aria-label="Navegación móvil">
+      <button id="mnav-home" class="dock-tab active" type="button" data-view="home"><span>Inicio</span></button>
+      <button id="mnav-library" class="dock-tab" type="button" data-view="library"><span>Biblioteca</span></button>
+      <div class="dock-oz-wrap"><button id="dock-oz-quick-btn" class="dock-oz-btn" type="button" title="Quick Resume">OZ</button></div>
+      <button id="mnav-collections" class="dock-tab" type="button" data-view="collections"><span>Colecciones</span></button>
+      <button id="mnav-search" class="dock-tab" type="button" data-view="search"><span>Buscar</span></button>
     </nav>
   </div>
 
-  <!-- SLIDE-OVER INSPECTION DRAWER -->
+  <!-- SLIDE-OVER DRAWER, CONTEXT MENU & MODALS -->
   <aside id="inspection-drawer" class="drawer" role="dialog" aria-modal="true" aria-labelledby="drawer-title" aria-hidden="true" inert>
     <div class="drawer-header">
-      <div style="min-width:0;">
-        <div id="drawer-eyebrow" class="drawer-eyebrow">SISTEMA · FICHA</div>
-        <h2 id="drawer-title" class="drawer-title">Selecciona una ROM</h2>
-      </div>
-      <button id="drawer-close-btn" class="drawer-close-btn" type="button" aria-label="Cerrar panel">&times;</button>
+      <div><div id="drawer-eyebrow" class="oz-tag">SISTEMA</div><h2 id="drawer-title" style="margin:6px 0 0;">Selecciona una ROM</h2></div>
+      <button id="drawer-close-btn" class="icon-hud-btn" type="button" aria-label="Cerrar">&times;</button>
     </div>
     <div id="drawer-body" class="drawer-body"></div>
   </aside>
 
-  <!-- FIRST-RUN SETUP WIZARD MODAL -->
   <div id="setup-wizard-backdrop" class="wizard-backdrop" hidden>
-    <div id="setup-wizard-modal" class="wizard-modal" role="dialog" aria-modal="true" aria-labelledby="wiz-heading">
-      <div class="wizard-head">
-        <div><div class="drawer-eyebrow">CONFIGURACIÓN INICIAL</div><h2 id="wiz-heading" class="drawer-title">Bienvenido a Oz Game Vault</h2></div>
-        <button id="wiz-skip-btn" class="btn btn-ghost btn-sm" type="button">Omitir</button>
-      </div>
-      <nav class="wizard-stepper"><button type="button" class="wizard-step-btn active" data-wiz-step="1">1. Carpetas</button><button type="button" class="wizard-step-btn" data-wiz-step="2">2. SteamGridDB</button><button type="button" class="wizard-step-btn" data-wiz-step="3">3. Archive.org</button><button type="button" class="wizard-step-btn" data-wiz-step="4">4. FTP</button><button type="button" class="wizard-step-btn" data-wiz-step="5">5. Listo</button></nav>
+    <div id="setup-wizard-modal" class="wizard-modal" role="dialog" aria-modal="true">
+      <div class="wizard-head"><h2>Configuración Inicial</h2><button id="wiz-skip-btn" class="btn btn-ghost btn-sm" type="button">Omitir</button></div>
       <div class="wizard-body">
-        <section id="wiz-step-1" class="wizard-step-pane"><h3 class="wizard-step-title">1. Carpetas</h3><div class="field-group"><label for="wiz-roms-dir">Carpeta raíz de ROMs</label><div class="field-inline"><input id="wiz-roms-dir" class="text-input mono" type="text"><button id="wiz-pick-roms-btn" class="btn btn-secondary btn-sm" type="button">Explorar…</button></div><span id="wiz-roms-status" class="mono"></span></div><div class="field-group"><label for="wiz-covers-dir">Carpeta carátulas</label><div class="field-inline"><input id="wiz-covers-dir" class="text-input mono" type="text"><button id="wiz-pick-covers-btn" class="btn btn-secondary btn-sm" type="button">Explorar…</button><button id="wiz-default-covers-btn" class="btn btn-ghost btn-sm" type="button">Portable</button></div><span id="wiz-covers-status" class="mono"></span></div></section>
-        <section id="wiz-step-2" class="wizard-step-pane" hidden><h3 class="wizard-step-title">2. Carátulas HD</h3><label class="checkbox-row"><input id="wiz-libretro-fallback" type="checkbox" checked><span>Fallback Libretro automático</span></label><div class="field-group"><label for="wiz-sgdb-key">SteamGridDB API Key</label><div class="field-inline"><input id="wiz-sgdb-key" class="text-input mono" type="password"><button id="wiz-toggle-sgdb" class="btn btn-ghost btn-sm" type="button">Mostrar</button><button id="wiz-test-sgdb-btn" class="btn btn-secondary btn-sm" type="button">Probar</button></div><span id="wiz-sgdb-status" class="mono"></span></div></section>
-        <section id="wiz-step-3" class="wizard-step-pane" hidden><h3 class="wizard-step-title">3. Internet Archive</h3><div class="field-group"><label for="wiz-ia-access">Access Key</label><input id="wiz-ia-access" class="text-input mono" type="text"></div><div class="field-group"><label for="wiz-ia-secret">Secret Key</label><div class="field-inline"><input id="wiz-ia-secret" class="text-input mono" type="password"><button id="wiz-toggle-ia" class="btn btn-ghost btn-sm" type="button">Mostrar</button></div></div><button id="wiz-test-ia-btn" class="btn btn-secondary btn-sm" type="button">Probar credenciales</button><span id="wiz-ia-status" class="mono"></span></section>
-        <section id="wiz-step-4" class="wizard-step-pane" hidden><h3 class="wizard-step-title">4. Consola FTP (opcional)</h3><div class="wiz-console-grid"><button type="button" class="wiz-console-card active" data-wiz-console="pc"><strong>Solo PC</strong></button><button type="button" class="wiz-console-card" data-wiz-console="ps4-emusuni"><strong>PS4 · EmuSuNi</strong></button><button type="button" class="wiz-console-card" data-wiz-console="ps3-webman"><strong>PS3 · webMAN</strong></button><button type="button" class="wiz-console-card" data-wiz-console="switch-ftp"><strong>Switch FTP</strong></button></div><div id="wiz-ftp-fields" hidden><input id="wiz-ftp-host" class="text-input mono" type="text"><input id="wiz-ftp-port" class="text-input mono" type="number" value="2121"><input id="wiz-ftp-base" class="text-input mono" type="text"><button id="wiz-test-ftp-btn" class="btn btn-secondary btn-sm" type="button">Probar FTP</button><span id="wiz-ftp-status" class="mono"></span></div></section>
-        <section id="wiz-step-5" class="wizard-step-pane" hidden><h3 class="wizard-step-title">5. Listo</h3><div id="wiz-summary-grid" class="wiz-summary-grid"></div></section>
+        <div class="field-inline"><input id="wiz-roms-dir" class="text-input mono" type="text"><button id="wiz-pick-roms-btn" class="btn btn-secondary btn-sm" type="button">Carpeta ROMs</button></div>
+        <span id="wiz-roms-status" class="mono"></span>
       </div>
-      <div class="wizard-footer"><button id="wiz-prev-btn" class="btn btn-secondary btn-sm" type="button">← Anterior</button><span id="wiz-step-counter" class="mono">Paso 1 de 5</span><div style="display:flex;gap:8px;"><button id="wiz-next-btn" class="btn btn-emerald btn-sm" type="button">Siguiente →</button><button id="wiz-finish-btn" class="btn btn-gold btn-sm" type="button" hidden>Entrar a la Bóveda</button></div></div>
+      <div class="wizard-footer"><span id="wiz-step-counter" class="mono">1 / 1</span><button id="wiz-finish-btn" class="btn btn-primary btn-sm" type="button">Listo</button></div>
     </div>
   </div>
 
-  <!-- RIGHT-CLICK CONTEXT MENU -->
-  <div id="game-context-menu" class="context-menu" role="menu" aria-label="Acciones rápidas" hidden></div>
+  <div id="game-context-menu" class="context-menu" role="menu" hidden></div>
 
-  <!-- MOOD PICKER MODAL -->
   <div id="mood-picker-backdrop" class="wizard-backdrop" hidden>
-    <div id="mood-picker-modal" class="wizard-modal" style="width:min(760px,100%);" role="dialog" aria-modal="true" aria-labelledby="mood-heading">
-      <div class="wizard-head"><div><div class="drawer-eyebrow">SELECCIÓN RÁPIDA</div><h2 id="mood-heading" class="drawer-title">¿Qué juego hoy?</h2></div><button id="mood-close-btn" class="drawer-close-btn" type="button">&times;</button></div>
+    <div id="mood-picker-modal" class="wizard-modal" role="dialog" aria-modal="true">
+      <div class="wizard-head"><h2>¿Qué juego hoy?</h2><button id="mood-close-btn" class="icon-hud-btn" type="button">&times;</button></div>
       <div class="wizard-body">
-        <div class="mood-pill-bar"><button class="btn btn-primary btn-sm mood-choice-btn" type="button" data-mood="quick">⚡ 15 min</button><button class="btn btn-secondary btn-sm mood-choice-btn" type="button" data-mood="story">📖 RPG / Historia</button><button class="btn btn-secondary btn-sm mood-choice-btn" type="button" data-mood="action">🎮 Acción</button><button class="btn btn-secondary btn-sm mood-choice-btn" type="button" data-mood="surprise">🎲 Sorpresa</button></div>
-        <div id="mood-picks-grid" class="mood-grid"></div>
+        <div class="lib-controls-row">
+          <button class="btn btn-primary btn-sm mood-choice-btn" type="button" data-mood="quick">15 min</button>
+          <button class="btn btn-secondary btn-sm mood-choice-btn" type="button" data-mood="story">RPG</button>
+          <button class="btn btn-secondary btn-sm mood-choice-btn" type="button" data-mood="action">Acción</button>
+          <button class="btn btn-secondary btn-sm mood-choice-btn" type="button" data-mood="surprise">Sorpresa</button>
+        </div>
+        <div id="mood-picks-grid" class="sagas-grid"></div>
       </div>
-      <div class="wizard-footer"><span id="mood-summary-label" class="mono">15–30 min</span><div style="display:flex;gap:8px;"><button id="mood-reroll-btn" class="btn btn-secondary btn-sm" type="button">Otros 3</button><button id="mood-done-btn" class="btn btn-ghost btn-sm" type="button">Cerrar</button></div></div>
+      <div class="wizard-footer"><span id="mood-summary-label" class="mono"></span><div class="field-inline"><button id="mood-reroll-btn" class="btn btn-secondary btn-sm" type="button">Otros 3</button><button id="mood-done-btn" class="btn btn-ghost btn-sm" type="button">Cerrar</button></div></div>
     </div>
   </div>
 
-  <!-- ADD TO SAGA MODAL -->
   <div id="saga-add-backdrop" class="wizard-backdrop" hidden>
-    <div id="saga-add-modal" class="wizard-modal" style="width:min(490px,100%);" role="dialog" aria-modal="true" aria-labelledby="saga-add-heading">
-      <div class="wizard-head"><div><div class="drawer-eyebrow">SAGAS</div><h2 id="saga-add-heading" class="drawer-title">Añadir a saga</h2><p id="saga-add-sub" style="margin:4px 0 0;font-size:12px;color:var(--text-secondary);"></p></div><button id="saga-add-close-btn" class="drawer-close-btn" type="button">&times;</button></div>
+    <div id="saga-add-modal" class="wizard-modal" style="width:min(480px,100%);" role="dialog" aria-modal="true">
+      <div class="wizard-head"><h2 id="saga-add-heading">Añadir a saga</h2><button id="saga-add-close-btn" class="icon-hud-btn" type="button">&times;</button></div>
       <div class="wizard-body">
-        <div id="saga-existing-wrap" class="field-group" hidden><label for="saga-existing-select">Saga existente</label><div class="field-inline"><select id="saga-existing-select" class="control-select"></select><button id="saga-existing-add-btn" class="btn btn-secondary btn-sm" type="button">Añadir</button></div></div>
-        <div class="field-group"><label for="saga-new-name">Nueva saga</label><input id="saga-new-name" class="text-input" type="text"></div>
-        <div class="field-group"><label for="saga-new-tagline">Subtítulo</label><input id="saga-new-tagline" class="text-input" type="text"></div>
-        <div class="field-group"><label for="saga-new-accent">Acento</label><select id="saga-new-accent" class="control-select"><option value="#1E8E63">Esmeralda Hylian</option><option value="#D9B64E">Dorado Hyrule</option><option value="#F87171">Rojo Arcade</option></select></div>
-        <div style="display:flex;justify-content:flex-end;"><button id="saga-create-submit-btn" class="btn btn-emerald btn-sm" type="button">Crear saga</button></div>
+        <p id="saga-add-sub" style="margin:0;color:var(--text-secondary);"></p>
+        <div id="saga-existing-wrap" hidden><select id="saga-existing-select" class="control-select"></select><button id="saga-existing-add-btn" class="btn btn-secondary btn-sm" type="button">Añadir</button></div>
+        <input id="saga-new-name" class="text-input" type="text" placeholder="Nueva saga">
+        <input id="saga-new-tagline" class="text-input" type="text" placeholder="Subtítulo">
+        <select id="saga-new-accent" class="control-select"><option value="#22D3EE">Cyan Cyber</option><option value="#7C3AED">Violeta Cyber</option><option value="#1E8E63">Esmeralda Hylian</option></select>
+        <button id="saga-create-submit-btn" class="btn btn-primary btn-sm" type="button">Crear saga</button>
       </div>
     </div>
   </div>
 
-  <!-- CUSTOM COVER PICKER MODAL -->
   <div id="cover-picker-backdrop" class="wizard-backdrop" hidden>
-    <div id="cover-picker-modal" class="wizard-modal" style="width:min(520px,100%);" role="dialog" aria-modal="true" aria-labelledby="cover-picker-heading">
-      <div class="wizard-head"><div><div class="drawer-eyebrow">CARÁTULA</div><h2 id="cover-picker-heading" class="drawer-title">Cambiar carátula</h2></div><button id="cover-picker-close-btn" class="drawer-close-btn" type="button">&times;</button></div>
+    <div id="cover-picker-modal" class="wizard-modal" style="width:min(520px,100%);" role="dialog" aria-modal="true">
+      <div class="wizard-head"><h2 id="cover-picker-heading">Cambiar carátula</h2><button id="cover-picker-close-btn" class="icon-hud-btn" type="button">&times;</button></div>
       <div class="wizard-body">
-        <div style="display:flex;gap:16px;align-items:center;flex-wrap:wrap;"><div id="cover-picker-preview" class="drawer-art" style="width:96px;"></div><div class="field-group" style="flex:1 1 200px;"><label for="cover-picker-file">Subir archivo</label><input id="cover-picker-file" class="text-input" type="file" accept="image/*"></div></div>
-        <div class="field-group"><label for="cover-picker-url">URL externa</label><div class="field-inline"><input id="cover-picker-url" class="text-input mono" type="url"><button id="cover-picker-apply-url-btn" class="btn btn-emerald btn-sm" type="button">Aplicar</button></div></div>
-        <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;"><button id="cover-picker-auto-btn" class="btn btn-secondary btn-sm" type="button">Buscar automático</button><span id="cover-picker-status" class="mono"></span></div>
+        <div id="cover-picker-preview" style="width:96px;"></div>
+        <input id="cover-picker-file" class="text-input" type="file" accept="image/*">
+        <div class="field-inline"><input id="cover-picker-url" class="text-input mono" type="url" placeholder="https://..."><button id="cover-picker-apply-url-btn" class="btn btn-primary btn-sm" type="button">Aplicar</button></div>
+        <div class="field-inline"><button id="cover-picker-auto-btn" class="btn btn-secondary btn-sm" type="button">Buscar automático</button><span id="cover-picker-status" class="mono"></span></div>
       </div>
     </div>
   </div>
 
-  <div class="floating-notifications">
-    <div id="toast-region" class="toast-region" aria-live="polite" aria-atomic="true"></div>
-  </div>
-
+  <div class="floating-notifications"><div id="toast-region" class="toast-region" aria-live="polite" aria-atomic="true"></div></div>
   <script type="module" src="/static/js/app.js"></script>
 </body>
 </html>

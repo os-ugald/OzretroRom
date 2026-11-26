@@ -13,25 +13,30 @@ export function buildHylianGameCard(item, subtitleText = '') {
   const isFav = Boolean(item.favorite);
   const displayTitle = (state.libraryGrouped && item.cleanTitle) ? item.cleanTitle : item.title;
   const card = document.createElement('article');
-  card.className = 'hylian-card rom-card' + (state.selectedEntryId === item.entryId ? ' selected' : '');
-  card.style.setProperty('--card-accent', '#1E8E63');
+  card.className = 'oz-game-card rom-card' + (state.selectedEntryId === item.entryId ? ' selected' : '');
   card.tabIndex = 0;
   card.setAttribute('aria-label', `${displayTitle} (${meta.full})`);
   card.innerHTML = `
     <div class="cover-frame cover-frame-34">
       ${renderCoverMarkup(item, { availability: item.availability || 'local' })}
+      <button class="card-fav-corner ${isFav ? 'is-fav' : ''}" type="button" aria-label="${isFav ? 'Quitar favorito' : 'Favorito'}">${isFav ? '♥' : '♡'}</button>
     </div>
-    <div class="hylian-card-meta">
-      <div class="hylian-card-title-row">
-        <h3 class="card-title">${escapeHtml(displayTitle)}</h3>
-        ${isFav ? '<span class="hylian-star" aria-label="Favorito">★</span>' : ''}
+    <div class="oz-card-footer">
+      <h3 class="card-title">${escapeHtml(displayTitle)}</h3>
+      <div class="oz-card-meta-row">
+        <span class="oz-tag">${escapeHtml(meta.label)}</span>
+        <span class="oz-card-status">${item.hasSpanishPatch ? '<span class="oz-tag secondary">[ES]</span>' : ''}<span>✓</span><button class="card-more-dot" type="button" style="border:0;background:transparent;padding:0 2px;font-size:10px;color:var(--text-secondary);">•••</button></span>
       </div>
-      ${subtitleText ? `<span class="hylian-card-sub mono">${escapeHtml(subtitleText)}</span>` : `<span class="hylian-card-sub mono">${escapeHtml(meta.label)}</span>`}
     </div>
   `;
   const triggerAmbient = () => {
     setAmbientBackdrop(item.hasCover && item.coverUrl ? item.coverUrl : '', meta.color);
   };
+  card.querySelector('.card-fav-corner')?.addEventListener('click', ev => {
+    ev.stopPropagation();
+    actions.toggleFavorite(item.entryId, item.title);
+  });
+  card.querySelector('.card-more-dot')?.addEventListener('click', ev => openGameContextMenu(ev, item));
   card.addEventListener('mouseenter', triggerAmbient);
   card.addEventListener('focus', triggerAmbient);
   card.addEventListener('click', () => actions.openLibraryDrawer(item));
@@ -549,37 +554,62 @@ export function renderHome() {
         heroBgImg.hidden = true;
       }
     }
-    const heroArt = $('#home-hero-art');
-    if (heroArt) heroArt.innerHTML = renderCoverMarkup(hero, { availability: 'local' });
+    const heroSysTag = $('#home-hero-sys-tag');
+    if (heroSysTag) {
+      heroSysTag.hidden = false;
+      heroSysTag.textContent = meta.label;
+    }
     const qrInfo = hero.quickResume || qrPayloadHero?.quickResume;
     const eyebrowText = qrInfo
-      ? `CONTINUAR AHORA · QUICK RESUME${qrInfo.slot !== undefined ? ` SLOT ${qrInfo.slot}` : ''}${qrInfo.coreId ? ` · ${String(qrInfo.coreId).toUpperCase()}` : ''}`
-      : (recent[0] ? `CONTINUAR AHORA · ${meta.full.toUpperCase()}` : `LISTO PARA JUGAR · ${meta.full.toUpperCase()}`);
+      ? `CONTINUAR JUGANDO · SLOT ${qrInfo.slot !== undefined ? qrInfo.slot : 0}`
+      : 'CONTINUAR JUGANDO';
     if ($('#home-hero-eyebrow')) $('#home-hero-eyebrow').textContent = eyebrowText;
     if ($('#home-hero-title')) $('#home-hero-title').textContent = hero.cleanTitle || hero.title;
     if ($('#home-hero-meta')) {
       $('#home-hero-meta').innerHTML = `
-        <span class="hylian-meta-chip">${escapeHtml(meta.full)}</span>
-        <span class="mini-badge">${escapeHtml(hero.region)}</span>
-        <span class="mini-badge">.${escapeHtml(hero.ext)}</span>
-        ${hero.hasSpanishPatch ? '<span class="verify-pill verified">[ES]</span>' : ''}
+        <span>${escapeHtml(meta.full)}</span>
+        ${hero.releaseYear ? `<span>· ${escapeHtml(hero.releaseYear)}</span>` : ''}
         ${hero.playCount ? `<span>· ${hero.playCount}x · ${formatRelativeTime(hero.lastPlayedAt)}</span>` : ''}
       `;
     }
     if ($('#home-hero-open-btn')) $('#home-hero-open-btn').hidden = false;
-    if ($('#home-hero-play-btn')) $('#home-hero-play-btn').hidden = false;
-    if (unpinBtn) unpinBtn.hidden = !pinnedItem;
+    if ($('#home-hero-play-btn')) $('#home-hero-play-btn').hidden = true;
+    if (unpinBtn) unpinBtn.hidden = true;
     populateHeroSynopsis(hero);
   } else if (heroCard) {
     if (heroBgImg) heroBgImg.hidden = true;
-    if ($('#home-hero-art')) $('#home-hero-art').innerHTML = buildCoverSvg('Oz Game Vault', 'snes');
-    if ($('#home-hero-eyebrow')) $('#home-hero-eyebrow').textContent = 'CONTINUAR AHORA · OZ GAME VAULT';
-    if ($('#home-hero-title')) $('#home-hero-title').textContent = 'Tu consola está lista para empezar';
-    if ($('#home-hero-meta')) $('#home-hero-meta').innerHTML = '<span>Explora tus sagas o configura tu carpeta de ROMs en Ajustes.</span>';
+    if ($('#home-hero-sys-tag')) $('#home-hero-sys-tag').hidden = true;
+    if ($('#home-hero-eyebrow')) $('#home-hero-eyebrow').textContent = 'OZ GAME VAULT';
+    if ($('#home-hero-title')) $('#home-hero-title').textContent = 'Tu bóveda retro está lista';
+    if ($('#home-hero-meta')) $('#home-hero-meta').innerHTML = '<span>Explora colecciones o añade tu carpeta de ROMs desde Buscar.</span>';
     if ($('#home-hero-open-btn')) $('#home-hero-open-btn').hidden = true;
-    if ($('#home-hero-play-btn')) $('#home-hero-play-btn').hidden = true;
     if (unpinBtn) unpinBtn.hidden = true;
     populateHeroSynopsis(null);
+  }
+
+  const quickConsoles = $('#home-consoles-quick-row');
+  if (quickConsoles) {
+    const qFrag = document.createDocumentFragment();
+    consolesSorted.slice(0, 10).forEach(entry => {
+      const meta = consoleMeta(entry.key);
+      const chip = document.createElement('button');
+      chip.type = 'button';
+      chip.className = 'oz-hud-chip';
+      chip.innerHTML = `${consoleIconSvg(entry.key, 14)}<span>${escapeHtml(meta.label)}</span>`;
+      chip.addEventListener('click', () => {
+        state.consoleFilter = entry.key;
+        state.stateFilter = 'all';
+        actions.openExploreConsoleLibrary(entry.key);
+      });
+      qFrag.appendChild(chip);
+    });
+    quickConsoles.replaceChildren(qFrag);
+  }
+
+  const aiSearchGrid = $('#search-ai-grid');
+  if (aiSearchGrid) {
+    const aiItems = (favs.length ? favs : covered).slice(0, 4);
+    aiSearchGrid.replaceChildren(...aiItems.map(it => buildHylianGameCard(it)));
   }
 
   const recentGrid = $('#home-recent-grid');

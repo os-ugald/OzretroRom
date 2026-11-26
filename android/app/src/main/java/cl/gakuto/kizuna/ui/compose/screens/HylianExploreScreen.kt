@@ -44,9 +44,10 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import cl.gakuto.kizuna.catalog.CatalogSystem
 import cl.gakuto.kizuna.ui.compose.OzViewModel
 import cl.gakuto.kizuna.ui.compose.components.ConsoleBadge
+import cl.gakuto.kizuna.ui.compose.components.OzChamferShape
+import cl.gakuto.kizuna.ui.compose.components.OzHudChip
 import cl.gakuto.kizuna.ui.compose.theme.ConsolePalette
 import cl.gakuto.kizuna.ui.compose.theme.OzColors
-import cl.gakuto.kizuna.ui.compose.theme.OzShapes
 import cl.gakuto.kizuna.ui.compose.theme.OzTypography
 
 private enum class ExploreSegment(val label: String) {
@@ -74,7 +75,7 @@ fun HylianExploreScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(OzColors.HylianBg)
+            .background(OzColors.Bg)
             .onPreviewKeyEvent { ev ->
                 if (ev.type == KeyEventType.KeyDown && (ev.key == Key.ButtonL2 || ev.key == Key.ButtonR2)) {
                     segment = if (segment == ExploreSegment.SAGAS) ExploreSegment.CONSOLES else ExploreSegment.SAGAS
@@ -87,57 +88,22 @@ fun HylianExploreScreen(
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp, vertical = 12.dp),
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(12.dp),
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
         ) {
-            Row(
-                modifier = Modifier
-                    .weight(1f)
-                    .clip(OzShapes.pill)
-                    .background(OzColors.HylianSurface)
-                    .padding(4.dp),
-                horizontalArrangement = Arrangement.spacedBy(4.dp),
-            ) {
-                ExploreSegment.entries.forEach { tab ->
-                    val selected = segment == tab
-                    var focused by remember(tab) { mutableStateOf(false) }
-                    Surface(
-                        shape = OzShapes.pill,
-                        color = if (selected) OzColors.HylianEmerald else OzColors.HylianSurface,
-                        border = BorderStroke(
-                            width = if (focused) 2.dp else 0.dp,
-                            color = if (focused) OzColors.HylianGold else OzColors.HylianSurface,
-                        ),
-                        modifier = Modifier
-                            .weight(1f)
-                            .heightIn(min = 48.dp)
-                            .onFocusChanged { focused = it.isFocused }
-                            .focusable()
-                            .clickable { segment = tab },
-                    ) {
-                        Box(contentAlignment = Alignment.Center) {
-                            Text(
-                                text = tab.label,
-                                style = OzTypography.cardTitle,
-                                color = if (selected) OzColors.TextPrimary else OzColors.TextSecondary,
-                            )
-                        }
-                    }
-                }
+            ExploreSegment.entries.forEach { tab ->
+                OzHudChip(
+                    label = tab.label,
+                    selected = segment == tab,
+                    onClick = { segment = tab },
+                    modifier = Modifier.weight(1f),
+                )
             }
-
-            Surface(
-                shape = OzShapes.pill,
-                color = OzColors.HylianSurfaceRaised,
-                border = BorderStroke(1.dp, OzColors.HylianBorder),
-                modifier = Modifier
-                    .heightIn(min = 48.dp)
-                    .focusable()
-                    .clickable(onClick = onOpenFullCatalog),
-            ) {
-                Box(Modifier.padding(horizontal = 14.dp), contentAlignment = Alignment.Center) {
-                    Text("MiNERVA", style = OzTypography.meta.copy(fontWeight = FontWeight.Bold), color = OzColors.HylianGold)
-                }
-            }
+            OzHudChip(
+                label = "MiNERVA",
+                selected = false,
+                accent = OzColors.AccentSecondary,
+                onClick = onOpenFullCatalog,
+            )
         }
 
         when (segment) {
@@ -219,11 +185,11 @@ private fun ConsoleExploreCard(
     val scale by animateFloatAsState(if (focused) 1.05f else 1f, label = "console-tile-focus")
 
     Surface(
-        shape = OzShapes.large,
-        color = OzColors.HylianSurface,
+        shape = OzChamferShape(10.dp),
+        color = OzColors.Surface,
         border = BorderStroke(
-            width = if (focused) 2.5.dp else 1.dp,
-            color = if (focused) OzColors.HylianGold else OzColors.HylianBorder,
+            width = if (focused) 1.5.dp else 1.dp,
+            color = if (focused) OzColors.AccentPrimary else OzColors.Border,
         ),
         modifier = Modifier
             .fillMaxWidth()
@@ -240,7 +206,7 @@ private fun ConsoleExploreCard(
             if (systemId != null) {
                 ConsoleBadge(systemId = systemId)
             } else {
-                Text(badge, style = OzTypography.meta, color = OzColors.HylianGold)
+                Text(badge, style = OzTypography.hudTag, color = OzColors.AccentPrimary)
             }
             Spacer(Modifier.height(8.dp))
             Text(title, style = OzTypography.cardTitle, color = OzColors.TextPrimary, maxLines = 1, overflow = TextOverflow.Ellipsis)

@@ -11,6 +11,7 @@ import cl.gakuto.kizuna.auth.InternetArchiveAuthManager
 import cl.gakuto.kizuna.data.AppOrientationMode
 import cl.gakuto.kizuna.data.AppPreferences
 import cl.gakuto.kizuna.data.AppThemeMode
+import cl.gakuto.kizuna.data.AppThemePreset
 import cl.gakuto.kizuna.data.GameEntity
 import cl.gakuto.kizuna.data.GameGridDensity
 import cl.gakuto.kizuna.data.LibraryRepository
@@ -36,6 +37,9 @@ class SettingsDomainHolder(
 ) {
     private val _appThemeMode = MutableStateFlow(preferences.appThemeMode)
     val appThemeMode: StateFlow<AppThemeMode> = _appThemeMode
+
+    private val _appThemePreset = MutableStateFlow(preferences.appThemePreset)
+    val appThemePreset: StateFlow<AppThemePreset> = _appThemePreset
 
     private val _appOrientationMode = MutableStateFlow(preferences.appOrientationMode)
     val appOrientationMode: StateFlow<AppOrientationMode> = _appOrientationMode
@@ -89,6 +93,12 @@ class SettingsDomainHolder(
                 AppThemeMode.DARK -> AppCompatDelegate.MODE_NIGHT_YES
             },
         )
+    }
+
+    fun setAppThemePreset(preset: AppThemePreset) {
+        if (_appThemePreset.value == preset) return
+        preferences.appThemePreset = preset
+        _appThemePreset.value = preset
     }
 
     fun setAppOrientationMode(mode: AppOrientationMode) {
@@ -225,6 +235,7 @@ class SettingsViewModel(application: Application) : AndroidViewModel(application
     )
 
     val appThemeMode = domain.appThemeMode
+    val appThemePreset = domain.appThemePreset
     val appOrientationMode = domain.appOrientationMode
     val gameGridDensity = domain.gameGridDensity
     val autoLaunchAfterDownload = domain.autoLaunchAfterDownload
@@ -239,6 +250,7 @@ class SettingsViewModel(application: Application) : AndroidViewModel(application
     fun setGeminiApiKey(key: String) = domain.setGeminiApiKey(key)
     fun setGeminiModel(model: String) = domain.setGeminiModel(model)
     fun setAppThemeMode(mode: AppThemeMode) = domain.setAppThemeMode(mode)
+    fun setAppThemePreset(preset: AppThemePreset) = domain.setAppThemePreset(preset)
     fun setAppOrientationMode(mode: AppOrientationMode) = domain.setAppOrientationMode(mode)
     fun setGameGridDensity(value: GameGridDensity) = domain.setGameGridDensity(value)
     fun setAutoLaunchAfterDownload(enabled: Boolean) = domain.setAutoLaunchAfterDownload(enabled)

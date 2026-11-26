@@ -14,26 +14,31 @@ export function buildLibraryCard(item, rightPillText = '') {
   const isFav = Boolean(item.favorite);
   const displayTitle = (state.libraryGrouped && item.cleanTitle) ? item.cleanTitle : item.title;
   const card = document.createElement('article');
-  card.className = 'hylian-card rom-card' + (state.selectedEntryId === item.entryId || (item.variants || []).some(v => v.entryId === state.selectedEntryId) ? ' selected' : '');
-  card.style.setProperty('--card-accent', '#1E8E63');
+  card.className = 'oz-game-card rom-card' + (state.selectedEntryId === item.entryId || (item.variants || []).some(v => v.entryId === state.selectedEntryId) ? ' selected' : '');
   card.tabIndex = 0;
   card.setAttribute('aria-label', `${displayTitle} (${meta.label})`);
   const pillLabel = rightPillText || meta.label;
   card.innerHTML = `
     <div class="cover-frame cover-frame-34">
       ${renderCoverMarkup(item, { availability: item.availability || 'local' })}
+      <button class="card-fav-corner ${isFav ? 'is-fav' : ''}" type="button" aria-label="${isFav ? 'Quitar favorito' : 'Favorito'}">${isFav ? '♥' : '♡'}</button>
     </div>
-    <div class="hylian-card-meta">
-      <div class="hylian-card-title-row">
-        <h3 class="card-title" title="${escapeHtml(item.title)}">${escapeHtml(displayTitle)}</h3>
-        ${isFav ? '<span class="hylian-star" aria-label="Favorito">★</span>' : ''}
+    <div class="oz-card-footer">
+      <h3 class="card-title" title="${escapeHtml(item.title)}">${escapeHtml(displayTitle)}</h3>
+      <div class="oz-card-meta-row">
+        <span class="oz-tag">${escapeHtml(pillLabel)}</span>
+        <span class="oz-card-status">${item.hasSpanishPatch ? '<span class="oz-tag secondary">[ES]</span>' : ''}<span>✓</span><button class="card-more-dot" type="button" style="border:0;background:transparent;padding:0 2px;font-size:10px;color:var(--text-secondary);">•••</button></span>
       </div>
-      <span class="hylian-card-sub mono">${escapeHtml(pillLabel)}${item.hasSpanishPatch ? ' · [ES]' : ''}</span>
     </div>
   `;
   const triggerAmbient = () => {
     setAmbientBackdrop(item.hasCover && item.coverUrl ? item.coverUrl : '', meta.color);
   };
+  card.querySelector('.card-fav-corner')?.addEventListener('click', ev => {
+    ev.stopPropagation();
+    toggleFavorite(item.entryId, item.title);
+  });
+  card.querySelector('.card-more-dot')?.addEventListener('click', ev => openGameContextMenu(ev, item));
   card.addEventListener('mouseenter', triggerAmbient);
   card.addEventListener('focus', triggerAmbient);
   card.addEventListener('click', () => openLibraryDrawer(item));
@@ -142,10 +147,10 @@ export function renderLibraryConsolePills(base = visibleBaseItems(), sortedCount
   const mkPill = (key, label, color, count) => {
     const pill = document.createElement('button');
     pill.type = 'button';
-    pill.className = 'lib-console-pill' + (state.consoleFilter === key ? ' active' : '');
+    pill.className = 'oz-hud-chip' + (state.consoleFilter === key ? ' active' : '');
     pill.style.setProperty('--sys-color', color);
     pill.setAttribute('aria-pressed', String(state.consoleFilter === key));
-    pill.innerHTML = `${consoleIconSvg(key || 'all', 14)}<span>${escapeHtml(label)}</span><span class="lib-pill-count">${count}</span>`;
+    pill.innerHTML = `${consoleIconSvg(key || 'all', 14)}<span>${escapeHtml(label)}</span><span class="oz-tag">${count}</span>`;
     pill.addEventListener('click', () => {
       state.consoleFilter = (key && state.consoleFilter === key) ? '' : key;
       updateSidebarCounts();
@@ -153,7 +158,7 @@ export function renderLibraryConsolePills(base = visibleBaseItems(), sortedCount
     });
     return pill;
   };
-  frag.appendChild(mkPill('', 'Todas', '#FFB000', base.length));
+  frag.appendChild(mkPill('', 'ALL', '#22D3EE', base.length));
   sorted.forEach(([key, count]) => {
     const meta = consoleMeta(key);
     frag.appendChild(mkPill(key, meta.label, meta.color, count));
@@ -197,28 +202,9 @@ export function applyLibraryFilters() {
 }
 
 export function renderActivePills() {
-  const wrap = $('#active-filter-pills');
-  wrap.innerHTML = '';
-  const pills = [];
-  if (state.stateFilter !== 'all') {
-    const labels = { recent: 'Recientes', verified: 'Verificadas', favorites: 'Favoritas', untagged: 'Sin metadatos' };
-    pills.push({ label: labels[state.stateFilter] || state.stateFilter, clear: () => actions.setStateFilter('all') });
-  }
-  if (state.consoleFilter) {
-    pills.push({ label: consoleMeta(state.consoleFilter).full, clear: () => { state.consoleFilter = ''; updateSidebarCounts(); applyLibraryFilters(); } });
-  }
-  if (state.searchQuery.trim()) {
-    pills.push({ label: `"${state.searchQuery.trim()}"`, clear: () => { state.searchQuery = ''; $('#global-search').value = ''; $('#search-clear-btn').hidden = true; applyLibraryFilters(); } });
-  }
-
-  pills.forEach(p => {
-    const span = document.createElement('span');
-    span.className = 'filter-pill';
-    span.innerHTML = `<span>${escapeHtml(p.label)}</span><button type="button" aria-label="Quitar filtro ${escapeHtml(p.label)}">&times;</button>`;
-    span.querySelector('button').addEventListener('click', p.clear);
-    wrap.appendChild(span);
-  });
-  $('#reset-filters-btn').hidden = pills.length === 0;
+  const rst = $('#reset-filters-btn');
+  const hasFilters = state.stateFilter !== 'all' || Boolean(state.consoleFilter) || Boolean(state.searchQuery.trim());
+  if (rst) rst.hidden = !hasFilters;
 }
 
 export function renderLibrary() {

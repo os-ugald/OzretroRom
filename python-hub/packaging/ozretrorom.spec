@@ -13,6 +13,7 @@ a = Analysis(
         (str(hub_root / "app" / "static" / "styles.css"), "app/static"),
         (str(hub_root / "app" / "static" / "js"), "app/static/js"),
         (str(hub_root / "app" / "static" / "assets"), "app/static/assets"),
+        (str(hub_root / "app" / "static" / "fonts"), "app/static/fonts"),
         (str(hub_root / "app" / "data"), "app/data"),
         (str(hub_root / "app" / "source-index" / "*.json.gz.bin"), "app/source-index"),
     ],

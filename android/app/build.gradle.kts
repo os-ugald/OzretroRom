@@ -3,6 +3,7 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("org.jetbrains.kotlin.plugin.compose")
     id("com.google.devtools.ksp")
+    id("io.github.takahirom.roborazzi")
 }
 
 android {
@@ -78,6 +79,16 @@ android {
         abortOnError = true
         checkReleaseBuilds = true
     }
+    testOptions {
+        unitTests {
+            isIncludeAndroidResources = true
+            isReturnDefaultValues = true
+        }
+    }
+}
+
+roborazzi {
+    outputDir.set(file("../../docs/ui-captures"))
 }
 
 ksp {
@@ -97,6 +108,7 @@ dependencies {
     implementation("androidx.compose.foundation:foundation")
     implementation("androidx.compose.animation:animation")
     implementation("androidx.compose.material3:material3")
+    implementation("androidx.compose.material:material-icons-extended")
     implementation("androidx.navigation:navigation-compose:2.9.8")
     implementation("androidx.lifecycle:lifecycle-runtime-compose:2.10.0")
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.10.0")
@@ -130,6 +142,11 @@ dependencies {
     // Android supplies org.json at runtime; JVM provider tests need the reference implementation.
     testImplementation("org.json:json:20260814")
     testImplementation("org.robolectric:robolectric:4.16.1")
+    testImplementation(platform("androidx.compose:compose-bom:2026.06.00"))
+    testImplementation("androidx.compose.ui:ui-test-junit4")
+    testImplementation("io.github.takahirom.roborazzi:roborazzi:1.44.0")
+    testImplementation("io.github.takahirom.roborazzi:roborazzi-compose:1.44.0")
+    testImplementation("io.github.takahirom.roborazzi:roborazzi-junit-rule:1.44.0")
     androidTestImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test:runner:1.7.0")
     debugImplementation("androidx.compose.ui:ui-tooling")

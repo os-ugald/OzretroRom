@@ -1370,21 +1370,34 @@ def test_phase3_hylian_dark_console_ui_and_quick_resume(tmp_path: Path) -> None:
         assert home["quickResumeHero"]["quickResume"]["slot"] == 4
 
         html = client.get("/").text
-        assert 'content="#0A0F0D"' in html
+        assert 'content="#070816"' in html
         assert 'id="ambient-backdrop"' in html
         assert 'id="global-search"' in html
         assert 'id="omnibox-panel"' in html
         assert 'id="explore-tab-sagas"' in html and 'id="explore-tab-consoles"' in html
-        assert 'id="activity-sheet"' in html
-        assert 'Jugar' in html and 'Explorar' in html and 'Ajustes' in html
+        assert 'id="activity-sheet"' in html and 'id="desktop-topbar"' in html
+        assert 'Inicio' in html and 'Biblioteca' in html and 'Colecciones' in html and 'Buscar' in html and 'Ajustes' in html
+        assert 'OZ LIBRARY' in html and 'SEARCH &amp; ADD GAME' in html
+        assert 'fonts.googleapis.com' not in html
         assert 'home-stats-strip' not in html
         assert 'id="app-sidebar"' not in html
 
         css = client.get("/static/styles.css").text
-        for hex_token in ("#0A0F0D", "#141F1A", "#23382E", "#1E8E63", "#D9B64E"):
+        for hex_token in ("#070816", "#0E1126", "#252A4A", "#22D3EE", "#7C3AED", "#0A0F0D", "#1E8E63", "#D9B64E"):
             assert hex_token in css
+        assert "Oxanium" in css and "Space Grotesk" in css
+        assert "999px" not in css and "9999px" not in css
         assert "aspect-ratio: 3 / 4" in css
-        assert "scale(1.05)" in css
+        assert "scale(1.03)" in css
+        assert ".mobile-center-dock { display: none !important; }" in css
+
+        for font_path in (
+            "/static/fonts/Oxanium-SemiBold.woff2",
+            "/static/fonts/Oxanium-Bold.woff2",
+            "/static/fonts/SpaceGrotesk-Regular.woff2",
+            "/static/fonts/SpaceGrotesk-Bold.woff2",
+        ):
+            assert client.get(font_path).status_code == 200
 
         gp = client.get("/static/js/gamepad.js")
         assert gp.status_code == 200

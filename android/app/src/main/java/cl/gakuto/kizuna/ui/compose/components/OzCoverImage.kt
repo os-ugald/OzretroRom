@@ -2,7 +2,7 @@ package cl.gakuto.kizuna.ui.compose.components
 
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
-import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -19,8 +19,12 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.CheckCircle
+import androidx.compose.material.icons.rounded.Favorite
+import androidx.compose.material.icons.rounded.FavoriteBorder
+import androidx.compose.material.icons.rounded.MoreVert
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -33,8 +37,14 @@ import androidx.compose.ui.draw.blur
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.focus.onFocusChanged
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Path
+import androidx.compose.ui.graphics.StrokeCap
+import androidx.compose.ui.graphics.StrokeJoin
+import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.input.key.Key
 import androidx.compose.ui.input.key.KeyEventType
@@ -43,7 +53,6 @@ import androidx.compose.ui.input.key.onPreviewKeyEvent
 import androidx.compose.ui.input.key.type
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -53,7 +62,7 @@ import cl.gakuto.kizuna.data.GameEntity
 import cl.gakuto.kizuna.data.GameGridDensity
 import cl.gakuto.kizuna.ui.compose.theme.ConsolePalette
 import cl.gakuto.kizuna.ui.compose.theme.OzColors
-import cl.gakuto.kizuna.ui.compose.theme.OzShapes
+import cl.gakuto.kizuna.ui.compose.theme.OzShellLayout
 import cl.gakuto.kizuna.ui.compose.theme.OzTypography
 import cl.gakuto.kizuna.util.ArtworkResolver
 import cl.gakuto.kizuna.util.CatalogFilters
@@ -61,39 +70,60 @@ import coil3.compose.AsyncImage
 import coil3.request.ImageRequest
 import coil3.request.crossfade
 
-/**
- * Nintendo DS retail box art proportion (~137mm x 124mm / Libretro 512x460).
- */
+/** Nintendo DS retail box art proportion (~137mm x 124mm / Libretro 512x460). */
 const val OZ_NDS_COVER_ASPECT_RATIO = 1.11f
 
-/**
- * Phase 3 Hylian Dark uniform immersive portrait cover ratio (3:4).
- */
+/** Uniform immersive portrait cover ratio (3:4). */
 const val OZ_IMMERSIVE_COVER_ASPECT_RATIO = 0.75f
 
 /**
- * Fixed 3-column phone grid by default ("tres hacia abajo") while adapting smoothly to wide tablet screens.
+ * Column count resolver for Library & Catalog grids.
+ * Preserves the legacy 3-param signature while supporting `OzShellLayout.LANDSCAPE_HANDHELD` (5 cols default).
  */
 fun gridColumnsForDensity(
     density: GameGridDensity,
     wide: Boolean,
     maxWidthDp: Float,
-): Int = if (!wide) {
-    when (density) {
-        GameGridDensity.SMALL -> 4
-        GameGridDensity.LARGE -> 2
+    shellLayout: OzShellLayout? = null,
+): Int = when (shellLayout) {
+    OzShellLayout.LANDSCAPE_HANDHELD -> when (density) {
+        GameGridDensity.SMALL -> 6
+        GameGridDensity.LARGE -> 4
         GameGridDensity.AUTO,
-        GameGridDensity.NORMAL -> 3
+        GameGridDensity.NORMAL -> 5
     }
-} else {
-    when (density) {
+    OzShellLayout.DESKTOP_WIDE -> when (density) {
         GameGridDensity.SMALL -> if (maxWidthDp >= 1040f) 7 else 6
         GameGridDensity.LARGE -> 4
         GameGridDensity.AUTO,
         GameGridDensity.NORMAL -> if (maxWidthDp >= 1040f) 6 else 5
     }
+    OzShellLayout.PORTRAIT_PHONE -> when (density) {
+        GameGridDensity.SMALL -> 4
+        GameGridDensity.LARGE -> 2
+        GameGridDensity.AUTO,
+        GameGridDensity.NORMAL -> 3
+    }
+    null -> if (!wide) {
+        when (density) {
+            GameGridDensity.SMALL -> 4
+            GameGridDensity.LARGE -> 2
+            GameGridDensity.AUTO,
+            GameGridDensity.NORMAL -> 3
+        }
+    } else {
+        when (density) {
+            GameGridDensity.SMALL -> if (maxWidthDp >= 1040f) 7 else 6
+            GameGridDensity.LARGE -> 4
+            GameGridDensity.AUTO,
+            GameGridDensity.NORMAL -> if (maxWidthDp >= 1040f) 6 else 5
+        }
+    }
 }
 
+/**
+ * Resilient box-art image with stylized console-themed technical fallback (never a flat grey box).
+ */
 @Composable
 fun OzCoverImage(
     candidates: List<String>,
@@ -102,6 +132,7 @@ fun OzCoverImage(
     modifier: Modifier = Modifier,
     contentScale: ContentScale = ContentScale.Fit,
     showTitleOnFallback: Boolean = true,
+    showConsoleBadgeOnFallback: Boolean = true,
     adaptiveBlur: Boolean = true,
 ) {
     val context = LocalContext.current
@@ -117,41 +148,74 @@ fun OzCoverImage(
         modifier = modifier.background(
             Brush.verticalGradient(
                 listOf(
-                    OzColors.PanelRaised,
-                    OzColors.DeepSpace,
-                    OzColors.Panel,
+                    consoleVisual.badgeBg.copy(alpha = 0.92f),
+                    OzColors.SurfaceElevated,
+                    OzColors.Bg,
                 ),
             ),
         ),
         contentAlignment = Alignment.Center,
     ) {
+        // Technical HUD grid & inner frame when artwork is missing or still loading
         if (!loaded) {
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(10.dp),
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally,
-            ) {
-                Text(
-                    text = consoleVisual.shortLabel,
-                    style = OzTypography.meta.copy(fontSize = 9.sp, fontWeight = FontWeight.Bold),
-                    color = OzColors.Gold,
-                    modifier = Modifier
-                        .clip(RoundedCornerShape(6.dp))
-                        .background(OzColors.ArcadeViolet.copy(alpha = 0.22f))
-                        .padding(horizontal = 6.dp, vertical = 2.dp),
-                )
-                if (showTitleOnFallback) {
-                    Spacer(Modifier.height(6.dp))
-                    Text(
-                        text = cleanTitle,
-                        style = OzTypography.meta.copy(fontSize = 10.sp),
-                        color = OzColors.TextSecondary,
-                        textAlign = TextAlign.Center,
-                        maxLines = 3,
-                        overflow = TextOverflow.Ellipsis,
+            Canvas(modifier = Modifier.fillMaxSize()) {
+                val accent = consoleVisual.accent
+                val step = 18.dp.toPx()
+                val gridColor = accent.copy(alpha = 0.08f)
+                var x = step
+                while (x < size.width) {
+                    drawLine(gridColor, Offset(x, 0f), Offset(x, size.height), strokeWidth = 1f)
+                    x += step
+                }
+                var y = step
+                while (y < size.height) {
+                    drawLine(gridColor, Offset(0f, y), Offset(size.width, y), strokeWidth = 1f)
+                    y += step
+                }
+                val inset = 7.dp.toPx()
+                if (size.width > inset * 2 && size.height > inset * 2) {
+                    drawRect(
+                        color = accent.copy(alpha = 0.24f),
+                        topLeft = Offset(inset, inset),
+                        size = Size(size.width - inset * 2, size.height - inset * 2),
+                        style = Stroke(width = 1.dp.toPx()),
                     )
+                    // Corner tech accents
+                    val tick = 10.dp.toPx().coerceAtMost(size.minDimension * 0.22f)
+                    val cornerColor = accent.copy(alpha = 0.65f)
+                    val sw = 1.6.dp.toPx()
+                    drawLine(cornerColor, Offset(inset, inset), Offset(inset + tick, inset), sw)
+                    drawLine(cornerColor, Offset(inset, inset), Offset(inset, inset + tick), sw)
+                    drawLine(cornerColor, Offset(size.width - inset, size.height - inset), Offset(size.width - inset - tick, size.height - inset), sw)
+                    drawLine(cornerColor, Offset(size.width - inset, size.height - inset), Offset(size.width - inset, size.height - inset - tick), sw)
+                }
+            }
+
+            if (showConsoleBadgeOnFallback || showTitleOnFallback) {
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(horizontal = 12.dp, vertical = 10.dp),
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                ) {
+                    if (showConsoleBadgeOnFallback) {
+                        OzHudTag(
+                            text = consoleVisual.shortLabel,
+                            accent = consoleVisual.accent,
+                        )
+                    }
+                    if (showTitleOnFallback) {
+                        Spacer(Modifier.height(7.dp))
+                        Text(
+                            text = cleanTitle.uppercase(),
+                            style = OzTypography.meta.copy(fontSize = 10.sp, lineHeight = 13.sp),
+                            color = OzColors.TextPrimary.copy(alpha = 0.88f),
+                            textAlign = TextAlign.Center,
+                            maxLines = 3,
+                            overflow = TextOverflow.Ellipsis,
+                        )
+                    }
                 }
             }
         }
@@ -173,7 +237,7 @@ fun OzCoverImage(
                 Box(
                     modifier = Modifier
                         .fillMaxSize()
-                        .background(OzColors.HylianBg.copy(alpha = 0.36f)),
+                        .background(OzColors.Bg.copy(alpha = 0.40f)),
                 )
             }
 
@@ -199,10 +263,10 @@ fun OzCoverImage(
 }
 
 /**
- * Clean 3:4 Hylian Dark cover card:
- * - Zero text/badges covering the art
- * - Single discreet top-end dot for Local (Emerald) vs PC Hub/Remote (Gold)
- * - 1.05x zoom + Gold focus ring + ambient backdrop notification on focus
+ * Clean 3:4 chamfered HUD game card:
+ * - Chamfered 45° corners (`OzChamferShape(10.dp)`), `ozHudBorderBrush`, neon glow on focus
+ * - Vector icons only (`Icons.Rounded.*` and clean `Canvas` glyphs — zero Unicode symbols)
+ * - Compact footer maximizing the 3:4 cover
  */
 @Composable
 fun HylianGameCard(
@@ -210,11 +274,14 @@ fun HylianGameCard(
     preferences: AppPreferences,
     modifier: Modifier = Modifier,
     isRemoteHubOnly: Boolean = false,
+    isFavorite: Boolean = false,
+    onToggleFavorite: (() -> Unit)? = null,
     onFocused: (String?) -> Unit = {},
     onOpen: () -> Unit,
     onStart: () -> Unit = onOpen,
 ) {
     val context = LocalContext.current
+    val consoleVisual = remember(game.systemId) { ConsolePalette.forSystem(game.systemId) }
     val displayTitle = remember(game.title) { CatalogFilters.displayTitle(game.title).ifBlank { game.title } }
     val candidates = remember(
         context,
@@ -229,16 +296,30 @@ fun HylianGameCard(
     }
     var focused by remember(game.id) { mutableStateOf(false) }
     val scale by animateFloatAsState(
-        targetValue = if (focused) 1.05f else 1f,
+        targetValue = if (focused) 1.04f else 1f,
         animationSpec = tween(150),
-        label = "hylian-card-focus",
+        label = "oz-card-focus",
     )
     val isLocal = !game.contentUri.isNullOrBlank()
-    val dotColor = if (isLocal) OzColors.HylianEmerald else if (isRemoteHubOnly) OzColors.HylianGold else OzColors.Outline
+    val cardShape = remember { OzChamferShape(10.dp) }
+    val favShape = remember { OzChamferShape(4.dp) }
+    val borderBrush = ozHudBorderBrush(if (focused) 0.95f else 0.30f)
 
     Column(
         modifier = modifier
             .scale(scale)
+            .then(if (focused) Modifier.ozNeonGlow(OzColors.AccentPrimary, radius = 12.dp, alpha = 0.35f) else Modifier)
+            .clip(cardShape)
+            .background(
+                Brush.verticalGradient(
+                    listOf(OzColors.SurfaceElevated.copy(alpha = 0.65f), OzColors.Surface),
+                ),
+            )
+            .border(
+                width = if (focused) 1.5.dp else 1.dp,
+                brush = borderBrush,
+                shape = cardShape,
+            )
             .onFocusChanged {
                 focused = it.isFocused
                 if (it.isFocused) onFocused(candidates.firstOrNull())
@@ -255,21 +336,12 @@ fun HylianGameCard(
             .clickable {
                 onFocused(candidates.firstOrNull())
                 onOpen()
-            }
-            .padding(2.dp),
+            },
     ) {
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .aspectRatio(OZ_IMMERSIVE_COVER_ASPECT_RATIO)
-                .clip(OzShapes.medium)
-                .border(
-                    BorderStroke(
-                        width = if (focused) 2.5.dp else 1.dp,
-                        color = if (focused) OzColors.HylianGold else OzColors.HylianBorder,
-                    ),
-                    OzShapes.medium,
-                ),
+                .aspectRatio(OZ_IMMERSIVE_COVER_ASPECT_RATIO),
         ) {
             OzCoverImage(
                 candidates = candidates,
@@ -279,27 +351,128 @@ fun HylianGameCard(
                 showTitleOnFallback = true,
                 modifier = Modifier.fillMaxSize(),
             )
-            if (isLocal || isRemoteHubOnly) {
+            if (onToggleFavorite != null || isFavorite) {
                 Box(
                     modifier = Modifier
                         .align(Alignment.TopEnd)
-                        .padding(8.dp)
-                        .size(8.dp)
-                        .clip(CircleShape)
-                        .background(dotColor)
-                        .border(1.dp, OzColors.HylianBg, CircleShape),
-                )
+                        .padding(5.dp)
+                        .size(24.dp)
+                        .clip(favShape)
+                        .background(OzColors.Bg.copy(alpha = 0.80f))
+                        .border(
+                            width = 1.dp,
+                            color = if (isFavorite) OzColors.AccentSecondary else OzColors.Border,
+                            shape = favShape,
+                        )
+                        .let { if (onToggleFavorite != null) it.clickable { onToggleFavorite() } else it },
+                    contentAlignment = Alignment.Center,
+                ) {
+                    Icon(
+                        imageVector = if (isFavorite) Icons.Rounded.Favorite else Icons.Rounded.FavoriteBorder,
+                        contentDescription = if (isFavorite) "Quitar favorito" else "Favorito",
+                        tint = if (isFavorite) OzColors.AccentSecondary else OzColors.TextSecondary,
+                        modifier = Modifier.size(13.dp),
+                    )
+                }
             }
         }
-        Spacer(Modifier.height(6.dp))
-        Text(
-            text = displayTitle,
-            style = OzTypography.cardTitle.copy(fontSize = 12.5.sp),
-            color = if (focused) OzColors.HylianGold else OzColors.TextPrimary,
-            maxLines = 2,
-            overflow = TextOverflow.Ellipsis,
-            modifier = Modifier.padding(horizontal = 2.dp),
-        )
+
+        Column(
+            modifier = Modifier.padding(horizontal = 7.dp, vertical = 6.dp),
+            verticalArrangement = Arrangement.spacedBy(4.dp),
+        ) {
+            Text(
+                text = displayTitle.uppercase(),
+                style = OzTypography.cardTitle.copy(fontSize = 11.sp),
+                color = if (focused) OzColors.AccentPrimary else OzColors.TextPrimary,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
+            )
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                OzHudTag(
+                    text = consoleVisual.shortLabel,
+                    accent = consoleVisual.accent,
+                )
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(4.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
+                    when {
+                        isLocal -> Icon(
+                            imageVector = Icons.Rounded.CheckCircle,
+                            contentDescription = "ROM local",
+                            tint = OzColors.Positive,
+                            modifier = Modifier.size(13.dp),
+                        )
+                        isRemoteHubOnly -> OzCloudVectorGlyph(
+                            tint = OzColors.AccentPrimary,
+                            modifier = Modifier.size(13.dp),
+                        )
+                        else -> OzDownloadVectorGlyph(
+                            tint = OzColors.TextSecondary,
+                            modifier = Modifier.size(13.dp),
+                        )
+                    }
+                    Box(
+                        modifier = Modifier
+                            .size(20.dp)
+                            .clip(OzChamferShape(4.dp))
+                            .clickable { onStart() },
+                        contentAlignment = Alignment.Center,
+                    ) {
+                        Icon(
+                            imageVector = Icons.Rounded.MoreVert,
+                            contentDescription = "Opciones",
+                            tint = OzColors.TextSecondary,
+                            modifier = Modifier.size(14.dp),
+                        )
+                    }
+                }
+            }
+        }
+    }
+}
+
+@Composable
+private fun OzCloudVectorGlyph(tint: Color, modifier: Modifier = Modifier) {
+    Canvas(modifier) {
+        val sw = 1.5.dp.toPx()
+        val p = Path().apply {
+            moveTo(size.width * 0.25f, size.height * 0.74f)
+            lineTo(size.width * 0.76f, size.height * 0.74f)
+            cubicTo(
+                size.width * 0.90f, size.height * 0.74f,
+                size.width * 0.92f, size.height * 0.48f,
+                size.width * 0.74f, size.height * 0.46f,
+            )
+            cubicTo(
+                size.width * 0.72f, size.height * 0.22f,
+                size.width * 0.36f, size.height * 0.20f,
+                size.width * 0.32f, size.height * 0.44f,
+            )
+            cubicTo(
+                size.width * 0.14f, size.height * 0.46f,
+                size.width * 0.12f, size.height * 0.74f,
+                size.width * 0.25f, size.height * 0.74f,
+            )
+            close()
+        }
+        drawPath(p, tint, style = Stroke(width = sw, cap = StrokeCap.Round, join = StrokeJoin.Round))
+    }
+}
+
+@Composable
+private fun OzDownloadVectorGlyph(tint: Color, modifier: Modifier = Modifier) {
+    Canvas(modifier) {
+        val sw = 1.5.dp.toPx()
+        drawLine(tint, Offset(size.width * 0.50f, size.height * 0.16f), Offset(size.width * 0.50f, size.height * 0.66f), sw, StrokeCap.Round)
+        drawLine(tint, Offset(size.width * 0.28f, size.height * 0.46f), Offset(size.width * 0.50f, size.height * 0.68f), sw, StrokeCap.Round)
+        drawLine(tint, Offset(size.width * 0.72f, size.height * 0.46f), Offset(size.width * 0.50f, size.height * 0.68f), sw, StrokeCap.Round)
+        drawLine(tint, Offset(size.width * 0.20f, size.height * 0.84f), Offset(size.width * 0.80f, size.height * 0.84f), sw, StrokeCap.Round)
     }
 }
 
@@ -314,7 +487,7 @@ fun OzFourCoverMosaic(
     if (items.isEmpty()) {
         Box(
             modifier = modifier.background(
-                Brush.verticalGradient(listOf(OzColors.PanelRaised, OzColors.DeepSpace)),
+                Brush.verticalGradient(listOf(OzColors.SurfaceElevated, OzColors.Bg)),
             ),
         )
         return

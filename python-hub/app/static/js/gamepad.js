@@ -1,18 +1,18 @@
 import { $, $$, actions, setAmbientBackdrop } from './state.js';
 import { isActivitySheetExpanded, toggleActivitySheet } from './activity-sheet.js';
 
-const CONSOLE_DESTINATIONS = ['home', 'explore', 'settings'];
+const CONSOLE_DESTINATIONS = ['home', 'library', 'collections', 'search'];
 const FOCUSABLE_SELECTOR = [
-  '.hylian-card:not([hidden])',
+  '.oz-game-card:not([hidden])',
   '.rom-card:not([hidden])',
-  '.featured-cart-card:not([hidden])',
-  '.rec-card:not([hidden])',
+  '.oz-hud-chip:not([hidden])',
+  '.oz-search-row:not([hidden])',
   '.saga-card:not([hidden])',
   '.console-tile:not([hidden])',
   '.omnibox-item:not([hidden])',
   '.hero-primary-cta:not([hidden])',
-  '.explore-seg-btn:not([hidden])',
-  '.console-nav-btn:not([hidden])',
+  '.desktop-nav-tab:not([hidden])',
+  '.dock-tab:not([hidden])',
   '.settings-tab-btn:not([hidden])',
   '.btn:not([hidden]):not(:disabled)',
 ].join(', ');

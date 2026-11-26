@@ -32,6 +32,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.onFocusChanged
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -47,8 +48,8 @@ import cl.gakuto.kizuna.ui.compose.theme.OzShapes
 import cl.gakuto.kizuna.ui.compose.theme.OzTypography
 
 /**
- * Persistent collapsible activity mini-player / bottom sheet docked over the bottom navigation bar.
- * Streams live StateFlow + PC Hub SSE state without interrupting navigation.
+ * Chamfered floating activity bar rendered ONLY when downloads, cover syncs,
+ * translations, catalog indexing, or FTP transfers are actively running (0dp when idle).
  */
 @Composable
 fun OzActivityFloatingSheet(
@@ -67,33 +68,37 @@ fun OzActivityFloatingSheet(
     val activeFtp = remember(ftpJobs) {
         ftpJobs.filter { it.state == FtpTransferState.QUEUED || it.state == FtpTransferState.UPLOADING }
     }
-    val hasActiveWork = downloadUi.running || artworkSyncUi.running || activeFtp.isNotEmpty() || isApplyingPatch || catalogPreparation.running
+    val hasActiveWork = downloadUi.running ||
+        artworkSyncUi.running ||
+        activeFtp.isNotEmpty() ||
+        isApplyingPatch ||
+        catalogPreparation.running
+
+    if (!hasActiveWork) return
 
     val summaryText = when {
-        downloadUi.running -> "Descargando: ${downloadUi.gameTitle} (${downloadUi.completed}/${downloadUi.total})"
-        artworkSyncUi.running -> "Carátulas: ${artworkSyncUi.gameTitle} (${artworkSyncUi.completed}/${artworkSyncUi.total})"
-        isApplyingPatch -> "Aplicando parche de traducción [ES]…"
+        downloadUi.running -> "DESCARGANDO: ${downloadUi.gameTitle} (${downloadUi.completed}/${downloadUi.total})"
+        artworkSyncUi.running -> "CARÁTULAS: ${artworkSyncUi.gameTitle} (${artworkSyncUi.completed}/${artworkSyncUi.total})"
+        isApplyingPatch -> "APLICANDO PARCHE [ES]…"
         activeFtp.isNotEmpty() -> {
             val first = activeFtp.first()
             "FTP → ${first.targetName}: ${first.title} (${first.progressPct}%)"
         }
-        catalogPreparation.running -> "Indexando catálogo: ${catalogPreparation.currentSystem} (${catalogPreparation.readySystems}/${catalogPreparation.totalSystems})"
-        latestHubEvent != null -> latestHubEvent.summary
-        pcHubSseConnected -> "SSE activo · PC Hub en línea"
-        else -> "Actividad en segundo plano"
+        else -> "INDEXANDO: ${catalogPreparation.currentSystem} (${catalogPreparation.readySystems}/${catalogPreparation.totalSystems})"
     }
 
     var focused by remember { mutableStateOf(false) }
+    val shape = remember { OzChamferShape(8.dp) }
 
     Surface(
         modifier = modifier
             .fillMaxWidth()
             .padding(horizontal = 12.dp, vertical = 4.dp),
-        shape = OzShapes.large,
-        color = OzColors.HylianSurface.copy(alpha = 0.96f),
+        shape = shape,
+        color = OzColors.Surface.copy(alpha = 0.96f),
         border = BorderStroke(
-            width = if (focused) 2.dp else 1.dp,
-            color = if (focused) OzColors.HylianGold else if (hasActiveWork) OzColors.HylianEmerald else OzColors.HylianBorder,
+            width = if (focused) 1.5.dp else 1.dp,
+            color = if (focused) OzColors.AccentSecondary else OzColors.AccentPrimary,
         ),
     ) {
         Column(Modifier.fillMaxWidth()) {
@@ -111,20 +116,14 @@ fun OzActivityFloatingSheet(
                 Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.weight(1f)) {
                     Box(
                         modifier = Modifier
-                            .size(9.dp)
+                            .size(8.dp)
                             .clip(CircleShape)
-                            .background(
-                                when {
-                                    hasActiveWork -> OzColors.HylianGold
-                                    pcHubSseConnected -> OzColors.HylianEmerald
-                                    else -> OzColors.TextSecondary
-                                },
-                            ),
+                            .background(OzColors.AccentPrimary),
                     )
                     Spacer(Modifier.width(10.dp))
                     Text(
                         text = summaryText,
-                        style = OzTypography.meta.copy(fontSize = 12.sp, fontWeight = FontWeight.SemiBold),
+                        style = OzTypography.meta.copy(fontSize = 11.5.sp, fontWeight = FontWeight.SemiBold),
                         color = OzColors.TextPrimary,
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis,
@@ -132,9 +131,9 @@ fun OzActivityFloatingSheet(
                 }
                 Spacer(Modifier.width(8.dp))
                 Text(
-                    text = if (expanded) "▼" else if (hasActiveWork) "LIVE ▲" else "SSE ▲",
-                    style = OzTypography.meta.copy(fontSize = 10.sp, fontWeight = FontWeight.Bold),
-                    color = if (hasActiveWork) OzColors.HylianGold else OzColors.HylianEmerald,
+                    text = if (expanded) "▼" else "LIVE ▲",
+                    style = OzTypography.hudTag,
+                    color = OzColors.AccentPrimary,
                 )
             }
 
@@ -146,24 +145,17 @@ fun OzActivityFloatingSheet(
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .border(0.5.dp, OzColors.HylianBorder)
+                        .border(0.5.dp, OzColors.Border)
                         .padding(14.dp),
                     verticalArrangement = Arrangement.spacedBy(10.dp),
                 ) {
-                    if (!hasActiveWork && latestHubEvent == null && ftpJobs.isEmpty()) {
-                        Text(
-                            text = "Sin descargas, parches [ES] ni envíos FTP activos. Las operaciones correrán aquí sin interrumpir tu navegación.",
-                            style = OzTypography.body.copy(fontSize = 12.5.sp),
-                            color = OzColors.TextSecondary,
-                        )
-                    }
                     if (downloadUi.running) {
                         val prog = if (downloadUi.total > 0) downloadUi.completed.toFloat() / downloadUi.total else 0f
                         ActivityProgressRow(
                             title = "Descarga: ${downloadUi.gameTitle}",
                             subtitle = "${downloadUi.stage} · ${downloadUi.completed}/${downloadUi.total}",
                             progress = prog,
-                            accent = OzColors.HylianGold,
+                            accent = OzColors.AccentPrimary,
                         )
                     }
                     if (artworkSyncUi.running) {
@@ -172,15 +164,15 @@ fun OzActivityFloatingSheet(
                             title = "Carátulas: ${artworkSyncUi.gameTitle}",
                             subtitle = "${artworkSyncUi.resolved} listas · ${artworkSyncUi.completed}/${artworkSyncUi.total}",
                             progress = prog,
-                            accent = OzColors.HylianEmerald,
+                            accent = OzColors.AccentSecondary,
                         )
                     }
                     if (isApplyingPatch) {
-                        Text("Aplicando parche [ES]…", style = OzTypography.meta, color = OzColors.HylianGold)
+                        Text("Aplicando parche [ES]…", style = OzTypography.meta, color = OzColors.AccentPrimary)
                         LinearProgressIndicator(
-                            modifier = Modifier.fillMaxWidth(),
-                            color = OzColors.HylianGold,
-                            trackColor = OzColors.HylianBg,
+                            modifier = Modifier.fillMaxWidth().clip(OzShapes.tiny),
+                            color = OzColors.AccentPrimary,
+                            trackColor = OzColors.Bg,
                         )
                     }
                     if (catalogPreparation.running) {
@@ -191,7 +183,7 @@ fun OzActivityFloatingSheet(
                             title = "Catálogo: ${catalogPreparation.currentSystem}",
                             subtitle = "${catalogPreparation.readySystems}/${catalogPreparation.totalSystems} sistemas",
                             progress = prog,
-                            accent = OzColors.HylianEmerald,
+                            accent = OzColors.AccentPrimary,
                         )
                     }
                     activeFtp.take(3).forEach { job ->
@@ -199,21 +191,21 @@ fun OzActivityFloatingSheet(
                             title = "FTP · ${job.title} → ${job.targetName}",
                             subtitle = "${job.message} (${job.progressPct}%)",
                             progress = (job.progressPct / 100f).coerceIn(0f, 1f),
-                            accent = OzColors.HylianGold,
+                            accent = OzColors.AccentSecondary,
                         )
                     }
-                    if (latestHubEvent != null) {
+                    if (latestHubEvent != null && pcHubSseConnected) {
                         Text(
-                            text = "SSE PC Hub (${latestHubEvent.event}): ${latestHubEvent.summary}",
+                            text = "SSE (${latestHubEvent.event}): ${latestHubEvent.summary}",
                             style = OzTypography.meta,
-                            color = OzColors.HylianEmerald,
+                            color = OzColors.AccentPrimary,
                         )
                     }
                     if (ftpJobs.isNotEmpty()) {
                         Text(
-                            text = "Abrir monitor FTP completo ›",
-                            style = OzTypography.meta.copy(fontWeight = FontWeight.Bold),
-                            color = OzColors.HylianGold,
+                            text = "ABRIR MONITOR FTP ›",
+                            style = OzTypography.hudTag,
+                            color = OzColors.AccentPrimary,
                             modifier = Modifier
                                 .clickable(onClick = onOpenFtpModal)
                                 .padding(vertical = 4.dp),
@@ -230,16 +222,16 @@ private fun ActivityProgressRow(
     title: String,
     subtitle: String,
     progress: Float,
-    accent: androidx.compose.ui.graphics.Color,
+    accent: Color,
 ) {
     Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
         Text(title, style = OzTypography.meta, color = OzColors.TextPrimary, maxLines = 1, overflow = TextOverflow.Ellipsis)
         LinearProgressIndicator(
             progress = { progress.coerceIn(0f, 1f) },
-            modifier = Modifier.fillMaxWidth().height(4.dp).clip(OzShapes.pill),
+            modifier = Modifier.fillMaxWidth().height(4.dp).clip(OzShapes.tiny),
             color = accent,
-            trackColor = OzColors.HylianBg,
+            trackColor = OzColors.Bg,
         )
-        Text(subtitle, style = OzTypography.meta.copy(fontSize = 10.sp), color = OzColors.TextSecondary, maxLines = 1)
+        Text(subtitle, style = OzTypography.body.copy(fontSize = 11.sp), color = OzColors.TextSecondary, maxLines = 1)
     }
 }

@@ -28,10 +28,12 @@ htmlcov/
 *.iml
 .gradle/
 /local.properties
+**/local.properties
 /.idea/
 .DS_Store
 /build/
 */build/
+**/build/
 /captures/
 .externalNativeBuild/
 .cxx/
@@ -39,6 +41,10 @@ htmlcov/
 *.aab
 *.ap_
 *.dex
+
+# --- Local Agent Sandbox & MCP ---
+.Habilidades/
+.agents/
 
 # --- Sistema Operativo y Editores ---
 Thumbs.db

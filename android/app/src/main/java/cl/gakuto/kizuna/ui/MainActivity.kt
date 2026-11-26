@@ -23,6 +23,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             val model: OzViewModel = viewModel(factory = OzViewModel.factory(application as OzApplication))
             val themeMode by model.appThemeMode.collectAsStateWithLifecycle()
+            val themePreset by model.appThemePreset.collectAsStateWithLifecycle()
             val orientationMode by model.appOrientationMode.collectAsStateWithLifecycle()
             androidx.compose.runtime.SideEffect {
                 requestedOrientation = when (orientationMode) {
@@ -35,7 +36,7 @@ class MainActivity : ComponentActivity() {
                     isAppearanceLightNavigationBars = themeMode == AppThemeMode.LIGHT
                 }
             }
-            OzTheme(themeMode = themeMode) {
+            OzTheme(themeMode = themeMode, themePreset = themePreset) {
                 OzApp(model)
             }
         }

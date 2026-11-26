@@ -43,10 +43,11 @@ import kotlinx.coroutines.flow.StateFlow
 
 enum class LibrarySection(val label: String) {
     ALL("Todos"),
+    FAVORITES("Favoritos"),
+    RECENT("Recientes"),
     DOWNLOADED("Descargados"),
     IMPORTED("Importados"),
-    PLATFORM("Plataforma"),
-    RECENT("Últimos jugados"),
+    PLATFORM("Por consola"),
 }
 
 data class CollectionDownloadUi(
@@ -142,6 +143,7 @@ class OzViewModel(application: Application) : AndroidViewModel(application) {
 
     // Settings streams & actions
     val appThemeMode: StateFlow<AppThemeMode> = settingsDomain.appThemeMode
+    val appThemePreset = settingsDomain.appThemePreset
     val appOrientationMode: StateFlow<AppOrientationMode> = settingsDomain.appOrientationMode
     val gameGridDensity: StateFlow<GameGridDensity> = settingsDomain.gameGridDensity
     val autoLaunchAfterDownload: StateFlow<Boolean> = settingsDomain.autoLaunchAfterDownload
@@ -156,6 +158,7 @@ class OzViewModel(application: Application) : AndroidViewModel(application) {
     fun setGeminiApiKey(key: String) = settingsDomain.setGeminiApiKey(key)
     fun setGeminiModel(model: String) = settingsDomain.setGeminiModel(model)
     fun setAppThemeMode(mode: AppThemeMode) = settingsDomain.setAppThemeMode(mode)
+    fun setAppThemePreset(preset: cl.gakuto.kizuna.data.AppThemePreset) = settingsDomain.setAppThemePreset(preset)
     fun setAppOrientationMode(mode: AppOrientationMode) = settingsDomain.setAppOrientationMode(mode)
     fun setGameGridDensity(value: GameGridDensity) = settingsDomain.setGameGridDensity(value)
     fun setAutoLaunchAfterDownload(enabled: Boolean) = settingsDomain.setAutoLaunchAfterDownload(enabled)
@@ -214,6 +217,8 @@ class OzViewModel(application: Application) : AndroidViewModel(application) {
     val collectionGames: Flow<PagingData<GameEntity>> = catalogDomain.collectionGames
     val librarySection: StateFlow<LibrarySection> = catalogDomain.librarySection
     val libraryPlatform: StateFlow<String?> = catalogDomain.libraryPlatform
+    val libraryQuery: StateFlow<String> = catalogDomain.libraryQuery
+    val librarySort = catalogDomain.librarySort
     val libraryGames: Flow<PagingData<GameEntity>> = catalogDomain.libraryGames
     val downloadUi: StateFlow<CollectionDownloadUi> = catalogDomain.downloadUi
     val artworkSyncUi: StateFlow<CollectionArtworkSyncUi> = catalogDomain.artworkSyncUi
@@ -231,6 +236,8 @@ class OzViewModel(application: Application) : AndroidViewModel(application) {
     fun setCollectionFilters(value: CatalogFilterState) = catalogDomain.setCollectionFilters(value)
     fun setLibrarySection(value: LibrarySection) = catalogDomain.setLibrarySection(value)
     fun setLibraryPlatform(systemId: String?) = catalogDomain.setLibraryPlatform(systemId)
+    fun setLibraryQuery(value: String) = catalogDomain.setLibraryQuery(value)
+    fun setLibrarySort(value: cl.gakuto.kizuna.util.CatalogSort) = catalogDomain.setLibrarySort(value)
     fun downloadSelectedCollection() = catalogDomain.downloadSelectedCollection()
     fun syncSelectedCollectionArtwork() = catalogDomain.syncSelectedCollectionArtwork()
     fun syncAllArtwork(includePcHub: Boolean = true) = catalogDomain.syncAllArtwork(includePcHub)

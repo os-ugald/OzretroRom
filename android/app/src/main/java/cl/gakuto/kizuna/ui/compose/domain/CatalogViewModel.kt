@@ -167,31 +167,68 @@ class CatalogDomainHolder(
     val librarySection: StateFlow<LibrarySection> = _librarySection
     private val _libraryPlatform = MutableStateFlow<String?>(null)
     val libraryPlatform: StateFlow<String?> = _libraryPlatform
+    private val _libraryQuery = MutableStateFlow("")
+    val libraryQuery: StateFlow<String> = _libraryQuery
+    private val _librarySort = MutableStateFlow(CatalogSort.ADDED_RECENTLY)
+    val librarySort: StateFlow<CatalogSort> = _librarySort
 
-    val libraryGames: Flow<PagingData<GameEntity>> = combine(_librarySection, _libraryPlatform) { section, platform ->
+    val libraryGames: Flow<PagingData<GameEntity>> = combine(
+        _librarySection,
+        _libraryPlatform,
+        _libraryQuery.map { TextNormalizer.normalize(it.trim()) }.debounce(200).distinctUntilChanged(),
+        _librarySort,
+        repository.catalogRevisionPulse(),
+    ) { section, platform, query, sort, _ ->
+        val sysFilter = platform?.takeIf { it.isNotBlank() }
         when (section) {
-            LibrarySection.ALL -> GameListSpec(statusFilters = setOf(OriginStatusFilter.LOCAL_LIBRARY), sort = CatalogSort.ADDED_RECENTLY)
+            LibrarySection.ALL -> GameListSpec(
+                systemId = sysFilter,
+                normalizedSearch = query,
+                statusFilters = setOf(OriginStatusFilter.LOCAL_LIBRARY),
+                sort = sort,
+            )
+            LibrarySection.FAVORITES -> GameListSpec(
+                systemId = sysFilter,
+                normalizedSearch = query,
+                statusFilters = setOf(OriginStatusFilter.LOCAL_LIBRARY, OriginStatusFilter.FAVORITES),
+                sort = if (sort == CatalogSort.ADDED_RECENTLY) CatalogSort.NAME_ASC else sort,
+            )
             LibrarySection.DOWNLOADED -> GameListSpec(
+                systemId = sysFilter,
+                normalizedSearch = query,
                 statusFilters = setOf(OriginStatusFilter.LOCAL_LIBRARY),
                 libraryOrigins = setOf(LibraryOrigin.DOWNLOADED),
-                sort = CatalogSort.ADDED_RECENTLY,
+                sort = sort,
             )
             LibrarySection.IMPORTED -> GameListSpec(
+                systemId = sysFilter,
+                normalizedSearch = query,
                 statusFilters = setOf(OriginStatusFilter.LOCAL_LIBRARY),
                 libraryOrigins = setOf(LibraryOrigin.IMPORTED),
-                sort = CatalogSort.ADDED_RECENTLY,
+                sort = sort,
             )
             LibrarySection.PLATFORM -> GameListSpec(
-                systemId = platform,
+                systemId = sysFilter,
+                normalizedSearch = query,
                 statusFilters = setOf(OriginStatusFilter.LOCAL_LIBRARY),
-                sort = CatalogSort.NAME_ASC,
+                sort = if (sort == CatalogSort.ADDED_RECENTLY) CatalogSort.NAME_ASC else sort,
             )
             LibrarySection.RECENT -> GameListSpec(
+                systemId = sysFilter,
+                normalizedSearch = query,
                 statusFilters = setOf(OriginStatusFilter.LOCAL_LIBRARY, OriginStatusFilter.RECENTLY_PLAYED),
                 sort = CatalogSort.LAST_PLAYED,
             )
         }
     }.flatMapLatest(repository::pagedGames).cachedIn(scope)
+
+    fun setLibraryQuery(value: String) {
+        _libraryQuery.value = value
+    }
+
+    fun setLibrarySort(value: CatalogSort) {
+        _librarySort.value = value
+    }
 
     private val _downloadUi = MutableStateFlow(CollectionDownloadUi())
     val downloadUi: StateFlow<CollectionDownloadUi> = _downloadUi

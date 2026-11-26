@@ -37,6 +37,15 @@ enum class AppThemeMode(val key: String, val label: String) {
     }
 }
 
+enum class AppThemePreset(val key: String, val label: String) {
+    CYBER_VAULT("cyber_vault", "Cyber Vault"),
+    HYLIAN("hylian", "Hylian");
+
+    companion object {
+        fun fromKey(value: String?): AppThemePreset = entries.firstOrNull { it.key == value } ?: CYBER_VAULT
+    }
+}
+
 enum class AppOrientationMode(val key: String, val label: String) {
     AUTOMATIC("automatic", "Automática"),
     PORTRAIT("portrait", "Vertical"),
@@ -118,6 +127,22 @@ class AppPreferences(context: Context) {
 
     init {
         migrateLegacyKizunaIfNeeded(context)
+        migrateDefaultThemeToCyberVaultIfNeeded()
+    }
+
+    private fun migrateDefaultThemeToCyberVaultIfNeeded() {
+        if (settingsStore.getBoolean(KEY_CYBER_VAULT_THEME_MIGRATED, false)) return
+        settingsStore.updateSync(
+            mapOf(
+                KEY_CYBER_VAULT_THEME_MIGRATED to true,
+                KEY_APP_THEME_PRESET to AppThemePreset.CYBER_VAULT.key,
+                KEY_APP_THEME_MODE to AppThemeMode.DARK.key,
+            ),
+        ) { prefs ->
+            prefs[booleanPreferencesKey(KEY_CYBER_VAULT_THEME_MIGRATED)] = true
+            prefs[stringPreferencesKey(KEY_APP_THEME_PRESET)] = AppThemePreset.CYBER_VAULT.key
+            prefs[stringPreferencesKey(KEY_APP_THEME_MODE)] = AppThemeMode.DARK.key
+        }
     }
 
     var globalVirtualTreeUri: Uri?
@@ -193,6 +218,10 @@ class AppPreferences(context: Context) {
     var appThemeMode: AppThemeMode
         get() = AppThemeMode.fromKey(settingsStore.getString(KEY_APP_THEME_MODE, AppThemeMode.DARK.key))
         set(value) = settingsStore.putString(KEY_APP_THEME_MODE, value.key)
+
+    var appThemePreset: AppThemePreset
+        get() = AppThemePreset.fromKey(settingsStore.getString(KEY_APP_THEME_PRESET, AppThemePreset.CYBER_VAULT.key))
+        set(value) = settingsStore.putString(KEY_APP_THEME_PRESET, value.key)
 
     var appOrientationMode: AppOrientationMode
         get() = AppOrientationMode.fromKey(settingsStore.getString(KEY_APP_ORIENTATION_MODE, AppOrientationMode.AUTOMATIC.key))
@@ -589,6 +618,8 @@ class AppPreferences(context: Context) {
         internal const val KEY_ARTWORK_MODE = "artwork_mode"
         internal const val KEY_GAME_TILE_STYLE = "game_tile_style"
         internal const val KEY_APP_THEME_MODE = "app_theme_mode"
+        internal const val KEY_APP_THEME_PRESET = "app_theme_preset"
+        internal const val KEY_CYBER_VAULT_THEME_MIGRATED = "cyber_vault_theme_migrated_v1"
         internal const val KEY_APP_ORIENTATION_MODE = "app_orientation_mode"
         internal const val KEY_GAME_GRID_DENSITY = "game_grid_density"
         internal const val KEY_WALLPAPER_URI = "wallpaper_uri"
